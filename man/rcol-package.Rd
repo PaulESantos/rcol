@@ -11,9 +11,9 @@ Access the Catalogue of Life (COL) through the ChecklistBank (CLB) web API \url{
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/CatalogueOfLife/rcol}
-  \item \url{https://catalogueoflife.github.io/rcol/}
-  \item Report bugs at \url{https://github.com/CatalogueOfLife/rcol/issues}
+  \item \url{https://github.com/PaulESantos/rcol}
+  \item \url{https://paulesantos.github.io/rcol/}
+  \item Report bugs at \url{https://github.com/PaulESantos/rcol/issues}
 }
 
 }

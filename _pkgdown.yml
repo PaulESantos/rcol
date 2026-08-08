@@ -1,4 +1,4 @@
-url: https://catalogueoflife.github.io/rcol/
+url: https://paulesantos.github.io/rcol/
 
 development:
   mode: release
@@ -12,6 +12,13 @@ navbar:
     left: [intro, reference, articles, news]
     right: [search, github]
   components:
+    articles:
+      text: Articles
+      menu:
+        - text: Getting Started with rcol (English)
+          href: articles/rcol.html
+        - text: Guía de inicio para rcol (Español)
+          href: articles/rcol-es.html
     github:
       icon: fa-github
       href: https://github.com/CatalogueOfLife/rcol

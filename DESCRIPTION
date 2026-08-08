@@ -16,9 +16,9 @@ Description: Access the Catalogue of Life (COL) through the ChecklistBank
     and monthly COL base and extended releases. Modelled on the
     conventions of 'rgbif' and 'taxadb'.
 License: MIT + file LICENSE
-URL: https://github.com/CatalogueOfLife/rcol,
-    https://catalogueoflife.github.io/rcol/
-BugReports: https://github.com/CatalogueOfLife/rcol/issues
+URL: https://github.com/PaulESantos/rcol,
+    https://paulesantos.github.io/rcol/
+BugReports: https://github.com/PaulESantos/rcol/issues
 Depends:
     R (>= 4.1)
 Imports:

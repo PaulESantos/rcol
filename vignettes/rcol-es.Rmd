@@ -10,8 +10,7 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  eval = FALSE
+  comment = "#>"
 )
 ```
 
@@ -84,6 +83,6 @@ col_usage_search("Felidae", rank = "species")
 
 ## Parsers
 
-```r
+```{r}
 clb_parse_name("Abies alba Mill. var. alpina")
 ```

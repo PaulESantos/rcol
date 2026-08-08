@@ -49,10 +49,12 @@ col_key <- function(refresh = FALSE) {
 #' }
 col_refresh <- function() {
   col_key(refresh = TRUE)
+  alias <- .rcol_state$col_alias
+  key <- .rcol_state$col_key
   cli::cli_inform(
-    "Pinned COL to {.val {.rcol_state$col_alias}} (dataset {.val {.rcol_state$col_key}})."
+    "Pinned COL to {.val {alias}} (dataset {.val {key}})."
   )
-  invisible(.rcol_state$col_key)
+  invisible(key)
 }
 
 # Internal: drop the cached key (used by tests).

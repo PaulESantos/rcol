@@ -10,8 +10,7 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  eval = FALSE
+  comment = "#>"
 )
 ```
 
@@ -43,7 +42,7 @@ to work against. You can pass:
 * a dataset alias such as `"COL25"` (the 2025 annual release), or
 * one of the *magic* COL release aliases that always resolve to the most recent release (`"3LR"` for monthly base, `"3LXR"` for monthly extended).
 
-```r
+```{r}
 clb_col_release("monthly")                  # "3LR"   latest monthly base release
 clb_col_release("monthly", extended = TRUE) # "3LXR"  latest monthly extended release
 clb_col_release("annual")                   # e.g. "COL25"
@@ -56,7 +55,7 @@ clb_col_releases()
 
 `col_check_name()` provides a clean, 9-column resolution summary showing the accepted name, authorship, status, and ID for single or multiple species:
 
-```r
+```{r}
 # Clean 9-column verification
 col_check_name(c("Werneria nubigena", "Panthera leo", "Schinus molle"))
 
@@ -72,7 +71,7 @@ col_match_checklist(c("Panthera leo", "Bufo bufo", "Abies alba"))
 
 To match against a specific dataset rather than the latest COL release, use `clb_match()` with a `dataset =` key or alias:
 
-```r
+```{r}
 clb_match("Felis catus", dataset = "COL25")
 clb_match("Bellis perennis", dataset = 2099)
 ```
@@ -81,7 +80,7 @@ clb_match("Bellis perennis", dataset = 2099)
 
 All relationship functions accept **direct scientific names**, **character vectors of species**, **taxon IDs**, or **match data frames**:
 
-```r
+```{r}
 # Hierarchical classification in Wide or Long format
 col_classification("Schinus molle", wide = TRUE)
 
@@ -99,7 +98,7 @@ col_distribution(c("Werneria nubigena", "Schinus molle"))
 
 The ChecklistBank parsers parse scientific names and controlled values:
 
-```r
+```{r}
 clb_parse_name("Abies alba Mill. var. alpina")
 
 clb_parsers()
@@ -108,7 +107,7 @@ clb_parse("rank", c("spec", "fam.", "ssp"))
 
 ## Datasets and Tree Navigation
 
-```r
+```{r}
 # Dataset search & metadata
 clb_dataset_search("mammal")
 col_dataset_metrics()
