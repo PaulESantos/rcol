@@ -1,0 +1,91 @@
+# Guía de inicio en español para rcol
+
+`rcol` proporciona un acceso idiomático desde R a la API de
+[ChecklistBank](https://www.checklistbank.org) y a las publicaciones
+mensuales y anuales del [Catalogue of
+Life](https://www.catalogueoflife.org) (COL).
+
+``` r
+
+library(rcol)
+```
+
+## Familias de funciones
+
+El paquete organiza sus 46 funciones públicas en dos familias:
+
+- **`col_*()`**: Funciones de alto nivel diseñadas para trabajar
+  directamente con la versión extendida más reciente del Catalogue of
+  Life (`"3LXR"`). La versión se fija automáticamente en la sesión
+  ([`col_key()`](https://catalogueoflife.github.io/rcol/reference/col_key.md)).
+- **`clb_*()`**: Funciones universales de bajo nivel que aceptan el
+  argumento `dataset =` para consultar cualquier conjunto de datos
+  publicado en ChecklistBank.
+
+``` r
+
+col_key()      # Clave numérica fijada para la sesión
+col_refresh()  # Fuerza la actualización a una versión más reciente
+```
+
+## Verificación y coincidencia de nombres
+
+Para verificar nombres científicos y obtener un resumen depurado de 9
+columnas con el nombre aceptado válido y su estado taxonómico:
+
+``` r
+
+# Verificación depurada de 1 o más especies (9 columnas)
+col_check_name(c("Werneria nubigena", "Panthera leo", "Schinus molle"))
+
+# Coincidencia directa completa (16 columnas)
+col_match("Panthera leo")
+
+# Inspeccionar candidatos homónimos
+col_match_verbose("Oenanthe")
+
+# Búsqueda masiva en paralelo
+col_match_checklist(c("Panthera leo", "Bufo bufo", "Abies alba"))
+```
+
+## Clasificación, sinónimos, vernáculos y distribución
+
+Todas las funciones de relación aceptan indistintamente **nombres
+científicos directos**, **vectores de especies**, **IDs alfanuméricos**
+o **tablas de resultados**:
+
+``` r
+
+# Jerarquía taxonómica en formato Ancho o Largo
+col_classification("Schinus molle", wide = TRUE)
+
+# Sinónimos taxonómicos para múltiples especies
+col_synonyms(c("Werneria nubigena", "Panthera leo"))
+
+# Nombres comunes con trazabilidad de especies (columna scientific_name)
+col_vernacular(c("Werneria nubigena", "Panthera leo"))
+
+# Distribución geográfica oficial en formato tidy
+col_distribution(c("Werneria nubigena", "Schinus molle"))
+```
+
+## Navegación del árbol y búsqueda
+
+``` r
+
+# Nodos raíz del árbol (Reinos / Dominios)
+raices <- col_tree()
+
+# Hijos taxonómicos directos
+col_children("Panthera")
+
+# Búsqueda por texto libre
+col_usage_search("Felidae", rank = "species")
+```
+
+## Parsers
+
+``` r
+
+clb_parse_name("Abies alba Mill. var. alpina")
+```
