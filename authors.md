@@ -13,16 +13,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/CatalogueOfLife/rcol/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/PaulESantos/rcol/blob/main/DESCRIPTION)
 
 Döring M, Santos Andrade P (2026). *rcol: R Client for the Catalogue of
 Life / ChecklistBank API*. R package version 0.1.0,
-<https://github.com/CatalogueOfLife/rcol>.
+<https://github.com/PaulESantos/rcol>.
 
     @Manual{,
       title = {rcol: R Client for the Catalogue of Life / ChecklistBank API},
       author = {Markus Döring and Paul Efren {Santos Andrade}},
       year = {2026},
       note = {R package version 0.1.0},
-      url = {https://github.com/CatalogueOfLife/rcol},
+      url = {https://github.com/PaulESantos/rcol},
     }

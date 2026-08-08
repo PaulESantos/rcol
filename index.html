@@ -34,7 +34,13 @@
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="articles/rcol.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
-<li class="nav-item"><a class="nav-link" href="articles/index.html">Articles</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="articles/rcol.html">Getting Started with rcol (English)</a></li>
+    <li><a class="dropdown-item" href="articles/rcol-es.html">Guía de inicio para rcol (Español)</a></li>
+  </ul>
+</li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
@@ -54,40 +60,29 @@
 </h1></div>
 <!-- badges: start -->
 
-<p><code>rcol</code> is an R client for the <a href="https://www.catalogueoflife.org" class="external-link">Catalogue of Life</a> via the <a href="https://www.checklistbank.org" class="external-link">ChecklistBank</a> API (<a href="https://api.checklistbank.org" class="external-link uri">https://api.checklistbank.org</a>). It lets you match scientific names, look up datasets, taxa and name usages, navigate the taxonomic tree, extract classifications, retrieve synonyms, vernacular names, geographic distribution records, and run the ChecklistBank parsers — against <strong>any</strong> public dataset in ChecklistBank or the latest Catalogue of Life release. It is modelled on the conventions of <a href="https://docs.ropensci.org/rgbif/" class="external-link"><code>rgbif</code></a> and <a href="https://docs.ropensci.org/taxadb/" class="external-link"><code>taxadb</code></a>.</p>
+<p><code>rcol</code> is an R client for the <a href="https://www.catalogueoflife.org" class="external-link">Catalogue of Life</a> via the <a href="https://www.checklistbank.org" class="external-link">ChecklistBank</a> API (<a href="https://api.checklistbank.org" class="external-link uri">https://api.checklistbank.org</a>). It allows you to verify and match scientific names, retrieve hierarchical classifications, look up datasets, taxa, synonyms, vernacular names, and geographic distributions, and run ChecklistBank parsers — against <strong>any</strong> public dataset in ChecklistBank or the latest Catalogue of Life release. It is modelled on the conventions of <a href="https://docs.ropensci.org/rgbif/" class="external-link"><code>rgbif</code></a> and <a href="https://docs.ropensci.org/taxadb/" class="external-link"><code>taxadb</code></a>.</p>
+<blockquote>
+<p><strong>Note on Origin &amp; Architectural Evolution</strong>: This package builds upon the original <a href="https://github.com/CatalogueOfLife/rcol" class="external-link"><code>rcol</code> project by Catalogue of Life</a> (<a href="https://catalogueoflife.github.io/rcol/" class="external-link uri">https://catalogueoflife.github.io/rcol/</a>). This version introduces substantial architectural enhancements to simplify scientific workflows, including: - <strong>Direct Scientific Name Support</strong>: Pass scientific names directly (e.g., <code>"Panthera leo"</code> or <code>"Werneria nubigena"</code>) to downstream functions without needing prior manual ID lookups. - <strong>Vectorized Multi-Species Queries</strong>: Seamlessly pass character vectors of multiple species (e.g., <code>c("Werneria nubigena", "Panthera leo")</code>) and receive clean, concatenated tidy data frames. - <strong>Species Traceability</strong>: Preserves species association (<code>scientific_name</code> column) across synonyms, vernacular/common names, and distribution records. - <strong>Clean Name Verification</strong>: <code><a href="reference/clb_resolve_name.html">col_check_name()</a></code> returns an essential 9-column resolution summary showing accepted names, status, and IDs. - <strong>Flexible Classification Extraction</strong>: <code><a href="reference/col_shortcuts.html">col_classification()</a></code> supports both Long format and desanided Wide format (<code>wide = TRUE</code>).</p>
+</blockquote>
 <p>There are two parallel families of functions:</p>
 <ul>
 <li>
-<strong><code>clb_*()</code></strong> work against <strong>any</strong> dataset and take a <code>dataset =</code> argument.</li>
+<strong><code>col_*()</code></strong> convenience functions that target the <strong>latest extended Catalogue of Life release</strong> (<code>"3LXR"</code>). On first use, the release key is pinned in session (<code><a href="reference/col_key.html">col_key()</a></code>), ensuring long-running jobs are never disrupted by mid-session release updates. Use <code><a href="reference/col_refresh.html">col_refresh()</a></code> to re-pin.</li>
 <li>
-<strong><code>col_*()</code></strong> are convenience siblings that always target the <strong>latest extended Catalogue of Life release</strong> and drop the <code>dataset</code> argument. On first use the release alias <code>"3LXR"</code> is resolved to its concrete integer key and pinned for the rest of the session (via <code><a href="reference/col_key.html">col_key()</a></code>), so a release published mid-session never changes the data under a long-running job. Call <code><a href="reference/col_refresh.html">col_refresh()</a></code> to pick up a new release on purpose.</li>
+<strong><code>clb_*()</code></strong> universal low-level functions that accept an explicit <code>dataset =</code> argument (e.g., <code>"COL25"</code>, <code>2099</code>) to query any dataset in ChecklistBank.</li>
 </ul>
-<div class="section level2">
-<h2 id="key-features">Key Features<a class="anchor" aria-label="anchor" href="#key-features"></a>
-</h2>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Flexible Inputs</strong>: All downstream functions (<code><a href="reference/col_shortcuts.html">col_synonyms()</a></code>, <code><a href="reference/col_shortcuts.html">col_vernacular()</a></code>, <code><a href="reference/clb_distribution.html">col_distribution()</a></code>, <code><a href="reference/col_shortcuts.html">col_classification()</a></code>, <code><a href="reference/col_shortcuts.html">col_usage()</a></code>, <code><a href="reference/col_shortcuts.html">col_children()</a></code>) accept <strong>direct scientific names</strong> (e.g. <code>"Werneria nubigena"</code>), <strong>taxon IDs</strong> (e.g. <code>"4CGXP"</code>), or <strong>match data frames</strong> interchangeably.</li>
-<li>
-<strong>Vectorized Multi-Name Support</strong>: Pass single names or character vectors with multiple species (e.g. <code>c("Werneria nubigena", "Panthera leo")</code>) and receive clean, concatenated tidy data frames with species traceability.</li>
-<li>
-<strong>Clean Name Verification</strong>: <code><a href="reference/clb_resolve_name.html">col_check_name()</a></code> / <code><a href="reference/clb_resolve_name.html">clb_check_name()</a></code> provide a clean 9-column resolution summary showing accepted names, status, and IDs without raw JSON overhead.</li>
-<li>
-<strong>HTML-Free Full Names</strong>: Full name fields and tree navigation columns (<code>full_name</code>) are stripped of HTML formatting for direct use in reports and publications.</li>
-</ol>
-</div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>Install the development version from GitHub:</p>
+<p>Install the package from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"CatalogueOfLife/rcol"</span><span class="op">)</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"PaulESantos/rcol"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># or</span></span>
 <span><span class="co"># install.packages("remotes")</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"CatalogueOfLife/rcol"</span><span class="op">)</span></span></code></pre></div>
-<p>Documentation is published at <a href="https://catalogueoflife.github.io/rcol/" class="uri">https://catalogueoflife.github.io/rcol/</a>.</p>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"PaulESantos/rcol"</span><span class="op">)</span></span></code></pre></div>
+<p>Documentation is published at <a href="https://paulesantos.github.io/rcol/" class="uri">https://paulesantos.github.io/rcol/</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
@@ -96,7 +91,7 @@
 <h3 id="id_1-name-verification--matching">1. Name Verification &amp; Matching<a class="anchor" aria-label="anchor" href="#id_1-name-verification--matching"></a>
 </h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/CatalogueOfLife/rcol" class="external-link">rcol</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PaulESantos/rcol" class="external-link">rcol</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># High-level clean verification (9 columns) for 1 or multiple species</span></span>
 <span><span class="fu"><a href="reference/clb_resolve_name.html">col_check_name</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Werneria nubigena"</span>, <span class="st">"Panthera leo"</span>, <span class="st">"Schinus molle"</span><span class="op">)</span><span class="op">)</span></span>
@@ -114,13 +109,13 @@
 <span><span class="fu"><a href="reference/col_shortcuts.html">col_match_checklist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Panthera leo"</span>, <span class="st">"Bufo bufo"</span>, <span class="st">"Abies alba"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>To match against a specific dataset instead of the latest COL release, use the <code>clb_*()</code> form with a <code>dataset =</code> key or alias:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/clb_match.html">clb_match</a></span><span class="op">(</span><span class="st">"Felis catus"</span>, dataset <span class="op">=</span> <span class="st">"COL25"</span><span class="op">)</span>          <span class="co"># the 2025 annual release</span></span>
-<span><span class="fu"><a href="reference/clb_match.html">clb_match</a></span><span class="op">(</span><span class="st">"Macrocystis pyrifera"</span>, dataset <span class="op">=</span> <span class="fl">2099</span><span class="op">)</span>    <span class="co"># any public dataset by key</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/clb_match.html">clb_match</a></span><span class="op">(</span><span class="st">"Felis catus"</span>, dataset <span class="op">=</span> <span class="st">"COL25"</span><span class="op">)</span>          <span class="co"># 2025 annual release</span></span>
+<span><span class="fu"><a href="reference/clb_match.html">clb_match</a></span><span class="op">(</span><span class="st">"Macrocystis pyrifera"</span>, dataset <span class="op">=</span> <span class="fl">2099</span><span class="op">)</span>    <span class="co"># public dataset by key</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="id_2-classification-synonyms-vernaculars--distribution">2. Classification, Synonyms, Vernaculars &amp; Distribution<a class="anchor" aria-label="anchor" href="#id_2-classification-synonyms-vernaculars--distribution"></a>
 </h3>
-<p>All functions work seamlessly with direct scientific names, IDs, or character vectors:</p>
+<p>All functions work seamlessly with direct scientific names, IDs, character vectors, or match data frames:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Hierarchical classification in Wide or Long format</span></span>
 <span><span class="fu"><a href="reference/col_shortcuts.html">col_classification</a></span><span class="op">(</span><span class="st">"Schinus molle"</span>, wide <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -128,7 +123,7 @@
 <span><span class="co"># Synonyms for 1 or multiple species</span></span>
 <span><span class="fu"><a href="reference/col_shortcuts.html">col_synonyms</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Werneria nubigena"</span>, <span class="st">"Panthera leo"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Vernacular / common names with species association</span></span>
+<span><span class="co"># Vernacular / common names with species association (scientific_name column)</span></span>
 <span><span class="fu"><a href="reference/col_shortcuts.html">col_vernacular</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Werneria nubigena"</span>, <span class="st">"Panthera leo"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Geographic distribution in tidy format</span></span>
@@ -141,7 +136,7 @@
 <h3 id="id_3-tree-navigation--search">3. Tree Navigation &amp; Search<a class="anchor" aria-label="anchor" href="#id_3-tree-navigation--search"></a>
 </h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Walk the COL tree roots (Domains / Reinos)</span></span>
+<code class="sourceCode R"><span><span class="co"># Walk the COL tree roots (Domains / Realms)</span></span>
 <span><span class="va">roots</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/col_shortcuts.html">col_tree</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Get direct child species under a genus</span></span>
@@ -161,7 +156,7 @@
 <div class="section level2">
 <h2 id="catalogue-of-life-releases">Catalogue of Life Releases<a class="anchor" aria-label="anchor" href="#catalogue-of-life-releases"></a>
 </h2>
-<p>The Catalogue of Life is published in two cadences (monthly and annual) and two flavours (a base release and an extended release <code>XR</code>). Every <code>clb_*()</code> function takes a <code>dataset =</code> argument; helpful aliases resolve to the latest of each:</p>
+<p>The Catalogue of Life is published in two cadences (monthly and annual) and two flavours (base and extended <code>XR</code>). Every <code>clb_*()</code> function takes a <code>dataset =</code> argument; helpful aliases resolve to the latest of each:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/clb_col_release.html">clb_col_release</a></span><span class="op">(</span><span class="st">"monthly"</span><span class="op">)</span>                  <span class="co"># "3LR"   latest monthly base</span></span>
 <span><span class="fu"><a href="reference/clb_col_release.html">clb_col_release</a></span><span class="op">(</span><span class="st">"monthly"</span>, extended <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># "3LXR"  latest monthly extended</span></span>
@@ -172,22 +167,42 @@
 <div class="section level2">
 <h2 id="configuration">Configuration<a class="anchor" aria-label="anchor" href="#configuration"></a>
 </h2>
-<p>The base URL defaults to the production API and can be redirected with the <code>CLB_BASE_URL</code> environment variable, e.g. to the development server:</p>
+<p>The base URL defaults to the production API and can be redirected with the <code>CLB_BASE_URL</code> environment variable:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span>CLB_BASE_URL <span class="op">=</span> <span class="st">"https://api.dev.checklistbank.org"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
+<p>To cite <code>rcol</code> in publications, please use:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"rcol"</span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li>
+<strong>Package Citation</strong>: Santos Andrade, P. E. &amp; Döring, M. (2026). <em>rcol: R Client for the Catalogue of Life / ChecklistBank API</em>. R package version 0.1.0. URL: <a href="https://github.com/PaulESantos/rcol" class="external-link uri">https://github.com/PaulESantos/rcol</a>
+</li>
+<li>
+<strong>Catalogue of Life Data Citation</strong>: Bánki, O., Döring, M., Ower, G., et al. (2026). <em>Catalogue of Life ChecklistBank API</em>. <a href="https://doi.org/10.48580/d4tm" class="external-link uri">https://doi.org/10.48580/d4tm</a>
+</li>
+</ul>
+</div>
+<div class="section level2">
 <h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
 </h2>
-<p>MIT © Catalogue of Life</p>
+<ul>
+<li>
+<strong>R Code</strong>: Released under the <a href="https://opensource.org/licenses/MIT" class="external-link">MIT License</a> © 2026 Paul Efren Santos Andrade, Markus Döring &amp; Catalogue of Life.</li>
+<li>
+<strong>Catalogue of Life Data</strong>: Distributed under the <a href="https://creativecommons.org/licenses/by/4.0/" class="external-link">Creative Commons Attribution 4.0 International License (CC BY 4.0)</a>.</li>
+</ul>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li><a href="https://cloud.r-project.org/package=rcol" class="external-link">View on CRAN</a></li>
-<li><a href="https://github.com/CatalogueOfLife/rcol/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/CatalogueOfLife/rcol/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/PaulESantos/rcol/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/PaulESantos/rcol/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 

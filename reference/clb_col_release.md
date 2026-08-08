@@ -45,7 +45,7 @@ all releases of project `3`.
 
 ## See also
 
-[`clb_col_releases()`](https://catalogueoflife.github.io/rcol/reference/clb_col_releases.md)
+[`clb_col_releases()`](https://paulesantos.github.io/rcol/reference/clb_col_releases.md)
 for the full list of releases.
 
 ## Examples

@@ -29,8 +29,8 @@ list-columns. `NULL` (with a message) if the dataset has no import yet.
 
 ## See also
 
-[`clb_dataset()`](https://catalogueoflife.github.io/rcol/reference/clb_dataset.md),
-[`clb_usage_metrics()`](https://catalogueoflife.github.io/rcol/reference/clb_usage_metrics.md)
+[`clb_dataset()`](https://paulesantos.github.io/rcol/reference/clb_dataset.md),
+[`clb_usage_metrics()`](https://paulesantos.github.io/rcol/reference/clb_usage_metrics.md)
 
 ## Examples
 

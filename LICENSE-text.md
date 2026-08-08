@@ -1,4 +1,4 @@
 # License
 
     YEAR: 2026
-    COPYRIGHT HOLDER: Catalogue of Life
+    COPYRIGHT HOLDER: Paul Efren Santos Andrade, Markus Döring, Catalogue of Life

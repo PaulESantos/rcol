@@ -11,11 +11,11 @@ extended releases. Modelled on the conventions of 'rgbif' and 'taxadb'.
 
 Useful links:
 
-- <https://github.com/CatalogueOfLife/rcol>
+- <https://github.com/PaulESantos/rcol>
 
-- <https://catalogueoflife.github.io/rcol/>
+- <https://paulesantos.github.io/rcol/>
 
-- Report bugs at <https://github.com/CatalogueOfLife/rcol/issues>
+- Report bugs at <https://github.com/PaulESantos/rcol/issues>
 
 ## Author
 

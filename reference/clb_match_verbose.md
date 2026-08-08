@@ -1,7 +1,7 @@
 # Match a name and return all candidate usages
 
 Like
-[`clb_match()`](https://catalogueoflife.github.io/rcol/reference/clb_match.md)
+[`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md)
 but requests verbose output and returns the matched usage together with
 all alternative candidates, one per row.
 
@@ -42,7 +42,7 @@ clb_match_verbose(
 - dataset:
 
   Dataset key or alias to match against. Defaults to `"3LXR"`. See
-  [`clb_col_release()`](https://catalogueoflife.github.io/rcol/reference/clb_col_release.md)
+  [`clb_col_release()`](https://paulesantos.github.io/rcol/reference/clb_col_release.md)
   for the COL release aliases.
 
 - server:
@@ -63,7 +63,7 @@ match. Zero rows when nothing matched.
 
 ## See also
 
-[`clb_match()`](https://catalogueoflife.github.io/rcol/reference/clb_match.md)
+[`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md)
 
 ## Examples
 

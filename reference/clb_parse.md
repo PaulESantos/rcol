@@ -1,7 +1,7 @@
 # Parse values with a ChecklistBank value parser
 
 Runs one of the controlled-value parsers (see
-[`clb_parsers()`](https://catalogueoflife.github.io/rcol/reference/clb_parsers.md))
+[`clb_parsers()`](https://paulesantos.github.io/rcol/reference/clb_parsers.md))
 over a vector of strings, e.g. to normalise rank abbreviations, country
 names, dates or license strings.
 
@@ -16,7 +16,7 @@ clb_parse(type, q, .raw = FALSE)
 - type:
 
   Parser type, one of
-  [`clb_parsers()`](https://catalogueoflife.github.io/rcol/reference/clb_parsers.md)
+  [`clb_parsers()`](https://paulesantos.github.io/rcol/reference/clb_parsers.md)
   (e.g. `"rank"`, `"country"`, `"date"`, `"language"`, `"license"`,
   `"nomcode"`, `"taxonomicstatus"`).
 
@@ -35,7 +35,7 @@ columns `original`, `parsed` and `parsable`, one row per input value.
 
 ## See also
 
-[`clb_parsers()`](https://catalogueoflife.github.io/rcol/reference/clb_parsers.md)
+[`clb_parsers()`](https://paulesantos.github.io/rcol/reference/clb_parsers.md)
 
 ## Examples
 

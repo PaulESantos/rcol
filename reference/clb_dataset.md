@@ -26,8 +26,8 @@ list-columns), or the raw list when `.raw = TRUE`.
 
 ## See also
 
-[`clb_dataset_search()`](https://catalogueoflife.github.io/rcol/reference/clb_dataset_search.md),
-[`clb_dataset_metrics()`](https://catalogueoflife.github.io/rcol/reference/clb_dataset_metrics.md)
+[`clb_dataset_search()`](https://paulesantos.github.io/rcol/reference/clb_dataset_search.md),
+[`clb_dataset_metrics()`](https://paulesantos.github.io/rcol/reference/clb_dataset_metrics.md)
 
 ## Examples
 

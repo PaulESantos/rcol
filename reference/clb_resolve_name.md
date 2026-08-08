@@ -2,7 +2,7 @@
 
 Provides a clean, simplified verification table for one or more
 scientific names. Unlike
-[`col_match()`](https://catalogueoflife.github.io/rcol/reference/col_shortcuts.md),
+[`col_match()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md),
 which returns full raw API columns and list columns,
 `col_resolve_name()` returns only the essential fields needed to verify
 whether a name is accepted or a synonym, and what its accepted name is.
@@ -67,7 +67,7 @@ clb_check_name(
 - dataset:
 
   Dataset key or alias to match against. Defaults to `"3LXR"`. See
-  [`clb_col_release()`](https://catalogueoflife.github.io/rcol/reference/clb_col_release.md)
+  [`clb_col_release()`](https://paulesantos.github.io/rcol/reference/clb_col_release.md)
   for the COL release aliases.
 
 - server:

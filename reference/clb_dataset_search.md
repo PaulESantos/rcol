@@ -53,8 +53,8 @@ datasets, one row each, with columns such as `key`, `alias`, `title`,
 
 ## See also
 
-[`clb_dataset()`](https://catalogueoflife.github.io/rcol/reference/clb_dataset.md),
-[`clb_dataset_metrics()`](https://catalogueoflife.github.io/rcol/reference/clb_dataset_metrics.md)
+[`clb_dataset()`](https://paulesantos.github.io/rcol/reference/clb_dataset.md),
+[`clb_dataset_metrics()`](https://paulesantos.github.io/rcol/reference/clb_dataset_metrics.md)
 
 ## Examples
 

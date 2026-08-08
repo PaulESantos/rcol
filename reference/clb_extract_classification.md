@@ -2,11 +2,11 @@
 
 Helper function to extract and unnest the nested `classification`
 list-column returned by
-[`clb_match()`](https://catalogueoflife.github.io/rcol/reference/clb_match.md),
-[`clb_match_checklist()`](https://catalogueoflife.github.io/rcol/reference/clb_match_checklist.md),
-[`col_match()`](https://catalogueoflife.github.io/rcol/reference/col_shortcuts.md),
+[`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md),
+[`clb_match_checklist()`](https://paulesantos.github.io/rcol/reference/clb_match_checklist.md),
+[`col_match()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md),
 or
-[`clb_usage_search()`](https://catalogueoflife.github.io/rcol/reference/clb_usage_search.md)
+[`clb_usage_search()`](https://paulesantos.github.io/rcol/reference/clb_usage_search.md)
 into a tidy long or wide tibble. Also accepts a character vector of
 scientific names directly.
 
@@ -41,9 +41,9 @@ col_extract_classification(data, wide = FALSE, dataset = "3LXR", ...)
 - ...:
 
   Further query parameters passed to
-  [`clb_match()`](https://catalogueoflife.github.io/rcol/reference/clb_match.md)
+  [`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md)
   or
-  [`clb_match_checklist()`](https://catalogueoflife.github.io/rcol/reference/clb_match_checklist.md)
+  [`clb_match_checklist()`](https://paulesantos.github.io/rcol/reference/clb_match_checklist.md)
   when `data` is a character vector.
 
 ## Value
@@ -52,9 +52,9 @@ A [tibble](https://tibble.tidyverse.org/reference/tibble.html).
 
 ## See also
 
-[`clb_match()`](https://catalogueoflife.github.io/rcol/reference/clb_match.md),
-[`col_match()`](https://catalogueoflife.github.io/rcol/reference/col_shortcuts.md),
-[`clb_classification()`](https://catalogueoflife.github.io/rcol/reference/clb_classification.md)
+[`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md),
+[`col_match()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md),
+[`clb_classification()`](https://paulesantos.github.io/rcol/reference/clb_classification.md)
 
 ## Examples
 

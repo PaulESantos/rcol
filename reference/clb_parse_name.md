@@ -42,8 +42,8 @@ row per input name and columns such as `scientificName`, `authorship`,
 
 ## See also
 
-[`clb_parse()`](https://catalogueoflife.github.io/rcol/reference/clb_parse.md),
-[`clb_match()`](https://catalogueoflife.github.io/rcol/reference/clb_match.md)
+[`clb_parse()`](https://paulesantos.github.io/rcol/reference/clb_parse.md),
+[`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md)
 
 ## Examples
 

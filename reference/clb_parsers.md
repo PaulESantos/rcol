@@ -4,9 +4,9 @@ ChecklistBank exposes a family of parsers that interpret free text into
 controlled values (ranks, countries, dates, licenses, nomenclatural
 codes, taxonomic status, and more). This returns the names of all value
 parsers usable with
-[`clb_parse()`](https://catalogueoflife.github.io/rcol/reference/clb_parse.md).
+[`clb_parse()`](https://paulesantos.github.io/rcol/reference/clb_parse.md).
 The scientific-name parser is wrapped separately by
-[`clb_parse_name()`](https://catalogueoflife.github.io/rcol/reference/clb_parse_name.md).
+[`clb_parse_name()`](https://paulesantos.github.io/rcol/reference/clb_parse_name.md).
 
 ## Usage
 
@@ -20,8 +20,8 @@ A character vector of parser type names.
 
 ## See also
 
-[`clb_parse()`](https://catalogueoflife.github.io/rcol/reference/clb_parse.md),
-[`clb_parse_name()`](https://catalogueoflife.github.io/rcol/reference/clb_parse_name.md)
+[`clb_parse()`](https://paulesantos.github.io/rcol/reference/clb_parse.md),
+[`clb_parse_name()`](https://paulesantos.github.io/rcol/reference/clb_parse_name.md)
 
 ## Examples
 

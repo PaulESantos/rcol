@@ -68,9 +68,9 @@ and `$meta` (with `total`).
 
 ## See also
 
-[`clb_match()`](https://catalogueoflife.github.io/rcol/reference/clb_match.md),
-[`clb_suggest()`](https://catalogueoflife.github.io/rcol/reference/clb_suggest.md),
-[`clb_usage()`](https://catalogueoflife.github.io/rcol/reference/clb_usage.md)
+[`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md),
+[`clb_suggest()`](https://paulesantos.github.io/rcol/reference/clb_suggest.md),
+[`clb_usage()`](https://paulesantos.github.io/rcol/reference/clb_usage.md)
 
 ## Examples
 

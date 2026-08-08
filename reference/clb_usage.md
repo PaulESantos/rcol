@@ -31,9 +31,9 @@ list-column.
 
 ## See also
 
-[`clb_usage_search()`](https://catalogueoflife.github.io/rcol/reference/clb_usage_search.md),
-[`clb_classification()`](https://catalogueoflife.github.io/rcol/reference/clb_classification.md),
-[`clb_synonyms()`](https://catalogueoflife.github.io/rcol/reference/clb_synonyms.md)
+[`clb_usage_search()`](https://paulesantos.github.io/rcol/reference/clb_usage_search.md),
+[`clb_classification()`](https://paulesantos.github.io/rcol/reference/clb_classification.md),
+[`clb_synonyms()`](https://paulesantos.github.io/rcol/reference/clb_synonyms.md)
 
 ## Examples
 

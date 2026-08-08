@@ -32,7 +32,13 @@
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="../articles/rcol.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="active nav-item"><a class="nav-link" href="../articles/index.html">Articles</a></li>
+<li class="active nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/rcol.html">Getting Started with rcol (English)</a></li>
+    <li><a class="dropdown-item" href="../articles/rcol-es.html">Guía de inicio para rcol (Español)</a></li>
+  </ul>
+</li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
@@ -56,7 +62,7 @@
       <h1>Guía de inicio en español para rcol</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/CatalogueOfLife/rcol/blob/main/vignettes/rcol-es.Rmd" class="external-link"><code>vignettes/rcol-es.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/PaulESantos/rcol/blob/main/vignettes/rcol-es.Rmd" class="external-link"><code>vignettes/rcol-es.Rmd</code></a></small>
       <div class="d-none name"><code>rcol-es.Rmd</code></div>
     </div>
 
@@ -66,7 +72,7 @@
 de <a href="https://www.checklistbank.org" class="external-link">ChecklistBank</a> y a las
 publicaciones mensuales y anuales del <a href="https://www.catalogueoflife.org" class="external-link">Catalogue of Life</a> (COL).</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/CatalogueOfLife/rcol" class="external-link">rcol</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/PaulESantos/rcol" class="external-link">rcol</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="familias-de-funciones">Familias de funciones<a class="anchor" aria-label="anchor" href="#familias-de-funciones"></a>
 </h2>
@@ -94,15 +100,48 @@ columnas con el nombre aceptado válido y su estado taxonómico:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Verificación depurada de 1 o más especies (9 columnas)</span></span>
 <span><span class="fu"><a href="../reference/clb_resolve_name.html">col_check_name</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Werneria nubigena"</span>, <span class="st">"Panthera leo"</span>, <span class="st">"Schinus molle"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 9</span></span></span>
+<span><span class="co">#&gt;   queried_name      matched_name      status   accepted_name accepted_authorship</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Werneria nubigena Werneria nubigena synonym  Rockhausenia… (Kunth) D.J.N.Hind </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Panthera leo      Panthera leo      accepted Panthera leo  (Linnaeus, 1758)   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Schinus molle     Schinus molle     accepted Schinus molle L.                 </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 4 more variables: accepted_rank &lt;chr&gt;, accepted_id &lt;chr&gt;, match &lt;lgl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   match_type &lt;chr&gt;</span></span></span>
 <span></span>
 <span><span class="co"># Coincidencia directa completa (16 columnas)</span></span>
 <span><span class="fu"><a href="../reference/col_shortcuts.html">col_match</a></span><span class="op">(</span><span class="st">"Panthera leo"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 17</span></span></span>
+<span><span class="co">#&gt;   match match_type usage_id name         authorship     rank  status accepted_id</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> TRUE  variant    4CGXP    Panthera leo (Linnaeus, 17… spec… accep… 4CGXP      </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 9 more variables: accepted_name &lt;chr&gt;, accepted_authorship &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   accepted_rank &lt;chr&gt;, code &lt;chr&gt;, label &lt;chr&gt;, parent_id &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   names_index_id &lt;int&gt;, names_index_match_type &lt;chr&gt;, classification &lt;list&gt;</span></span></span>
 <span></span>
 <span><span class="co"># Inspeccionar candidatos homónimos</span></span>
 <span><span class="fu"><a href="../reference/col_shortcuts.html">col_match_verbose</a></span><span class="op">(</span><span class="st">"Oenanthe"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 16</span></span></span>
+<span><span class="co">#&gt;   primary usage_id name     authorship    rank  status accepted_id accepted_name</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> TRUE    679Q     Oenanthe L.            genus accep… 679Q        Oenanthe     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> FALSE   679P     Oenanthe Vieillot, 18… genus accep… 679P        Oenanthe     </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 8 more variables: accepted_authorship &lt;chr&gt;, accepted_rank &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   code &lt;chr&gt;, label &lt;chr&gt;, parent_id &lt;chr&gt;, names_index_id &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   names_index_match_type &lt;chr&gt;, classification &lt;list&gt;</span></span></span>
 <span></span>
 <span><span class="co"># Búsqueda masiva en paralelo</span></span>
-<span><span class="fu"><a href="../reference/col_shortcuts.html">col_match_checklist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Panthera leo"</span>, <span class="st">"Bufo bufo"</span>, <span class="st">"Abies alba"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/col_shortcuts.html">col_match_checklist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Panthera leo"</span>, <span class="st">"Bufo bufo"</span>, <span class="st">"Abies alba"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 18</span></span></span>
+<span><span class="co">#&gt;   verbatim_name match match_type usage_id name         authorship   rank  status</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Panthera leo  TRUE  variant    4CGXP    Panthera leo (Linnaeus, … spec… accep…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Bufo bufo     TRUE  variant    NP2D     Bufo bufo    (Linnaeus, … spec… accep…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Abies alba    TRUE  variant    8K9Y     Abies alba   Mill.        spec… accep…</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 10 more variables: accepted_id &lt;chr&gt;, accepted_name &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   accepted_authorship &lt;chr&gt;, accepted_rank &lt;chr&gt;, code &lt;chr&gt;, label &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   parent_id &lt;chr&gt;, names_index_id &lt;int&gt;, names_index_match_type &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   classification &lt;list&gt;</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="clasificación-sinónimos-vernáculos-y-distribución">Clasificación, sinónimos, vernáculos y distribución<a class="anchor" aria-label="anchor" href="#clasificaci%C3%B3n-sin%C3%B3nimos-vern%C3%A1culos-y-distribuci%C3%B3n"></a>
@@ -114,15 +153,71 @@ de resultados</strong>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Jerarquía taxonómica en formato Ancho o Largo</span></span>
 <span><span class="fu"><a href="../reference/col_shortcuts.html">col_classification</a></span><span class="op">(</span><span class="st">"Schinus molle"</span>, wide <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 23</span></span></span>
+<span><span class="co">#&gt;   match match_type usage_id name          authorship rank    status  accepted_id</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> TRUE  variant    4V8GC    Schinus molle L.         species accept… 4V8GC      </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 15 more variables: accepted_name &lt;chr&gt;, accepted_authorship &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   accepted_rank &lt;chr&gt;, code &lt;chr&gt;, label &lt;chr&gt;, parent_id &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   names_index_id &lt;int&gt;, names_index_match_type &lt;chr&gt;, kingdom &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   phylum &lt;chr&gt;, class &lt;chr&gt;, order &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   species &lt;chr&gt;</span></span></span>
 <span></span>
 <span><span class="co"># Sinónimos taxonómicos para múltiples especies</span></span>
 <span><span class="fu"><a href="../reference/col_shortcuts.html">col_synonyms</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Werneria nubigena"</span>, <span class="st">"Panthera leo"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 16 × 6</span></span></span>
+<span><span class="co">#&gt;    accepted_name         scientific_name authorship synonym_type rank  full_name</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Rockhausenia nubigena Werneria nubig… Kunth      homotypic    spec… Werneria…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Rockhausenia nubigena Oresigonia gra… Willd. ex… heterotypic  spec… Oresigon…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Rockhausenia nubigena Oresigonia lat… Willd. ex… heterotypic  spec… Oresigon…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Rockhausenia nubigena Oribasia acaul… DC.        heterotypic  spec… Oribasia…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Rockhausenia nubigena Werneria disti… Kunth      heterotypic  spec… Werneria…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Rockhausenia nubigena Werneria dombe… (Wedd.) H… heterotypic  spec… Werneria…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Rockhausenia nubigena Werneria mocin… DC.        heterotypic  spec… Werneria…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Rockhausenia nubigena Werneria nubig… Wedd.      heterotypic  subv… Werneria…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Rockhausenia nubigena Werneria nubig… Wedd.      heterotypic  subv… Werneria…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Rockhausenia nubigena Werneria nubig… Wedd.      heterotypic  vari… Werneria…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> Rockhausenia nubigena Werneria nubig… Wedd.      heterotypic  vari… Werneria…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> Rockhausenia nubigena Werneria nubig… <span style="color: #BB0000;">NA</span>         heterotypic  vari… Werneria…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> Rockhausenia nubigena Werneria steub… Hieron.    heterotypic  spec… Werneria…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> Rockhausenia nubigena Werneria stueb… Hieron.    heterotypic  spec… Werneria…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> Panthera leo          Felis leo       Linnaeus,… homotypic    spec… Felis le…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> Panthera leo          Panthera leo n… (de Blain… heterotypic  subs… Panthera…</span></span>
 <span></span>
 <span><span class="co"># Nombres comunes con trazabilidad de especies (columna scientific_name)</span></span>
 <span><span class="fu"><a href="../reference/col_shortcuts.html">col_vernacular</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Werneria nubigena"</span>, <span class="st">"Panthera leo"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 206 × 7</span></span></span>
+<span><span class="co">#&gt;    scientific_name       name               language latin country area  remarks</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Rockhausenia nubigena Chicoria blanca    spa      Chic… <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Rockhausenia nubigena Cóndor cebolla     spa      Cond… <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Panthera leo          African Lion       eng      Afri… <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Panthera leo          Afrikaanse Leeuw   nld      Afri… <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    Contri…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Panthera leo          Afrikanischer Löwe deu      Afri… DE      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Panthera leo          Agrzam             shi      Agrz… <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    Contri…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Panthera leo          Ambessa            amh      Ambe… <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Panthera leo          Arslon             uzb      Arsl… <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    Contri…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Panthera leo          Aslan              gag      Aslan <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    Contri…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Panthera leo          Dzata              ewe      Dzata <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    Contri…</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 196 more rows</span></span></span>
 <span></span>
 <span><span class="co"># Distribución geográfica oficial en formato tidy</span></span>
-<span><span class="fu"><a href="../reference/clb_distribution.html">col_distribution</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Werneria nubigena"</span>, <span class="st">"Schinus molle"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/clb_distribution.html">col_distribution</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Werneria nubigena"</span>, <span class="st">"Schinus molle"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 54 × 1</span></span></span>
+<span><span class="co">#&gt;    area                                </span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                               </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Mexico (Chiapas)                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Guatemala                           </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Costa Rica                          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Panama                              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Ecuador                             </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Peru                                </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Bolivia (Cochabamba, La Paz, Tarija)</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Portugal [I]                        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Spain [I]                           </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Gibraltar [I]                       </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 44 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="navegación-del-árbol-y-búsqueda">Navegación del árbol y búsqueda<a class="anchor" aria-label="anchor" href="#navegaci%C3%B3n-del-%C3%A1rbol-y-b%C3%BAsqueda"></a>
@@ -133,15 +228,44 @@ de resultados</strong>:</p>
 <span></span>
 <span><span class="co"># Hijos taxonómicos directos</span></span>
 <span><span class="fu"><a href="../reference/col_shortcuts.html">col_children</a></span><span class="op">(</span><span class="st">"Panthera"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 18 × 10</span></span></span>
+<span><span class="co">#&gt;    datasetKey id    parentId rank    status    count childCount name  authorship</span></span>
+<span><span class="co">#&gt;         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>     <span style="text-decoration: underline;">315</span>834 TZBNY 6DBT     species provisio…     0          0 Leo … Brehm, 18…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>     <span style="text-decoration: underline;">315</span>834 TZ9SL 6DBT     species provisio…     0          0 Leo … Brehm, 18…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>     <span style="text-decoration: underline;">315</span>834 TZ8S4 6DBT     species provisio…     0          0 Leo … Gray, 1843</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>     <span style="text-decoration: underline;">315</span>834 V32ZM 6DBT     species provisio…     0          0 Leo … Kretzoi, …</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>     <span style="text-decoration: underline;">315</span>834 R9G88 6DBT     species provisio…     0          0 Pant… Fitzinger…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>     <span style="text-decoration: underline;">315</span>834 R9G8X 6DBT     species provisio…     0          0 Pant… Stinnesbe…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>     <span style="text-decoration: underline;">315</span>834 R9G95 6DBT     species provisio…     0          0 Pant… Tseng, Wa…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>     <span style="text-decoration: underline;">315</span>834 R9GBB 6DBT     species accepted      0          0 Pant… Kretzoï, …</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>     <span style="text-decoration: underline;">315</span>834 4CGXP 6DBT     species accepted      0          3 Pant… (Linnaeus…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>     <span style="text-decoration: underline;">315</span>834 4CGXQ 6DBT     species accepted      0          1 Pant… (Linnaeus…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span>     <span style="text-decoration: underline;">315</span>834 4CGXR 6DBT     species accepted      0         10 Pant… (Linnaeus…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span>     <span style="text-decoration: underline;">315</span>834 V2VKY 6DBT     species provisio…     0          0 Pant… Hemmer, 2…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span>     <span style="text-decoration: underline;">315</span>834 R9GXP 6DBT     species accepted      0          0 Pant… (Goldfuss…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span>     <span style="text-decoration: underline;">315</span>834 4CGXS 6DBT     species accepted      0          2 Pant… (Linnaeus…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span>     <span style="text-decoration: underline;">315</span>834 4CGXT 6DBT     species accepted      0          1 Pant… (Schreber…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span>     <span style="text-decoration: underline;">315</span>834 R9H53 6DBT     species provisio…     0          1 Pant… Schreber,…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span>     <span style="text-decoration: underline;">315</span>834 R9H5S 6DBT     species provisio…     0          0 Pant… Mazák, Ch…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">18</span>     <span style="text-decoration: underline;">315</span>834 T673T 6DBT     species provisio…     0          0 Tigr… Fitzinger…</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: full_name &lt;chr&gt;</span></span></span>
 <span></span>
 <span><span class="co"># Búsqueda por texto libre</span></span>
-<span><span class="fu"><a href="../reference/col_shortcuts.html">col_usage_search</a></span><span class="op">(</span><span class="st">"Felidae"</span>, rank <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/col_shortcuts.html">col_usage_search</a></span><span class="op">(</span><span class="st">"Felidae"</span>, rank <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">&lt;clb&gt;</span> result: 0 rows (total: 0)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 0 × 0</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="parsers">Parsers<a class="anchor" aria-label="anchor" href="#parsers"></a>
 </h2>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/clb_parse_name.html">clb_parse_name</a></span><span class="op">(</span><span class="st">"Abies alba Mill. var. alpina"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/clb_parse_name.html">clb_parse_name</a></span><span class="op">(</span><span class="st">"Abies alba Mill. var. alpina"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 9</span></span></span>
+<span><span class="co">#&gt;   scientificName    rank  genus specificEpithet infraspecificEpithet type  label</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Abies alba var. … vari… Abies alba            alpina               scie… Abie…</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more variables: labelHtml &lt;chr&gt;, parsed &lt;lgl&gt;</span></span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

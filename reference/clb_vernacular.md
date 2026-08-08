@@ -24,7 +24,7 @@ clb_vernacular(
 - id:
 
   Optional taxon id, scientific name, or a data frame from
-  [`col_match()`](https://catalogueoflife.github.io/rcol/reference/col_shortcuts.md).
+  [`col_match()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md).
   When supplied, returns the vernacular names of that taxon; otherwise
   performs a dataset-wide search using `q`.
 

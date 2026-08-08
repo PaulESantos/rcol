@@ -3,70 +3,65 @@
 `rcol` is an R client for the [Catalogue of
 Life](https://www.catalogueoflife.org) via the
 [ChecklistBank](https://www.checklistbank.org) API
-(<https://api.checklistbank.org>). It lets you match scientific names,
-look up datasets, taxa and name usages, navigate the taxonomic tree,
-extract classifications, retrieve synonyms, vernacular names, geographic
-distribution records, and run the ChecklistBank parsers — against
-**any** public dataset in ChecklistBank or the latest Catalogue of Life
-release. It is modelled on the conventions of
+(<https://api.checklistbank.org>). It allows you to verify and match
+scientific names, retrieve hierarchical classifications, look up
+datasets, taxa, synonyms, vernacular names, and geographic
+distributions, and run ChecklistBank parsers — against **any** public
+dataset in ChecklistBank or the latest Catalogue of Life release. It is
+modelled on the conventions of
 [`rgbif`](https://docs.ropensci.org/rgbif/) and
 [`taxadb`](https://docs.ropensci.org/taxadb/).
 
+> **Note on Origin & Architectural Evolution**: This package builds upon
+> the original [`rcol` project by Catalogue of
+> Life](https://github.com/CatalogueOfLife/rcol)
+> (<https://catalogueoflife.github.io/rcol/>). This version introduces
+> substantial architectural enhancements to simplify scientific
+> workflows, including: - **Direct Scientific Name Support**: Pass
+> scientific names directly (e.g., `"Panthera leo"` or
+> `"Werneria nubigena"`) to downstream functions without needing prior
+> manual ID lookups. - **Vectorized Multi-Species Queries**: Seamlessly
+> pass character vectors of multiple species (e.g.,
+> `c("Werneria nubigena", "Panthera leo")`) and receive clean,
+> concatenated tidy data frames. - **Species Traceability**: Preserves
+> species association (`scientific_name` column) across synonyms,
+> vernacular/common names, and distribution records. - **Clean Name
+> Verification**:
+> [`col_check_name()`](https://paulesantos.github.io/rcol/reference/clb_resolve_name.md)
+> returns an essential 9-column resolution summary showing accepted
+> names, status, and IDs. - **Flexible Classification Extraction**:
+> [`col_classification()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md)
+> supports both Long format and desanided Wide format (`wide = TRUE`).
+
 There are two parallel families of functions:
 
-- **`clb_*()`** work against **any** dataset and take a `dataset =`
-  argument.
-- **`col_*()`** are convenience siblings that always target the **latest
-  extended Catalogue of Life release** and drop the `dataset` argument.
-  On first use the release alias `"3LXR"` is resolved to its concrete
-  integer key and pinned for the rest of the session (via
-  [`col_key()`](https://catalogueoflife.github.io/rcol/reference/col_key.md)),
-  so a release published mid-session never changes the data under a
-  long-running job. Call
-  [`col_refresh()`](https://catalogueoflife.github.io/rcol/reference/col_refresh.md)
-  to pick up a new release on purpose.
-
-## Key Features
-
-1.  **Flexible Inputs**: All downstream functions
-    ([`col_synonyms()`](https://catalogueoflife.github.io/rcol/reference/col_shortcuts.md),
-    [`col_vernacular()`](https://catalogueoflife.github.io/rcol/reference/col_shortcuts.md),
-    [`col_distribution()`](https://catalogueoflife.github.io/rcol/reference/clb_distribution.md),
-    [`col_classification()`](https://catalogueoflife.github.io/rcol/reference/col_shortcuts.md),
-    [`col_usage()`](https://catalogueoflife.github.io/rcol/reference/col_shortcuts.md),
-    [`col_children()`](https://catalogueoflife.github.io/rcol/reference/col_shortcuts.md))
-    accept **direct scientific names** (e.g. `"Werneria nubigena"`),
-    **taxon IDs** (e.g. `"4CGXP"`), or **match data frames**
-    interchangeably.
-2.  **Vectorized Multi-Name Support**: Pass single names or character
-    vectors with multiple species
-    (e.g. `c("Werneria nubigena", "Panthera leo")`) and receive clean,
-    concatenated tidy data frames with species traceability.
-3.  **Clean Name Verification**:
-    [`col_check_name()`](https://catalogueoflife.github.io/rcol/reference/clb_resolve_name.md)
-    /
-    [`clb_check_name()`](https://catalogueoflife.github.io/rcol/reference/clb_resolve_name.md)
-    provide a clean 9-column resolution summary showing accepted names,
-    status, and IDs without raw JSON overhead.
-4.  **HTML-Free Full Names**: Full name fields and tree navigation
-    columns (`full_name`) are stripped of HTML formatting for direct use
-    in reports and publications.
+- **`col_*()`** convenience functions that target the **latest extended
+  Catalogue of Life release** (`"3LXR"`). On first use, the release key
+  is pinned in session
+  ([`col_key()`](https://paulesantos.github.io/rcol/reference/col_key.md)),
+  ensuring long-running jobs are never disrupted by mid-session release
+  updates. Use
+  [`col_refresh()`](https://paulesantos.github.io/rcol/reference/col_refresh.md)
+  to re-pin.
+- **`clb_*()`** universal low-level functions that accept an explicit
+  `dataset =` argument (e.g., `"COL25"`, `2099`) to query any dataset in
+  ChecklistBank.
 
 ## Installation
 
-Install the development version from GitHub:
+Install the package from GitHub:
 
 ``` r
 
 # install.packages("pak")
-pak::pak("CatalogueOfLife/rcol")
+pak::pak("PaulESantos/rcol")
 
 # or
 # install.packages("remotes")
-remotes::install_github("CatalogueOfLife/rcol")
+remotes::install_github("PaulESantos/rcol")
 ```
 
-Documentation is published at <https://catalogueoflife.github.io/rcol/>.
+Documentation is published at <https://paulesantos.github.io/rcol/>.
 
 ## Quick start
 
@@ -97,14 +92,14 @@ use the `clb_*()` form with a `dataset =` key or alias:
 
 ``` r
 
-clb_match("Felis catus", dataset = "COL25")          # the 2025 annual release
-clb_match("Macrocystis pyrifera", dataset = 2099)    # any public dataset by key
+clb_match("Felis catus", dataset = "COL25")          # 2025 annual release
+clb_match("Macrocystis pyrifera", dataset = 2099)    # public dataset by key
 ```
 
 ### 2. Classification, Synonyms, Vernaculars & Distribution
 
-All functions work seamlessly with direct scientific names, IDs, or
-character vectors:
+All functions work seamlessly with direct scientific names, IDs,
+character vectors, or match data frames:
 
 ``` r
 
@@ -114,7 +109,7 @@ col_classification("Schinus molle", wide = TRUE)
 # Synonyms for 1 or multiple species
 col_synonyms(c("Werneria nubigena", "Panthera leo"))
 
-# Vernacular / common names with species association
+# Vernacular / common names with species association (scientific_name column)
 col_vernacular(c("Werneria nubigena", "Panthera leo"))
 
 # Geographic distribution in tidy format
@@ -128,7 +123,7 @@ col_usage("Panthera leo")
 
 ``` r
 
-# Walk the COL tree roots (Domains / Reinos)
+# Walk the COL tree roots (Domains / Realms)
 roots <- col_tree()
 
 # Get direct child species under a genus
@@ -149,9 +144,9 @@ clb_parse_name("Abies alba Mill. var. alpina")
 ## Catalogue of Life Releases
 
 The Catalogue of Life is published in two cadences (monthly and annual)
-and two flavours (a base release and an extended release `XR`). Every
-`clb_*()` function takes a `dataset =` argument; helpful aliases resolve
-to the latest of each:
+and two flavours (base and extended `XR`). Every `clb_*()` function
+takes a `dataset =` argument; helpful aliases resolve to the latest of
+each:
 
 ``` r
 
@@ -165,13 +160,34 @@ clb_usage_search("Felidae", dataset = "COL25")
 ## Configuration
 
 The base URL defaults to the production API and can be redirected with
-the `CLB_BASE_URL` environment variable, e.g. to the development server:
+the `CLB_BASE_URL` environment variable:
 
 ``` r
 
 Sys.setenv(CLB_BASE_URL = "https://api.dev.checklistbank.org")
 ```
 
+## Citation
+
+To cite `rcol` in publications, please use:
+
+``` r
+
+citation("rcol")
+```
+
+- **Package Citation**: Santos Andrade, P. E. & Döring, M. (2026).
+  *rcol: R Client for the Catalogue of Life / ChecklistBank API*. R
+  package version 0.1.0. URL: <https://github.com/PaulESantos/rcol>
+- **Catalogue of Life Data Citation**: Bánki, O., Döring, M., Ower, G.,
+  et al. (2026). *Catalogue of Life ChecklistBank API*.
+  <https://doi.org/10.48580/d4tm>
+
 ## License
 
-MIT © Catalogue of Life
+- **R Code**: Released under the [MIT
+  License](https://opensource.org/licenses/MIT) © 2026 Paul Efren Santos
+  Andrade, Markus Döring & Catalogue of Life.
+- **Catalogue of Life Data**: Distributed under the [Creative Commons
+  Attribution 4.0 International License (CC BY
+  4.0)](https://creativecommons.org/licenses/by/4.0/).

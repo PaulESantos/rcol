@@ -2,7 +2,7 @@
 
 Without `id`, returns the root taxa of the dataset's tree. With `id`,
 returns the path (lineage) from the root down to that taxon. Use
-[`clb_children()`](https://catalogueoflife.github.io/rcol/reference/clb_children.md)
+[`clb_children()`](https://paulesantos.github.io/rcol/reference/clb_children.md)
 to descend one level.
 
 ## Usage
@@ -57,8 +57,8 @@ nodes with columns such as `id`, `name`, `authorship`, `rank`, `status`,
 
 ## See also
 
-[`clb_children()`](https://catalogueoflife.github.io/rcol/reference/clb_children.md),
-[`clb_classification()`](https://catalogueoflife.github.io/rcol/reference/clb_classification.md)
+[`clb_children()`](https://paulesantos.github.io/rcol/reference/clb_children.md),
+[`clb_classification()`](https://paulesantos.github.io/rcol/reference/clb_classification.md)
 
 ## Examples
 

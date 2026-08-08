@@ -39,7 +39,7 @@ clb_match_checklist(
 - server:
 
   Optional alternative matching service base URL (see
-  [`clb_match()`](https://catalogueoflife.github.io/rcol/reference/clb_match.md)).
+  [`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md)).
 
 - max_active:
 
@@ -50,11 +50,11 @@ clb_match_checklist(
 A [tibble](https://tibble.tidyverse.org/reference/tibble.html) with one
 row per input, the `verbatim_*` input columns first followed by the
 match result columns of
-[`clb_match()`](https://catalogueoflife.github.io/rcol/reference/clb_match.md).
+[`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md).
 
 ## See also
 
-[`clb_match()`](https://catalogueoflife.github.io/rcol/reference/clb_match.md)
+[`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md)
 
 ## Examples
 

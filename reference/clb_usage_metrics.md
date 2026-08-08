@@ -14,7 +14,7 @@ clb_usage_metrics(id, dataset = "3LXR", .raw = FALSE)
 - id:
 
   Taxon id, scientific name, or a data frame from
-  [`col_match()`](https://catalogueoflife.github.io/rcol/reference/col_shortcuts.md).
+  [`col_match()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md).
 
 - dataset:
 
@@ -32,8 +32,8 @@ list-columns.
 
 ## See also
 
-[`clb_dataset_metrics()`](https://catalogueoflife.github.io/rcol/reference/clb_dataset_metrics.md),
-[`clb_children()`](https://catalogueoflife.github.io/rcol/reference/clb_children.md)
+[`clb_dataset_metrics()`](https://paulesantos.github.io/rcol/reference/clb_dataset_metrics.md),
+[`clb_children()`](https://paulesantos.github.io/rcol/reference/clb_children.md)
 
 ## Examples
 

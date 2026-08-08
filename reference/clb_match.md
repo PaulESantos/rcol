@@ -42,7 +42,7 @@ clb_match(
 - dataset:
 
   Dataset key or alias to match against. Defaults to `"3LXR"`. See
-  [`clb_col_release()`](https://catalogueoflife.github.io/rcol/reference/clb_col_release.md)
+  [`clb_col_release()`](https://paulesantos.github.io/rcol/reference/clb_col_release.md)
   for the COL release aliases.
 
 - server:
@@ -65,8 +65,8 @@ and the usage columns are `NA`.
 
 ## See also
 
-[`clb_match_verbose()`](https://catalogueoflife.github.io/rcol/reference/clb_match_verbose.md),
-[`clb_match_checklist()`](https://catalogueoflife.github.io/rcol/reference/clb_match_checklist.md)
+[`clb_match_verbose()`](https://paulesantos.github.io/rcol/reference/clb_match_verbose.md),
+[`clb_match_checklist()`](https://paulesantos.github.io/rcol/reference/clb_match_checklist.md)
 
 ## Examples
 
