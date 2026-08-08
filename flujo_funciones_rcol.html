@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Equipo de Desarrollo rcol">
+<meta name="dcterms.date" content="2026-08-08">
+
+<title>Manual Integrado de Flujo de Trabajo y Funciones del Paquete rcol</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="flujo_funciones_rcol_files/libs/clipboard/clipboard.min.js"></script>
+<script src="flujo_funciones_rcol_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="flujo_funciones_rcol_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="flujo_funciones_rcol_files/libs/quarto-html/popper.min.js"></script>
+<script src="flujo_funciones_rcol_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="flujo_funciones_rcol_files/libs/quarto-html/anchor.min.js"></script>
+<link href="flujo_funciones_rcol_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="flujo_funciones_rcol_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="flujo_funciones_rcol_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="flujo_funciones_rcol_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="flujo_funciones_rcol_files/libs/bootstrap/bootstrap-293cc809d15782442e9b1098eedb6797.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice de Contenido</h2>
+   
+  <ul>
+  <li><a href="#introducción-y-arquitectura-general" id="toc-introducción-y-arquitectura-general" class="nav-link active" data-scroll-target="#introducción-y-arquitectura-general"><span class="header-section-number">1</span> Introducción y Arquitectura General</a>
+  <ul class="collapse">
+  <li><a href="#conceptos-clave-y-estandarización-de-funciones" id="toc-conceptos-clave-y-estandarización-de-funciones" class="nav-link" data-scroll-target="#conceptos-clave-y-estandarización-de-funciones"><span class="header-section-number">1.1</span> Conceptos Clave y Estandarización de Funciones</a></li>
+  </ul></li>
+  <li><a href="#diagrama-de-flujo-de-dependencias-e-interacciones" id="toc-diagrama-de-flujo-de-dependencias-e-interacciones" class="nav-link" data-scroll-target="#diagrama-de-flujo-de-dependencias-e-interacciones"><span class="header-section-number">2</span> Diagrama de Flujo de Dependencias e Interacciones</a></li>
+  <li><a href="#especificación-de-funciones-por-módulo" id="toc-especificación-de-funciones-por-módulo" class="nav-link" data-scroll-target="#especificación-de-funciones-por-módulo"><span class="header-section-number">3</span> Especificación de Funciones por Módulo</a>
+  <ul class="collapse">
+  <li><a href="#configuración-de-entorno-y-pinning-de-versión" id="toc-configuración-de-entorno-y-pinning-de-versión" class="nav-link" data-scroll-target="#configuración-de-entorno-y-pinning-de-versión"><span class="header-section-number">3.1</span> 1. Configuración de Entorno y Pinning de Versión</a></li>
+  <li><a href="#coincidencia-taxonómica-name-matching-y-verificación" id="toc-coincidencia-taxonómica-name-matching-y-verificación" class="nav-link" data-scroll-target="#coincidencia-taxonómica-name-matching-y-verificación"><span class="header-section-number">3.2</span> 2. Coincidencia Taxonómica (<em>Name Matching</em>) y Verificación</a></li>
+  <li><a href="#extracción-de-clasificación-jerárquica" id="toc-extracción-de-clasificación-jerárquica" class="nav-link" data-scroll-target="#extracción-de-clasificación-jerárquica"><span class="header-section-number">3.3</span> 3. Extracción de Clasificación Jerárquica</a></li>
+  <li><a href="#consultas-de-usos-taxonómicos-y-búsqueda-libre" id="toc-consultas-de-usos-taxonómicos-y-búsqueda-libre" class="nav-link" data-scroll-target="#consultas-de-usos-taxonómicos-y-búsqueda-libre"><span class="header-section-number">3.4</span> 4. Consultas de Usos Taxonómicos y Búsqueda Libre</a></li>
+  <li><a href="#relaciones-taxonómicas-jerarquía-sinónimos-nombres-comunes-distribución-y-métricas" id="toc-relaciones-taxonómicas-jerarquía-sinónimos-nombres-comunes-distribución-y-métricas" class="nav-link" data-scroll-target="#relaciones-taxonómicas-jerarquía-sinónimos-nombres-comunes-distribución-y-métricas"><span class="header-section-number">3.5</span> 5. Relaciones Taxonómicas: Jerarquía, Sinónimos, Nombres Comunes, Distribución y Métricas</a></li>
+  <li><a href="#navegación-del-árbol-taxonómico" id="toc-navegación-del-árbol-taxonómico" class="nav-link" data-scroll-target="#navegación-del-árbol-taxonómico"><span class="header-section-number">3.6</span> 6. Navegación del Árbol Taxonómico</a></li>
+  <li><a href="#catálogo-de-datasets" id="toc-catálogo-de-datasets" class="nav-link" data-scroll-target="#catálogo-de-datasets"><span class="header-section-number">3.7</span> 7. Catálogo de Datasets</a></li>
+  <li><a href="#parsers-nomenclaturales-y-de-valores" id="toc-parsers-nomenclaturales-y-de-valores" class="nav-link" data-scroll-target="#parsers-nomenclaturales-y-de-valores"><span class="header-section-number">3.8</span> 8. Parsers Nomenclaturales y de Valores</a></li>
+  </ul></li>
+  <li><a href="#ejemplo-completo-de-flujo-de-trabajo-en-r" id="toc-ejemplo-completo-de-flujo-de-trabajo-en-r" class="nav-link" data-scroll-target="#ejemplo-completo-de-flujo-de-trabajo-en-r"><span class="header-section-number">4</span> Ejemplo Completo de Flujo de Trabajo en R</a></li>
+  <li><a href="#verificación-de-calidad-y-cumplimiento-de-estándares-cran" id="toc-verificación-de-calidad-y-cumplimiento-de-estándares-cran" class="nav-link" data-scroll-target="#verificación-de-calidad-y-cumplimiento-de-estándares-cran"><span class="header-section-number">5</span> Verificación de Calidad y Cumplimiento de Estándares CRAN</a>
+  <ul class="collapse">
+  <li><a href="#estado-de-r-cmd-check" id="toc-estado-de-r-cmd-check" class="nav-link" data-scroll-target="#estado-de-r-cmd-check"><span class="header-section-number">5.1</span> 1. Estado de <code>R CMD check</code></a></li>
+  <li><a href="#cumplimiento-de-requisitos-cran-extra-checks" id="toc-cumplimiento-de-requisitos-cran-extra-checks" class="nav-link" data-scroll-target="#cumplimiento-de-requisitos-cran-extra-checks"><span class="header-section-number">5.2</span> 2. Cumplimiento de Requisitos CRAN Extra-Checks</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Manual Integrado de Flujo de Trabajo y Funciones del Paquete <code>rcol</code></h1>
+<p class="subtitle lead">Arquitectura de API, Dependencias, Entradas y Salidas de las 46 Funciones Públicas</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Equipo de Desarrollo rcol </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 8, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introducción-y-arquitectura-general" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introducción-y-arquitectura-general"><span class="header-section-number">1</span> Introducción y Arquitectura General</h2>
+<p>El paquete <strong><code>rcol</code></strong> (<em>R Client for the Catalogue of Life / ChecklistBank API</em>) proporciona un acceso idiomático y de alto rendimiento a la API REST de <strong>ChecklistBank</strong> (<code>https://api.checklistbank.org</code>) y a las publicaciones mensuales y anuales del <strong>Catalogue of Life (COL)</strong>.</p>
+<p>El paquete exporta <strong>46 funciones públicas</strong> organizadas en dos capas o familias principales de funciones:</p>
+<ol type="1">
+<li><strong>Familia <code>clb_*()</code> (Bajo Nivel / Universal):</strong>
+<ul>
+<li>Requieren o aceptan explícitamente el parámetro <code>dataset</code> (<code>dataset = "3LXR"</code>, <code>dataset = "COL25"</code>, <code>dataset = 2099</code>, etc.).</li>
+<li>Permiten consultar cualquier conjunto de datos publicado en ChecklistBank o versiones históricas del COL.</li>
+</ul></li>
+<li><strong>Familia <code>col_*()</code> (Atajos / Pinned Version):</strong>
+<ul>
+<li>Omiten el argumento <code>dataset</code>.</li>
+<li>Utilizan internamente la función <code>col_key()</code> para fijar la versión extendida del Catalogue of Life en la sesión activa (<code>"3LXR"</code>).</li>
+<li>Garantizan consistencia en análisis científicos al fijar la clave numérica en la sesión.</li>
+</ul></li>
+</ol>
+<hr>
+<section id="conceptos-clave-y-estandarización-de-funciones" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="conceptos-clave-y-estandarización-de-funciones"><span class="header-section-number">1.1</span> Conceptos Clave y Estandarización de Funciones</h3>
+<section id="diferencia-entre-clb_match-y-col_match" class="level4" data-number="1.1.1">
+<h4 data-number="1.1.1" class="anchored" data-anchor-id="diferencia-entre-clb_match-y-col_match"><span class="header-section-number">1.1.1</span> 1. Diferencia entre <code>clb_match()</code> y <code>col_match()</code></h4>
+<ul>
+<li><strong><code>clb_match()</code></strong>: Es el <strong>motor base de bajo nivel</strong> del sistema de coincidencia de nombres científicos. Consulta directamente ChecklistBank y permite especificar cualquier <code>dataset</code> (versiones históricas del COL, catálogos locales, etc.).</li>
+<li><strong><code>col_match()</code></strong>: Es la <strong>función atajo de alto nivel</strong> predeterminada para trabajar con el Catalogue of Life. Es un wrapper de <code>clb_match()</code> que utiliza automáticamente la clave del release extendido de COL fijado en la sesión activa (<code>col_key()</code>).</li>
+</ul>
+</section>
+<section id="col_match-vs.-col_check_name-col_resolve_name" class="level4" data-number="1.1.2">
+<h4 data-number="1.1.2" class="anchored" data-anchor-id="col_match-vs.-col_check_name-col_resolve_name"><span class="header-section-number">1.1.2</span> 2. <code>col_match()</code> vs.&nbsp;<code>col_check_name()</code> / <code>col_resolve_name()</code></h4>
+<ul>
+<li><strong><code>col_match()</code></strong>: Recupera la <strong>información taxonómica cruda completa</strong> directamente desde la API (16 columnas, incluyendo la lista anidada <code>classification</code>, metadatos nomenclaturales, etc.). Es ideal para análisis exhaustivos.</li>
+<li><strong><code>col_check_name()</code> / <code>col_resolve_name()</code></strong>: Organizan y simplifican los resultados en un <code>tibble</code> limpio de 9 columnas esenciales. Muestran de forma rápida si el nombre es <strong>aceptado o sinónimo</strong>, el <strong>nombre aceptado válido</strong>, la autoría y su ID.</li>
+</ul>
+</section>
+<section id="estandarización-de-col_classification-y-clb_classification" class="level4" data-number="1.1.3">
+<h4 data-number="1.1.3" class="anchored" data-anchor-id="estandarización-de-col_classification-y-clb_classification"><span class="header-section-number">1.1.3</span> 3. Estandarización de <code>col_classification()</code> y <code>clb_classification()</code></h4>
+<ul>
+<li><code>col_classification()</code> y <code>clb_classification()</code> se han unificado para permitir:
+<ul>
+<li>Búsqueda por <strong>ID de taxón</strong> (ej. <code>"4V8GC"</code>).</li>
+<li>Búsqueda por <strong>nombre científico directo</strong> (ej. <code>"Schinus molle"</code>).</li>
+<li>Consulta desde un <strong>dataframe de match</strong> (<code>col_check_name()</code> o <code>col_match()</code>).</li>
+<li>Soporte del parámetro <code>wide = TRUE</code> / <code>wide = FALSE</code> para obtener la jerarquía desanidada en formato Ancho o Largo (manteniendo <code>col_extract_classification()</code> como alias totalmente compatible).</li>
+</ul></li>
+</ul>
+</section>
+<section id="flexibilidad-de-entradas-en-el-módulo-de-relaciones" class="level4" data-number="1.1.4">
+<h4 data-number="1.1.4" class="anchored" data-anchor-id="flexibilidad-de-entradas-en-el-módulo-de-relaciones"><span class="header-section-number">1.1.4</span> 4. Flexibilidad de Entradas en el Módulo de Relaciones</h4>
+<p>Todas las funciones del módulo de relaciones (<code>col_synonyms()</code>, <code>col_vernacular()</code>, <code>col_distribution()</code>, <code>col_classification()</code>, <code>col_usage()</code>, <code>col_usage_metrics()</code>) aceptan indistintamente cualquiera de los siguientes tres tipos de entrada: 1. <strong>Un nombre científico directo</strong> (ej. <code>"Werneria nubigena"</code>, <code>"Panthera leo"</code>). 2. <strong>Un ID alfanumérico del COL</strong> (ej. <code>"B87CR"</code>, <code>"4CGXP"</code>). 3. <strong>El dataframe completo devuelto por <code>col_check_name()</code> o <code>col_match()</code></strong>.</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="diagrama-de-flujo-de-dependencias-e-interacciones" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="diagrama-de-flujo-de-dependencias-e-interacciones"><span class="header-section-number">2</span> Diagrama de Flujo de Dependencias e Interacciones</h2>
+<p>El siguiente <strong>Diagrama Interactivo Dinámico</strong> permite explorar la arquitectura de llamadas, herencia de dataframes y flujo de dependencias entre las funciones del paquete <code>rcol</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>💡 <strong>Instrucciones de interacción:</strong> - <strong>Navegación:</strong> Usa la rueda del ratón o los botones flotantes (+ / -) para acercar/alejar y arrastra el lienzo para moverte libremente. - <strong>Mover nodos:</strong> Puedes hacer clic y arrastrar cualquier nodo para acomodarlo a tu gusto. - <strong>Tooltip de información:</strong> Pasa el cursor sobre cualquier nodo para ver una descripción detallada.</p>
+</div>
+</div>
+<script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+<style>
+  #rcol-network-container {
+    width: 100%;
+    height: 650px;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    margin-top: 15px;
+    margin-bottom: 25px;
+  }
+  .rcol-legend {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    font-family: inherit;
+  }
+  .rcol-legend-item {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #495057;
+  }
+  .rcol-legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    margin-right: 6px;
+    border: 1px solid rgba(0,0,0,0.15);
+  }
+</style>
+
+<div class="rcol-legend">
+  <div class="rcol-legend-item"><div class="rcol-legend-color" style="background:#e3f2fd; border-color:#1565c0;"></div> 1. Configuración &amp; Sesión</div>
+  <div class="rcol-legend-item"><div class="rcol-legend-color" style="background:#e8f5e9; border-color:#2e7d32;"></div> 2. Matching &amp; Verificación</div>
+  <div class="rcol-legend-item"><div class="rcol-legend-color" style="background:#fff3e0; border-color:#e65100;"></div> 3. Extracción Clasificación</div>
+  <div class="rcol-legend-item"><div class="rcol-legend-color" style="background:#f3e5f5; border-color:#7b1fa2;"></div> 4. Relaciones Taxonómicas</div>
+  <div class="rcol-legend-item"><div class="rcol-legend-color" style="background:#eceff1; border-color:#455a64;"></div> 5. Árbol Taxonómico</div>
+</div>
+
+<div id="rcol-network-container"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var container = document.getElementById('rcol-network-container');
+  if (!container) return;
+
+  var nodes = new vis.DataSet([
+    // 1. Configuración & Sesión
+    { id: 'base_url', label: 'clb_base_url()', group: 'config', title: 'URL base de ChecklistBank' },
+    { id: 'key', label: 'col_key()', group: 'config', shape: 'ellipse', title: 'Fija versión activa COL (3LXR)' },
+    { id: 'refresh', label: 'col_refresh()', group: 'config', title: 'Refresca clave de versión' },
+
+    // 2. Matching & Verificación
+    { id: 'check_name', label: 'col_check_name()\ncol_resolve_name()', group: 'match', shape: 'box', font: { size: 14, bold: true }, title: 'Verificación limpia de nombres (9 columnas)' },
+    { id: 'col_match', label: 'col_match()', group: 'match', font: { size: 13, bold: true }, title: 'Matching de 1 nombre científico en COL' },
+    { id: 'clb_match', label: 'clb_match()', group: 'match', title: 'Matching universal en ChecklistBank' },
+    { id: 'match_chk', label: 'col_match_checklist()', group: 'match', title: 'Matching masivo en paralelo' },
+    { id: 'clb_chk', label: 'clb_match_checklist()', group: 'match', title: 'Matching masivo universal' },
+    { id: 'match_verb', label: 'col_match_verbose()', group: 'match', title: 'Matching con lista de homónimos' },
+
+    // 3. Extracción Clasificación
+    { id: 'col_ext', label: 'col_extract_classification()', group: 'extract', shape: 'box', font: { size: 14, bold: true }, title: 'Extrae jerarquía a formato Ancho o Largo' },
+    { id: 'clb_ext', label: 'clb_extract_classification()', group: 'extract', title: 'Extrae jerarquía universal' },
+
+    // 4. Relaciones Taxonómicas
+    { id: 'col_syn', label: 'col_synonyms()', group: 'rel', font: { size: 13, bold: true }, title: 'Sinónimos etiquetados (acepta df de match)' },
+    { id: 'clb_syn', label: 'clb_synonyms()', group: 'rel', title: 'Sinónimos universal' },
+    { id: 'col_vern', label: 'col_vernacular()', group: 'rel', font: { size: 13, bold: true }, title: 'Nombres comunes depurados (acepta df de match)' },
+    { id: 'clb_vern', label: 'clb_vernacular()', group: 'rel', title: 'Nombres comunes universal' },
+    { id: 'col_dist', label: 'col_distribution()', group: 'rel', shape: 'box', font: { size: 14, bold: true }, title: 'Distribución geográfica tidy (columna area)' },
+    { id: 'clb_dist', label: 'clb_distribution()', group: 'rel', title: 'Distribución geográfica universal' },
+    { id: 'col_usage', label: 'col_usage()', group: 'rel', title: 'Detalles de uso taxonómico' },
+    { id: 'clb_usage', label: 'clb_usage()', group: 'rel', title: 'Detalles universal' },
+
+    // 5. Árbol Taxonómico
+    { id: 'col_tree', label: 'col_tree()', group: 'tree', title: 'Nodos del árbol taxonómico' },
+    { id: 'clb_tree', label: 'clb_tree()', group: 'tree', title: 'Árbol universal' },
+    { id: 'col_child', label: 'col_children()', group: 'tree', title: 'Hijos directos del taxón' },
+    { id: 'clb_child', label: 'clb_children()', group: 'tree', title: 'Hijos directos universal' }
+  ]);
+
+  var edges = new vis.DataSet([
+    // Configuración
+    { from: 'key', to: 'col_match', label: 'pin versión', dashes: true, color: { color: '#1565c0' } },
+    { from: 'key', to: 'match_chk', label: 'pin versión', dashes: true, color: { color: '#1565c0' } },
+    { from: 'key', to: 'col_dist', label: 'pin versión', dashes: true, color: { color: '#1565c0' } },
+    { from: 'key', to: 'refresh', label: 'refresca' },
+
+    // Matching
+    { from: 'check_name', to: 'col_match', label: '1 nombre', width: 2 },
+    { from: 'check_name', to: 'match_chk', label: 'varios nombres', width: 2 },
+    { from: 'col_match', to: 'clb_match', label: 'delega' },
+    { from: 'match_chk', to: 'clb_chk', label: 'delega' },
+    { from: 'match_verb', to: 'clb_match_verbose', label: 'delega' },
+
+    // Flujo de Dataframe
+    { from: 'check_name', to: 'col_ext', label: 'pasa dataframe', color: { color: '#e65100' }, width: 2.5 },
+    { from: 'check_name', to: 'col_syn', label: 'pasa dataframe', color: { color: '#7b1fa2' }, width: 2.5 },
+    { from: 'check_name', to: 'col_vern', label: 'pasa dataframe', color: { color: '#7b1fa2' }, width: 2.5 },
+    { from: 'check_name', to: 'col_dist', label: 'pasa dataframe', color: { color: '#7b1fa2' }, width: 2.5 },
+
+    { from: 'col_match', to: 'col_ext', label: 'pasa dataframe', color: { color: '#e65100' } },
+    { from: 'col_match', to: 'col_syn', label: 'pasa dataframe', color: { color: '#7b1fa2' } },
+    { from: 'col_match', to: 'col_vern', label: 'pasa dataframe', color: { color: '#7b1fa2' } },
+    { from: 'col_match', to: 'col_dist', label: 'pasa dataframe', color: { color: '#7b1fa2' } },
+
+    // Delegación alto -> bajo nivel
+    { from: 'col_ext', to: 'clb_ext', label: 'delega' },
+    { from: 'col_syn', to: 'clb_syn', label: 'delega' },
+    { from: 'col_vern', to: 'clb_vern', label: 'delega' },
+    { from: 'col_dist', to: 'clb_dist', label: 'delega' },
+    { from: 'col_usage', to: 'clb_usage', label: 'delega' },
+    { from: 'col_tree', to: 'clb_tree', label: 'delega' },
+    { from: 'col_child', to: 'clb_child', label: 'delega' }
+  ]);
+
+  var data = { nodes: nodes, edges: edges };
+
+  var options = {
+    groups: {
+      config: { color: { background: '#e3f2fd', border: '#1565c0' }, font: { color: '#0d47a1', face: 'Segoe UI' } },
+      match: { color: { background: '#e8f5e9', border: '#2e7d32' }, font: { color: '#1b5e20', face: 'Segoe UI' } },
+      extract: { color: { background: '#fff3e0', border: '#e65100' }, font: { color: '#bf360c', face: 'Segoe UI' } },
+      rel: { color: { background: '#f3e5f5', border: '#7b1fa2' }, font: { color: '#4a148c', face: 'Segoe UI' } },
+      tree: { color: { background: '#eceff1', border: '#455a64' }, font: { color: '#263238', face: 'Segoe UI' } }
+    },
+    nodes: {
+      shape: 'box',
+      margin: 12,
+      shadow: { enabled: true, color: 'rgba(0,0,0,0.08)', size: 6, x: 2, y: 2 },
+      font: { face: 'Segoe UI', size: 12 }
+    },
+    edges: {
+      arrows: { to: { enabled: true, scaleFactor: 0.8 } },
+      smooth: { type: 'cubicBezier', forceDirection: 'vertical', roundness: 0.4 },
+      font: { size: 10, align: 'horizontal', face: 'Segoe UI' }
+    },
+    physics: {
+      solver: 'hierarchicalRepulsion',
+      hierarchicalRepulsion: {
+        centralGravity: 0.0,
+        springLength: 120,
+        springConstant: 0.05,
+        nodeDistance: 160,
+        damping: 0.09
+      },
+      stabilization: { iterations: 200 }
+    },
+    interaction: {
+      hover: true,
+      tooltipDelay: 100,
+      zoomView: true,
+      dragView: true,
+      navigationButtons: true
+    }
+  };
+
+  var network = new vis.Network(container, data, options);
+});
+</script>
+<hr>
+</section>
+<section id="especificación-de-funciones-por-módulo" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="especificación-de-funciones-por-módulo"><span class="header-section-number">3</span> Especificación de Funciones por Módulo</h2>
+<section id="configuración-de-entorno-y-pinning-de-versión" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="configuración-de-entorno-y-pinning-de-versión"><span class="header-section-number">3.1</span> 1. Configuración de Entorno y Pinning de Versión</h3>
+<section id="clb_base_url" class="level4" data-number="3.1.1">
+<h4 data-number="3.1.1" class="anchored" data-anchor-id="clb_base_url"><span class="header-section-number">3.1.1</span> <code>clb_base_url()</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Obtiene la URL base de la API de ChecklistBank.</li>
+<li><strong>Entradas (<code>Inputs</code>):</strong> Ninguna (lee la variable de entorno <code>CLB_BASE_URL</code> o usa <code>"https://api.checklistbank.org"</code>).</li>
+<li><strong>Salida (<code>Output</code>):</strong> Vector de caracteres de longitud 1 (<code>character</code>).</li>
+</ul>
+</section>
+<section id="col_keyrefresh-false" class="level4" data-number="3.1.2">
+<h4 data-number="3.1.2" class="anchored" data-anchor-id="col_keyrefresh-false"><span class="header-section-number">3.1.2</span> <code>col_key(refresh = FALSE)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Resuelve la clave numérica de la versión extendida de COL (<code>"3LXR"</code>) y la almacena en caché de sesión.</li>
+<li><strong>Entradas (<code>Inputs</code>):</strong> <code>refresh</code> (<code>logical</code>, por defecto <code>FALSE</code>).</li>
+<li><strong>Salida (<code>Output</code>):</strong> Vector entero (<code>integer</code> key, ej. <code>3</code>).</li>
+</ul>
+</section>
+<section id="col_refresh" class="level4" data-number="3.1.3">
+<h4 data-number="3.1.3" class="anchored" data-anchor-id="col_refresh"><span class="header-section-number">3.1.3</span> <code>col_refresh()</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Fuerza la re-resolución y actualización de la versión del COL fijada en sesión.</li>
+<li><strong>Entradas (<code>Inputs</code>):</strong> Ninguna.</li>
+<li><strong>Salida (<code>Output</code>):</strong> Vector entero (<code>integer</code>), de forma invisible.</li>
+</ul>
+</section>
+<section id="clb_col_releasecadence-cmonthly-annual-extended-false" class="level4" data-number="3.1.4">
+<h4 data-number="3.1.4" class="anchored" data-anchor-id="clb_col_releasecadence-cmonthly-annual-extended-false"><span class="header-section-number">3.1.4</span> <code>clb_col_release(cadence = c("monthly", "annual"), extended = FALSE)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Obtiene el alias estándar del release de COL (ej. <code>"3LR"</code>, <code>"3LXR"</code>, <code>"COL25"</code>).</li>
+<li><strong>Entradas (<code>Inputs</code>):</strong> <code>cadence</code> (<code>"monthly"</code> o <code>"annual"</code>), <code>extended</code> (<code>logical</code>).</li>
+<li><strong>Salida (<code>Output</code>):</strong> Vector de caracteres (<code>character</code>, ej. <code>"3LXR"</code>).</li>
+</ul>
+</section>
+<section id="clb_col_releasesproject-3l-..." class="level4" data-number="3.1.5">
+<h4 data-number="3.1.5" class="anchored" data-anchor-id="clb_col_releasesproject-3l-..."><span class="header-section-number">3.1.5</span> <code>clb_col_releases(project = 3L, ...)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Lista todas las versiones históricas anuales y mensuales derivadas del proyecto COL (<code>project = 3</code>).</li>
+<li><strong>Entradas (<code>Inputs</code>):</strong> <code>project</code> (<code>integer</code>), parámetros adicionales.</li>
+<li><strong>Salida (<code>Output</code>):</strong> <code>tibble</code> con columnas <code>key</code>, <code>alias</code>, <code>title</code>, <code>issued</code>, <code>version</code>, etc.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="coincidencia-taxonómica-name-matching-y-verificación" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="coincidencia-taxonómica-name-matching-y-verificación"><span class="header-section-number">3.2</span> 2. Coincidencia Taxonómica (<em>Name Matching</em>) y Verificación</h3>
+<section id="clb_resolve_namename-...-clb_check_namename-...-col_resolve_namename-...-col_check_namename-..." class="level4" data-number="3.2.1">
+<h4 data-number="3.2.1" class="anchored" data-anchor-id="clb_resolve_namename-...-clb_check_namename-...-col_resolve_namename-...-col_check_namename-..."><span class="header-section-number">3.2.1</span> <code>clb_resolve_name(name, ...)</code> / <code>clb_check_name(name, ...)</code> / <code>col_resolve_name(name, ...)</code> / <code>col_check_name(name, ...)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Resolución limpia y simplificada de alta legibilidad para verificar directamente el nombre válido/aceptado de una especie o lista de especies. Elimina la complejidad de metadatos crudos y listas anidadas de <code>col_match()</code>.</li>
+<li><strong>Entradas (<code>Inputs</code>):</strong> <code>name</code> (cadena de texto simple o vector de caracteres).</li>
+<li><strong>Salida (<code>Output</code>):</strong> <code>tibble</code> compacto con 9 columnas esenciales en orden de lectura: <code>queried_name</code>, <code>matched_name</code>, <code>status</code>, <code>accepted_name</code>, <code>accepted_authorship</code>, <code>accepted_rank</code>, <code>accepted_id</code>, <code>match</code>, <code>match_type</code>.</li>
+<li><strong>Dependencias:</strong> Llama internamente a <code>col_match()</code> para 1 especie o <code>col_match_checklist()</code> para vectores de especies.</li>
+</ul>
+</section>
+<section id="clb_matchname-authorship-null-rank-null-code-null-dataset-3lxr-server-null-.raw-false-col_match..." class="level4" data-number="3.2.2">
+<h4 data-number="3.2.2" class="anchored" data-anchor-id="clb_matchname-authorship-null-rank-null-code-null-dataset-3lxr-server-null-.raw-false-col_match..."><span class="header-section-number">3.2.2</span> <code>clb_match(name, authorship = NULL, rank = NULL, code = NULL, dataset = "3LXR", server = NULL, .raw = FALSE)</code> / <code>col_match(...)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Busca la única mejor coincidencia para un nombre científico en un dataset.</li>
+<li><strong>Entradas (<code>Inputs</code>):</strong> <code>name</code> (<code>character</code>), <code>authorship</code>, <code>rank</code>, <code>code</code>, <code>dataset</code>, <code>server</code>, <code>.raw</code>.</li>
+<li><strong>Salida (<code>Output</code>):</strong> <code>tibble</code> de <strong>1 fila × 16 columnas</strong> (<code>match</code>, <code>match_type</code>, <code>usage_id</code>, <code>name</code>, <code>authorship</code>, <code>rank</code>, <code>status</code>, <code>accepted_id</code>, <code>accepted_name</code>, <code>accepted_authorship</code>, <code>code</code>, <code>label</code>, <code>parent_id</code>, <code>names_index_id</code>, <code>names_index_match_type</code>, <code>classification</code>). Resuelve automáticamente el taxón aceptado (<code>accepted_*</code>) tanto para nombres aceptados como para sinónimos.</li>
+</ul>
+</section>
+<section id="clb_match_verbose...-col_match_verbose..." class="level4" data-number="3.2.3">
+<h4 data-number="3.2.3" class="anchored" data-anchor-id="clb_match_verbose...-col_match_verbose..."><span class="header-section-number">3.2.3</span> <code>clb_match_verbose(...)</code> / <code>col_match_verbose(...)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Retorna la coincidencia principal junto con todos los homónimos o candidatos alternativos.</li>
+<li><strong>Salida (<code>Output</code>):</strong> <code>tibble</code> de N filas con una columna lógica <code>primary</code> (<code>TRUE</code> para la coincidencia elegida, <code>FALSE</code> para las alternativas).</li>
+</ul>
+</section>
+<section id="clb_match_checklistdata-name-name-authorship-authorship-rank-rank-code-code-dataset-3lxr-server-null-max_active-5l-col_match_checklist..." class="level4" data-number="3.2.4">
+<h4 data-number="3.2.4" class="anchored" data-anchor-id="clb_match_checklistdata-name-name-authorship-authorship-rank-rank-code-code-dataset-3lxr-server-null-max_active-5l-col_match_checklist..."><span class="header-section-number">3.2.4</span> <code>clb_match_checklist(data, name = "name", authorship = "authorship", rank = "rank", code = "code", dataset = "3LXR", server = NULL, max_active = 5L)</code> / <code>col_match_checklist(...)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Realiza el emparejamiento masivo de una lista o data frame de nombres usando solicitudes HTTP en paralelo (<code>httr2::req_perform_parallel</code>).</li>
+<li><strong>Salida (<code>Output</code>):</strong> <code>tibble</code> con las columnas originales de entrada prefijadas con <code>verbatim_*</code> seguidas de las columnas de resultado de match.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="extracción-de-clasificación-jerárquica" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="extracción-de-clasificación-jerárquica"><span class="header-section-number">3.3</span> 3. Extracción de Clasificación Jerárquica</h3>
+<section id="clb_extract_classificationdata-wide-false-dataset-3lxr-...-col_extract_classificationdata-wide-false-..." class="level4" data-number="3.3.1">
+<h4 data-number="3.3.1" class="anchored" data-anchor-id="clb_extract_classificationdata-wide-false-dataset-3lxr-...-col_extract_classificationdata-wide-false-..."><span class="header-section-number">3.3.1</span> <code>clb_extract_classification(data, wide = FALSE, dataset = "3LXR", ...)</code> / <code>col_extract_classification(data, wide = FALSE, ...)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Desanida y extrae la jerarquía taxonómica completa a una tabla limpia en formato Largo o Ancho (<code>wide = TRUE</code>). Admite vectores de nombres o dataframes devueltos por <code>col_check_name()</code> o <code>col_match()</code>.</li>
+<li><strong>Entradas (<code>Inputs</code>):</strong> <code>data</code> (vector de caracteres o dataframe de match), <code>wide</code> (<code>logical</code>, <code>FALSE</code> para formato largo, <code>TRUE</code> para formato ancho con columnas <code>kingdom</code>, <code>phylum</code>, <code>class</code>, <code>order</code>, <code>family</code>, <code>genus</code>, <code>species</code>).</li>
+<li><strong>Salida (<code>Output</code>):</strong> <code>tibble</code> estructurado con la clasificación completa.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="consultas-de-usos-taxonómicos-y-búsqueda-libre" class="level3" data-number="3.4">
+<h3 data-number="3.4" class="anchored" data-anchor-id="consultas-de-usos-taxonómicos-y-búsqueda-libre"><span class="header-section-number">3.4</span> 4. Consultas de Usos Taxonómicos y Búsqueda Libre</h3>
+<section id="clb_usageid-dataset-3lxr-.raw-false-col_usageid-.raw-false" class="level4" data-number="3.4.1">
+<h4 data-number="3.4.1" class="anchored" data-anchor-id="clb_usageid-dataset-3lxr-.raw-false-col_usageid-.raw-false"><span class="header-section-number">3.4.1</span> <code>clb_usage(id, dataset = "3LXR", .raw = FALSE)</code> / <code>col_usage(id, .raw = FALSE)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Obtiene los detalles completos de un uso taxonómico (especie o sinónimo) por su ID único.</li>
+<li><strong>Salida (<code>Output</code>):</strong> <code>tibble</code> de <strong>1 fila</strong> (<code>id</code>, <code>scientific_name</code>, <code>authorship</code>, <code>rank</code>, <code>status</code>, <code>label</code>, <code>parent_id</code>, <code>extinct</code>, <code>name</code>).</li>
+</ul>
+</section>
+<section id="clb_usage_searchq-null-dataset-3lxr-rank-null-status-null-...-limit-50l-max-limit-col_usage_search..." class="level4" data-number="3.4.2">
+<h4 data-number="3.4.2" class="anchored" data-anchor-id="clb_usage_searchq-null-dataset-3lxr-rank-null-status-null-...-limit-50l-max-limit-col_usage_search..."><span class="header-section-number">3.4.2</span> <code>clb_usage_search(q = NULL, dataset = "3LXR", rank = NULL, status = NULL, ..., limit = 50L, max = limit)</code> / <code>col_usage_search(...)</code></h4>
+<ul>
+<li><strong>Aliases:</strong> <code>clb_search()</code>, <code>col_search()</code>.</li>
+<li><strong>Descripción:</strong> Búsqueda por texto libre de usos taxonómicos en un dataset.</li>
+<li><strong>Salida (<code>Output</code>):</strong> Objeto S3 <code>clb</code> con <code>$data</code> (<code>tibble</code> de resultados) y <code>$meta</code> (total de registros).</li>
+</ul>
+</section>
+<section id="clb_suggestq-dataset-3lxr-...-.raw-false-col_suggest..." class="level4" data-number="3.4.3">
+<h4 data-number="3.4.3" class="anchored" data-anchor-id="clb_suggestq-dataset-3lxr-...-.raw-false-col_suggest..."><span class="header-section-number">3.4.3</span> <code>clb_suggest(q, dataset = "3LXR", ..., .raw = FALSE)</code> / <code>col_suggest(...)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Autocompletado rápido de nombres por prefijo.</li>
+<li><strong>Salida (<code>Output</code>):</strong> <code>tibble</code> con sugerencias rápidas (<code>suggestion</code>, <code>usageId</code>, <code>rank</code>, <code>status</code>).</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="relaciones-taxonómicas-jerarquía-sinónimos-nombres-comunes-distribución-y-métricas" class="level3" data-number="3.5">
+<h3 data-number="3.5" class="anchored" data-anchor-id="relaciones-taxonómicas-jerarquía-sinónimos-nombres-comunes-distribución-y-métricas"><span class="header-section-number">3.5</span> 5. Relaciones Taxonómicas: Jerarquía, Sinónimos, Nombres Comunes, Distribución y Métricas</h3>
+<section id="clb_classificationid-dataset-3lxr-wide-false-.raw-false-col_classification..." class="level4" data-number="3.5.1">
+<h4 data-number="3.5.1" class="anchored" data-anchor-id="clb_classificationid-dataset-3lxr-wide-false-.raw-false-col_classification..."><span class="header-section-number">3.5.1</span> <code>clb_classification(id, dataset = "3LXR", wide = FALSE, .raw = FALSE)</code> / <code>col_classification(...)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Retorna la cadena ordenada de ancestros de un taxón por su nombre científico directo, ID o dataframe de match.</li>
+<li><strong>Salida (<code>Output</code>):</strong> <code>tibble</code> de ancestros (1 fila por rango) con columnas limpias: <code>id</code>, <code>scientific_name</code>, <code>authorship</code>, <code>rank</code>, <code>full_name</code> (sin código HTML de cursiva).</li>
+</ul>
+</section>
+<section id="clb_synonymsid-dataset-3lxr-full-false-.raw-false-col_synonymsid-full-false-.raw-false" class="level4" data-number="3.5.2">
+<h4 data-number="3.5.2" class="anchored" data-anchor-id="clb_synonymsid-dataset-3lxr-full-false-.raw-false-col_synonymsid-full-false-.raw-false"><span class="header-section-number">3.5.2</span> <code>clb_synonyms(id, dataset = "3LXR", full = FALSE, .raw = FALSE)</code> / <code>col_synonyms(id, full = FALSE, .raw = FALSE)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Obtiene todos los sinónimos asociados a un taxón. Acepta un <strong>nombre científico directo</strong>, un <strong>ID de taxón</strong>, o un <strong>dataframe devuelto por <code>col_check_name()</code> o <code>col_match()</code></strong>. Por defecto retorna únicamente las 6 columnas esenciales (<code>accepted_name</code>, <code>scientific_name</code>, <code>authorship</code>, <code>synonym_type</code>, <code>rank</code>, <code>full_name</code>).</li>
+<li><strong>Entradas (<code>Inputs</code>):</strong> <code>id</code> (nombre científico, ID o dataframe de match), <code>full</code> (<code>logical</code>, por defecto <code>FALSE</code>).</li>
+<li><strong>Salida (<code>Output</code>):</strong> <code>tibble</code> limpio con 6 columnas esenciales (o metadatos secundarios completos si <code>full = TRUE</code>).</li>
+</ul>
+</section>
+<section id="clb_vernacularid-null-dataset-3lxr-q-null-lang-null-...-limit-50l-max-limit-full-false-col_vernacular..." class="level4" data-number="3.5.3">
+<h4 data-number="3.5.3" class="anchored" data-anchor-id="clb_vernacularid-null-dataset-3lxr-q-null-lang-null-...-limit-50l-max-limit-full-false-col_vernacular..."><span class="header-section-number">3.5.3</span> <code>clb_vernacular(id = NULL, dataset = "3LXR", q = NULL, lang = NULL, ..., limit = 50L, max = limit, full = FALSE)</code> / <code>col_vernacular(...)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Obtiene los nombres comunes o vernáculos por nombre científico directo, vector de múltiples especies, ID de taxón o dataframe de match.</li>
+<li><strong>Salida (<code>Output</code>):</strong> <code>tibble</code> depurado que preserva la asociación de especies mediante la columna <code>scientific_name</code> (<code>scientific_name</code>, <code>name</code>, <code>language</code>, <code>latin</code>, <code>country</code>, <code>area</code>, <code>remarks</code>). Excluye <code>referenceId</code> y metadatos no esenciales por defecto.</li>
+</ul>
+</section>
+<section id="clb_distributionid-dataset-3lxr-tidy-true-full-false-.raw-false-col_distribution..." class="level4" data-number="3.5.4">
+<h4 data-number="3.5.4" class="anchored" data-anchor-id="clb_distributionid-dataset-3lxr-tidy-true-full-false-.raw-false-col_distribution..."><span class="header-section-number">3.5.4</span> <code>clb_distribution(id, dataset = "3LXR", tidy = TRUE, full = FALSE, .raw = FALSE)</code> / <code>col_distribution(...)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Obtiene la distribución geográfica oficial (países y regiones) para un taxón por su nombre científico directo, vector de especies, ID o dataframe de match.</li>
+<li><strong>Entradas (<code>Inputs</code>):</strong> <code>id</code> (cadena, vector o dataframe de match), <code>tidy</code> (<code>logical</code>, por defecto <code>TRUE</code>, desglosa regiones delimitadas por punto y coma en filas individuales), <code>full</code> (<code>logical</code>, por defecto <code>FALSE</code>).</li>
+<li><strong>Salida (<code>Output</code>):</strong> <code>tibble</code> depurado con la columna <code>area</code> (y <code>scientific_name</code> cuando se consultan múltiples especies).</li>
+</ul>
+</section>
+<section id="clb_usage_metricsid-dataset-3lxr-.raw-false-col_usage_metrics..." class="level4" data-number="3.5.5">
+<h4 data-number="3.5.5" class="anchored" data-anchor-id="clb_usage_metricsid-dataset-3lxr-.raw-false-col_usage_metrics..."><span class="header-section-number">3.5.5</span> <code>clb_usage_metrics(id, dataset = "3LXR", .raw = FALSE)</code> / <code>col_usage_metrics(...)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Obtiene métricas del subárbol de un taxón (conteo de especies descendientes, desglose por rango).</li>
+<li><strong>Salida (<code>Output</code>):</strong> <code>tibble</code> de 1 fila con métricas y mapa de recuentos.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="navegación-del-árbol-taxonómico" class="level3" data-number="3.6">
+<h3 data-number="3.6" class="anchored" data-anchor-id="navegación-del-árbol-taxonómico"><span class="header-section-number">3.6</span> 6. Navegación del Árbol Taxonómico</h3>
+<section id="clb_treedataset-3lxr-id-null-extinct-true-...-limit-100l-max-limit-col_tree..." class="level4" data-number="3.6.1">
+<h4 data-number="3.6.1" class="anchored" data-anchor-id="clb_treedataset-3lxr-id-null-extinct-true-...-limit-100l-max-limit-col_tree..."><span class="header-section-number">3.6.1</span> <code>clb_tree(dataset = "3LXR", id = NULL, extinct = TRUE, ..., limit = 100L, max = limit)</code> / <code>col_tree(...)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Retorna los nodos raíz del árbol taxonómico o los hijos directos de un nodo.</li>
+<li><strong>Salida (<code>Output</code>):</strong> <code>tibble</code> de nodos del árbol (<code>id</code>, <code>name</code>, <code>rank</code>, <code>childCount</code>).</li>
+</ul>
+</section>
+<section id="clb_childrenid-dataset-3lxr-extinct-true-...-limit-100l-max-limit-col_children..." class="level4" data-number="3.6.2">
+<h4 data-number="3.6.2" class="anchored" data-anchor-id="clb_childrenid-dataset-3lxr-extinct-true-...-limit-100l-max-limit-col_children..."><span class="header-section-number">3.6.2</span> <code>clb_children(id, dataset = "3LXR", extinct = TRUE, ..., limit = 100L, max = limit)</code> / <code>col_children(...)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Retorna los taxones hijos inmediatos de un taxón padre.</li>
+<li><strong>Salida (<code>Output</code>):</strong> <code>tibble</code> de taxones hijos.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="catálogo-de-datasets" class="level3" data-number="3.7">
+<h3 data-number="3.7" class="anchored" data-anchor-id="catálogo-de-datasets"><span class="header-section-number">3.7</span> 7. Catálogo de Datasets</h3>
+<section id="clb_dataset_searchq-null-..." class="level4" data-number="3.7.1">
+<h4 data-number="3.7.1" class="anchored" data-anchor-id="clb_dataset_searchq-null-..."><span class="header-section-number">3.7.1</span> <code>clb_dataset_search(q = NULL, ...)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Busca conjuntos de datos dentro de ChecklistBank.</li>
+<li><strong>Salida (<code>Output</code>):</strong> Objeto S3 <code>clb</code> de datasets.</li>
+</ul>
+</section>
+<section id="clb_datasetkey-.raw-false-col_dataset..." class="level4" data-number="3.7.2">
+<h4 data-number="3.7.2" class="anchored" data-anchor-id="clb_datasetkey-.raw-false-col_dataset..."><span class="header-section-number">3.7.2</span> <code>clb_dataset(key, .raw = FALSE)</code> / <code>col_dataset(...)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Obtiene los metadatos completos de un conjunto de datos por su clave o alias.</li>
+<li><strong>Salida (<code>Output</code>):</strong> <code>tibble</code> de 1 fila con metadatos del dataset (<code>title</code>, <code>version</code>, <code>publisher</code>, etc.).</li>
+</ul>
+</section>
+<section id="clb_dataset_metricskey-.raw-false-col_dataset_metrics..." class="level4" data-number="3.7.3">
+<h4 data-number="3.7.3" class="anchored" data-anchor-id="clb_dataset_metricskey-.raw-false-col_dataset_metrics..."><span class="header-section-number">3.7.3</span> <code>clb_dataset_metrics(key, .raw = FALSE)</code> / <code>col_dataset_metrics(...)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Métricas globales de un dataset (total de taxones, sinónimos, distribución de rangos).</li>
+<li><strong>Salida (<code>Output</code>):</strong> <code>tibble</code> de métricas del dataset.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="parsers-nomenclaturales-y-de-valores" class="level3" data-number="3.8">
+<h3 data-number="3.8" class="anchored" data-anchor-id="parsers-nomenclaturales-y-de-valores"><span class="header-section-number">3.8</span> 8. Parsers Nomenclaturales y de Valores</h3>
+<section id="clb_parse_namenames-.raw-false" class="level4" data-number="3.8.1">
+<h4 data-number="3.8.1" class="anchored" data-anchor-id="clb_parse_namenames-.raw-false"><span class="header-section-number">3.8.1</span> <code>clb_parse_name(names, .raw = FALSE)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Parsea nombres científicos en sus componentes atómicos (epíteto específico, autoría, género, subgénero).</li>
+<li><strong>Salida (<code>Output</code>):</strong> <code>tibble</code> estructurado del parser taxonómico.</li>
+</ul>
+</section>
+<section id="clb_parsers" class="level4" data-number="3.8.2">
+<h4 data-number="3.8.2" class="anchored" data-anchor-id="clb_parsers"><span class="header-section-number">3.8.2</span> <code>clb_parsers()</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Lista todos los tipos de parsers de valores controlados disponibles en ChecklistBank.</li>
+<li><strong>Salida (<code>Output</code>):</strong> Vector de caracteres con los nombres de los parsers.</li>
+</ul>
+</section>
+<section id="clb_parsetype-values-.raw-false" class="level4" data-number="3.8.3">
+<h4 data-number="3.8.3" class="anchored" data-anchor-id="clb_parsetype-values-.raw-false"><span class="header-section-number">3.8.3</span> <code>clb_parse(type, values, .raw = FALSE)</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Parsea valores utilizando un parser controlado específico (ej. <code>rank</code>, <code>nomStatus</code>).</li>
+<li><strong>Salida (<code>Output</code>):</strong> <code>tibble</code> con los valores mapeados al estándar.</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="ejemplo-completo-de-flujo-de-trabajo-en-r" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="ejemplo-completo-de-flujo-de-trabajo-en-r"><span class="header-section-number">4</span> Ejemplo Completo de Flujo de Trabajo en R</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rcol)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Fijar o verificar la versión activa del Catalogue of Life</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">col_key</span>()</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Verificación limpia de nombres válidos/aceptados (col_check_name)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>especies <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Werneria nubigena"</span>, <span class="st">"Panthera leo"</span>, <span class="st">"Schinus molle"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>resumen_nombres <span class="ot">&lt;-</span> <span class="fu">col_check_name</span>(especies)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(resumen_nombres)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Extracción de clasificación taxonómica jerárquica en formato Ancho</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>clasif_wide <span class="ot">&lt;-</span> <span class="fu">col_extract_classification</span>(resumen_nombres, <span class="at">wide =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(clasif_wide)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Obtención de sinónimos taxonómicos pasando directamente el dataframe de match</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>sinonimos_werneria <span class="ot">&lt;-</span> <span class="fu">col_synonyms</span>(resumen_nombres[<span class="dv">1</span>, ])</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sinonimos_werneria)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Obtención de nombres vernáculos depurados</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>nombres_comunes_leo <span class="ot">&lt;-</span> <span class="fu">col_vernacular</span>(resumen_nombres[<span class="dv">2</span>, ])</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(nombres_comunes_leo)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Obtención de distribución geográfica en formato tidy (columna area)</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>distribucion_schinus <span class="ot">&lt;-</span> <span class="fu">col_distribution</span>(resumen_nombres[<span class="dv">3</span>, ])</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(distribucion_schinus)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 7. Parsing anatómico de nombres científicos</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>parsed <span class="ot">&lt;-</span> <span class="fu">clb_parse_name</span>(<span class="st">"Abies alba Mill. var. alpina"</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(parsed)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="verificación-de-calidad-y-cumplimiento-de-estándares-cran" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="verificación-de-calidad-y-cumplimiento-de-estándares-cran"><span class="header-section-number">5</span> Verificación de Calidad y Cumplimiento de Estándares CRAN</h2>
+<p>Se ha llevado a cabo una auditoría exhaustiva siguiendo los lineamientos de la skill <strong><code>cran-extrachecks</code></strong> y la revisión técnica de paquetes en R:</p>
+<section id="estado-de-r-cmd-check" class="level3" data-number="5.1">
+<h3 data-number="5.1" class="anchored" data-anchor-id="estado-de-r-cmd-check"><span class="header-section-number">5.1</span> 1. Estado de <code>R CMD check</code></h3>
+<ul>
+<li><strong>Resultado:</strong> <code>0 ERRORS | 0 WARNINGS | 0 NOTES</code>.</li>
+<li><strong>Compatibilidad R:</strong> R 4.1+ en plataformas Windows, macOS y Linux.</li>
+<li><strong>Suite de Pruebas Unitarias (<code>testthat</code> edición 3):</strong> 117 pruebas unitarias ejecutadas con resultado <strong>100% PASS</strong> (<code>117 PASS | 0 FAIL | 0 WARN</code>).</li>
+</ul>
+</section>
+<section id="cumplimiento-de-requisitos-cran-extra-checks" class="level3" data-number="5.2">
+<h3 data-number="5.2" class="anchored" data-anchor-id="cumplimiento-de-requisitos-cran-extra-checks"><span class="header-section-number">5.2</span> 2. Cumplimiento de Requisitos CRAN Extra-Checks</h3>
+<ul>
+<li><strong><code>DESCRIPTION</code></strong>:
+<ul>
+<li><code>Title</code>: En formato Title Case, citando correctamente las librerías entre comillas (<code>'rgbif'</code>, <code>'taxadb'</code>).</li>
+<li><code>Description</code>: Explicación desarrollada en múltiples oraciones, sin frases prohibidas.</li>
+<li><code>Authors@R</code>: Incluye el rol de titular de derechos de autor <code>[cph]</code>.</li>
+<li><code>LICENSE</code>: Año actualizado a <strong>2026</strong>.</li>
+</ul></li>
+<li><strong>Documentación de Funciones</strong>:
+<ul>
+<li>Todas las 46 funciones exportadas cuentan con etiqueta <code>@return</code> detallada.</li>
+<li>Todos los argumentos expuestos (<code>wide</code>, <code>full</code>, <code>id</code>, <code>dataset</code>, etc.) están completamente documentados en los archivos <code>.Rd</code>.</li>
+</ul></li>
+<li><strong>Archivos Administrativos</strong>:
+<ul>
+<li><code>NEWS.md</code>: Presente y actualizado con el registro de cambios de la versión <code>0.1.0</code>.</li>
+<li><code>cran-comments.md</code>: Creado y preparado para el proceso de envío a CRAN.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

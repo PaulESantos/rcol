@@ -1,0 +1,95 @@
+url: https://catalogueoflife.github.io/rcol/
+
+development:
+  mode: release
+
+template:
+  bootstrap: 5
+  bootswatch: flatly
+
+navbar:
+  structure:
+    left: [intro, reference, articles, news]
+    right: [search, github]
+  components:
+    github:
+      icon: fa-github
+      href: https://github.com/CatalogueOfLife/rcol
+      aria-label: GitHub repository
+
+articles:
+  - title: Package Guides / Guías de Uso
+    contents:
+      - rcol
+      - rcol-es
+
+reference:
+  - title: Name Verification and Matching (COL)
+    desc: Core functions for scientific name matching, clean 9-column verification, and homonym candidate inspection using the Catalogue of Life extended release.
+    contents:
+      - col_check_name
+      - col_resolve_name
+      - col_match
+      - col_match_checklist
+      - col_match_verbose
+
+  - title: Classification, Synonyms and Relationships (COL)
+    desc: Functions to extract hierarchical classifications (Wide/Long), synonyms, vernacular/common names, and geographic distributions.
+    contents:
+      - col_classification
+      - col_extract_classification
+      - col_synonyms
+      - col_vernacular
+      - col_distribution
+      - col_usage
+      - col_usage_metrics
+
+  - title: Taxonomic Tree and Search (COL)
+    desc: Navigate tree root domains/realms, retrieve immediate child taxa, and perform free-text usage searches.
+    contents:
+      - col_tree
+      - col_children
+      - col_usage_search
+      - col_suggest
+      - col_dataset
+      - col_dataset_metrics
+
+  - title: Session and Release Management
+    desc: Inspect and pin the active Catalogue of Life release for the current R session.
+    contents:
+      - col_key
+      - col_refresh
+      - col_shortcuts
+
+  - title: Universal ChecklistBank Interface (CLB)
+    desc: Low-level complementary functions (`clb_*` family) for advanced queries against any specific ChecklistBank dataset or historical COL release.
+    contents:
+      - clb_check_name
+      - clb_resolve_name
+      - clb_match
+      - clb_match_checklist
+      - clb_match_verbose
+      - clb_classification
+      - clb_extract_classification
+      - clb_synonyms
+      - clb_vernacular
+      - clb_distribution
+      - clb_usage
+      - clb_usage_search
+      - clb_suggest
+      - clb_usage_metrics
+      - clb_tree
+      - clb_children
+      - clb_dataset
+      - clb_dataset_search
+      - clb_dataset_metrics
+      - clb_col_release
+      - clb_col_releases
+      - clb_base_url
+
+  - title: ChecklistBank Parsers
+    desc: Tools for parsing scientific names into atomic epithets and parsing controlled values.
+    contents:
+      - clb_parse_name
+      - clb_parsers
+      - clb_parse
