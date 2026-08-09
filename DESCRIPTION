@@ -2,9 +2,9 @@ Package: rcol
 Title: R Client for the Catalogue of Life / ChecklistBank API
 Version: 0.1.0
 Authors@R: c(
-    person("Markus", "Döring", , "mdoering@gbif.org", role = c("aut", "cre"),
+    person("Markus", "Döring", , "mdoering@gbif.org", role = "aut",
            comment = c(ORCID = "0000-0001-7757-1889")),
-    person("Paul Efren", "Santos Andrade", , "paulefrens@gmail.com", role = "aut",
+    person("Paul Efren", "Santos Andrade", , "paulefrens@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6635-0375")),
     person("Catalogue of Life", role = c("cph", "fnd"))
   )
