@@ -19,16 +19,16 @@ Useful links:
 
 ## Author
 
-**Maintainer**: Markus Döring <mdoering@gbif.org>
-([ORCID](https://orcid.org/0000-0001-7757-1889))
+**Maintainer**: Paul Efren Santos Andrade <paulefrens@gmail.com>
+([ORCID](https://orcid.org/0000-0002-6635-0375))
 
 Authors:
 
-- Markus Döring <mdoering@gbif.org>
-  ([ORCID](https://orcid.org/0000-0001-7757-1889))
-
 - Paul Efren Santos Andrade <paulefrens@gmail.com>
   ([ORCID](https://orcid.org/0000-0002-6635-0375))
+
+- Markus Döring <mdoering@gbif.org>
+  ([ORCID](https://orcid.org/0000-0001-7757-1889))
 
 Other contributors:
 
