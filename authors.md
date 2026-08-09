@@ -2,10 +2,10 @@
 
 ## Authors
 
-- **Markus Döring**. Author. [](https://orcid.org/0000-0001-7757-1889)
-
-- **Paul Efren Santos Andrade**. Author, maintainer.
+- **Paul Efren Santos Andrade**. Author, maintainer, copyright holder.
   [](https://orcid.org/0000-0002-6635-0375)
+
+- **Markus Döring**. Author. [](https://orcid.org/0000-0001-7757-1889)
 
 - **Catalogue of Life**. Copyright holder, funder.
 
@@ -15,14 +15,14 @@ Source:
 [`inst/CITATION`](https://github.com/PaulESantos/rcol/blob/main/inst/CITATION)
 
 Santos Andrade, P. E., & Döring, M. (2026). rcol: R Client for the
-Catalogue of Life / ChecklistBank API. R package version 0.1.0.
+Catalogue of Life / ChecklistBank API. R package version 0.0.1.
 https://paulesantos.github.io/rcol/
 
     @Manual{,
       title = {rcol: R Client for the Catalogue of Life / ChecklistBank API},
       author = {Paul E. {Santos Andrade} and Markus Döring},
       year = {2026},
-      note = {R package version 0.1.0},
+      note = {R package version 0.0.1},
       url = {https://paulesantos.github.io/rcol/},
     }
 

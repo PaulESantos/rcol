@@ -20,12 +20,12 @@ Useful links:
 ## Author
 
 **Maintainer**: Paul Efren Santos Andrade <paulefrens@gmail.com>
-([ORCID](https://orcid.org/0000-0002-6635-0375))
+([ORCID](https://orcid.org/0000-0002-6635-0375)) \[copyright holder\]
 
 Authors:
 
 - Paul Efren Santos Andrade <paulefrens@gmail.com>
-  ([ORCID](https://orcid.org/0000-0002-6635-0375))
+  ([ORCID](https://orcid.org/0000-0002-6635-0375)) \[copyright holder\]
 
 - Markus Döring <mdoering@gbif.org>
   ([ORCID](https://orcid.org/0000-0001-7757-1889))

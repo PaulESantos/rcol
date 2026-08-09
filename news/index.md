@@ -1,10 +1,6 @@
 # Changelog
 
-## rcol (development version)
-
-## rcol 0.1.0
-
-CRAN release: 2021-02-05
+## rcol 0.0.1
 
 - Initial release.
 - `col_*()` shortcut functions

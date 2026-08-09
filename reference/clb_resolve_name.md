@@ -120,25 +120,11 @@ with columns:
 ## Examples
 
 ``` r
-# \donttest{
+if (FALSE) { # \dontrun{
 # Resolve a single name
 col_resolve_name("Werneria nubigena")
-#> # A tibble: 1 × 9
-#>   queried_name      matched_name      status  accepted_name  accepted_authorship
-#>   <chr>             <chr>             <chr>   <chr>          <chr>              
-#> 1 Werneria nubigena Werneria nubigena synonym Rockhausenia … (Kunth) D.J.N.Hind 
-#> # ℹ 4 more variables: accepted_rank <chr>, accepted_id <chr>, match <lgl>,
-#> #   match_type <chr>
 
 # Check multiple names at once
 col_check_name(c("Werneria nubigena", "Panthera leo", "Schinus molle"))
-#> # A tibble: 3 × 9
-#>   queried_name      matched_name      status   accepted_name accepted_authorship
-#>   <chr>             <chr>             <chr>    <chr>         <chr>              
-#> 1 Werneria nubigena Werneria nubigena synonym  Rockhausenia… (Kunth) D.J.N.Hind 
-#> 2 Panthera leo      Panthera leo      accepted Panthera leo  (Linnaeus, 1758)   
-#> 3 Schinus molle     Schinus molle     accepted Schinus molle L.                 
-#> # ℹ 4 more variables: accepted_rank <chr>, accepted_id <chr>, match <lgl>,
-#> #   match_type <chr>
-# }
+} # }
 ```
