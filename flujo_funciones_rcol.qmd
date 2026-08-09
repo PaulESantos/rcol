@@ -443,6 +443,6 @@ Se ha llevado a cabo una auditoría exhaustiva siguiendo los lineamientos de la 
   - Todas las 46 funciones exportadas cuentan con etiqueta `@return` detallada.
   - Todos los argumentos expuestos (`wide`, `full`, `id`, `dataset`, etc.) están completamente documentados en los archivos `.Rd`.
 - **Archivos Administrativos**:
-  - `NEWS.md`: Presente y actualizado con el registro de cambios de la versión `0.1.0`.
+  - `NEWS.md`: Presente y actualizado con el registro de cambios de la versión `0.0.1`.
   - `cran-comments.md`: Creado y preparado para el proceso de envío a CRAN.
 

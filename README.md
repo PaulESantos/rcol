@@ -1,4 +1,5 @@
 
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # rcol
@@ -337,14 +338,32 @@ To cite `rcol` in publications, please use:
 
 ``` r
 citation("rcol")
+#> To cite rcol in publications, please use:
+#> 
+#> To cite the rcol package in publications, please use:
+#> 
+#>   Santos Andrade, P. E., & Döring, M. (2026). rcol: R Client for the
+#>   Catalogue of Life / ChecklistBank API. R package version 0.1.0.
+#>   https://paulesantos.github.io/rcol/
+#> 
+#> The taxonomic data and API services accessed by this package are
+#> provided by:
+#> 
+#>   Bánki, O., Döring, M., & Ower, G. (2026). Catalogue of Life /
+#>   ChecklistBank API. ChecklistBank Infrastructure.
+#>   https://doi.org/10.48580/d4tm
+#> 
+#> To see these entries in BibTeX format, use 'print(<citation>,
+#> bibtex=TRUE)', 'toBibtex(.)', or set
+#> 'options(citation.bibtex.max=999)'.
 ```
 
 - **Package Citation**: Santos Andrade, P. E. & Döring, M. (2026).
   *rcol: R Client for the Catalogue of Life / ChecklistBank API*. R
-  package version 0.1.0. URL: <https://github.com/PaulESantos/rcol>
+  package version 0.0.1. URL: https://github.com/PaulESantos/rcol
 - **Catalogue of Life Data Citation**: Bánki, O., Döring, M., Ower, G.,
   et al. (2026). *Catalogue of Life ChecklistBank API*.
-  <https://doi.org/10.48580/d4tm>
+  https://doi.org/10.48580/d4tm
 
 ## License
 

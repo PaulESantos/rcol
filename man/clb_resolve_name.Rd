@@ -77,7 +77,7 @@ columns, \code{col_resolve_name()} returns only the essential fields needed to
 verify whether a name is accepted or a synonym, and what its accepted name is.
 }
 \examples{
-\donttest{
+\dontrun{
 # Resolve a single name
 col_resolve_name("Werneria nubigena")
 

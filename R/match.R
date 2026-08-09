@@ -358,7 +358,7 @@ col_extract_classification <- clb_extract_classification
 #'
 #' @export
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # Resolve a single name
 #' col_resolve_name("Werneria nubigena")
 #'

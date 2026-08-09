@@ -12,12 +12,12 @@ bibentry(
            comment = c(ORCID = "0000-0001-7757-1889"))
   ),
   year = "2026",
-  note = "R package version 0.1.0",
+  note = "R package version 0.0.1",
   url = "https://paulesantos.github.io/rcol/",
   textVersion = paste(
     "Santos Andrade, P. E., & Döring, M. (2026).",
     "rcol: R Client for the Catalogue of Life / ChecklistBank API.",
-    "R package version 0.1.0.",
+    "R package version 0.0.1.",
     "https://paulesantos.github.io/rcol/"
   ),
   header = "To cite the rcol package in publications, please use:",

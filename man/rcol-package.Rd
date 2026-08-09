@@ -18,11 +18,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Paul Efren Santos Andrade \email{paulefrens@gmail.com} (\href{https://orcid.org/0000-0002-6635-0375}{ORCID})
+\strong{Maintainer}: Paul Efren Santos Andrade \email{paulefrens@gmail.com} (\href{https://orcid.org/0000-0002-6635-0375}{ORCID}) [copyright holder]
 
 Authors:
 \itemize{
-  \item Paul Efren Santos Andrade \email{paulefrens@gmail.com} (\href{https://orcid.org/0000-0002-6635-0375}{ORCID})
+  \item Paul Efren Santos Andrade \email{paulefrens@gmail.com} (\href{https://orcid.org/0000-0002-6635-0375}{ORCID}) [copyright holder]
   \item Markus Döring \email{mdoering@gbif.org} (\href{https://orcid.org/0000-0001-7757-1889}{ORCID})
 }
 

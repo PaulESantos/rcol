@@ -1,11 +1,11 @@
 Package: rcol
 Title: R Client for the Catalogue of Life / ChecklistBank API
-Version: 0.1.0.9000
+Version: 0.0.1
 Authors@R: c(
-    person("Markus", "Döring", , "mdoering@gbif.org", role = "aut",
-           comment = c(ORCID = "0000-0001-7757-1889")),
-    person("Paul Efren", "Santos Andrade", , "paulefrens@gmail.com", role = c("aut", "cre"),
+    person("Paul Efren", "Santos Andrade", email = "paulefrens@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-6635-0375")),
+    person("Markus", "Döring", email = "mdoering@gbif.org", role = "aut",
+           comment = c(ORCID = "0000-0001-7757-1889")),
     person("Catalogue of Life", role = c("cph", "fnd"))
   )
 Description: Access the Catalogue of Life (COL) through the ChecklistBank

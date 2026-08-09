@@ -1,6 +1,4 @@
-# rcol (development version)
-
-# rcol 0.1.0
+# rcol 0.0.1
 
 * Initial release.
 * `col_*()` shortcut functions (`col_match()`, `col_usage()`, `col_tree()`, ...)
