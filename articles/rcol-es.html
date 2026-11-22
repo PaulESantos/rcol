@@ -44,7 +44,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/CatalogueOfLife/rcol" aria-label="GitHub repository"><span class="fa fa-github"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/PaulESantos/rcol" aria-label="GitHub repository"><span class="fa fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -105,7 +105,7 @@ columnas con el nombre aceptado válido y su estado taxonómico:</p>
 <code class="sourceCode R"><span><span class="co"># Verificación depurada de 1 o más especies (9 columnas)</span></span>
 <span><span class="fu"><a href="../reference/clb_resolve_name.html">col_check_name</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Werneria nubigena"</span>, <span class="st">"Panthera leo"</span>, <span class="st">"Schinus molle"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Coincidencia directa completa (16 columnas)</span></span>
+<span><span class="co"># Coincidencia detallada con clasificación</span></span>
 <span><span class="fu"><a href="../reference/col_shortcuts.html">col_match</a></span><span class="op">(</span><span class="st">"Panthera leo"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Inspeccionar candidatos homónimos</span></span>
@@ -117,10 +117,10 @@ columnas con el nombre aceptado válido y su estado taxonómico:</p>
 <div class="section level2">
 <h2 id="clasificación-sinónimos-vernáculos-y-distribución">Clasificación, sinónimos, vernáculos y distribución<a class="anchor" aria-label="anchor" href="#clasificaci%C3%B3n-sin%C3%B3nimos-vern%C3%A1culos-y-distribuci%C3%B3n"></a>
 </h2>
-<p>Todas las funciones de relación aceptan indistintamente
-<strong>nombres científicos directos</strong>, <strong>vectores de
-especies</strong>, <strong>IDs alfanuméricos</strong> o <strong>tablas
-de resultados</strong>:</p>
+<p>Las siguientes funciones de relación aceptan <strong>nombres
+científicos directos</strong>, <strong>vectores de especies</strong>,
+<strong>IDs alfanuméricos</strong> o <strong>tablas de
+resultados</strong>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Jerarquía taxonómica en formato Ancho o Largo</span></span>
 <span><span class="fu"><a href="../reference/col_shortcuts.html">col_classification</a></span><span class="op">(</span><span class="st">"Schinus molle"</span>, wide <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -152,6 +152,107 @@ de resultados</strong>:</p>
 </h2>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/clb_parse_name.html">clb_parse_name</a></span><span class="op">(</span><span class="st">"Abies alba Mill. var. alpina"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="resultados-por-lotes-y-errores">Resultados por lotes y errores<a class="anchor" aria-label="anchor" href="#resultados-por-lotes-y-errores"></a>
+</h2>
+<p><code><a href="../reference/col_shortcuts.html">col_match_checklist()</a></code> y
+<code><a href="../reference/clb_match_checklist.html">clb_match_checklist()</a></code> conservan una fila por entrada y las
+columnas originales con el prefijo <code>verbatim_</code>.</p>
+<table class="table">
+<colgroup>
+<col width="33%">
+<col width="33%">
+<col width="33%">
+</colgroup>
+<thead><tr class="header">
+<th><code>match</code></th>
+<th><code>error</code></th>
+<th>Significado</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>TRUE</code></td>
+<td><code>NA</code></td>
+<td>Se encontró una coincidencia.</td>
+</tr>
+<tr class="even">
+<td><code>FALSE</code></td>
+<td><code>NA</code></td>
+<td>La consulta terminó correctamente, sin coincidencias.</td>
+</tr>
+<tr class="odd">
+<td><code>NA</code></td>
+<td>Mensaje</td>
+<td>Falló la consulta o la interpretación de la respuesta.</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">lote</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/col_shortcuts.html">col_match_checklist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Panthera leo"</span>, <span class="st">"Schinus molle"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">fallidos</span> <span class="op">&lt;-</span> <span class="va">lote</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">lote</span><span class="op">$</span><span class="va">match</span><span class="op">)</span>, <span class="op">]</span></span>
+<span><span class="va">sin_coincidencia</span> <span class="op">&lt;-</span> <span class="va">lote</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">lote</span><span class="op">$</span><span class="va">match</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="va">lote</span><span class="op">$</span><span class="va">match</span>, <span class="op">]</span></span>
+<span><span class="va">coincidencias</span> <span class="op">&lt;-</span> <span class="va">lote</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">lote</span><span class="op">$</span><span class="va">match</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">lote</span><span class="op">$</span><span class="va">match</span>, <span class="op">]</span></span>
+<span><span class="va">fallidos</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"verbatim_name"</span>, <span class="st">"error"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<p>Los fallos anteriores al envío del lote, como la resolución de
+<code><a href="../reference/col_key.html">col_key()</a></code>, siguen generando un error.
+<code><a href="../reference/clb_resolve_name.html">col_check_name()</a></code> conserva <code>match = NA</code> para las
+filas fallidas, pero no incluye la columna <code>error</code>; utiliza
+<code><a href="../reference/col_shortcuts.html">col_match_checklist()</a></code> para consultar el diagnóstico.</p>
+</div>
+<div class="section level2">
+<h2 id="trazabilidad-de-distribuciones-y-respuestas-crudas">Trazabilidad de distribuciones y respuestas crudas<a class="anchor" aria-label="anchor" href="#trazabilidad-de-distribuciones-y-respuestas-crudas"></a>
+</h2>
+<p>Con varias entradas, <code><a href="../reference/clb_distribution.html">col_distribution()</a></code> devuelve
+<code>input_row</code> (posición de la entrada, empezando en uno),
+<code>scientific_name</code> y <code>area</code>. Cada especie puede
+producir varias filas al separar áreas. Las especies sin registros no
+aportan filas: utiliza <code>input_row</code> para asociar los
+resultados con la entrada original.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">especies</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Panthera leo"</span>, <span class="st">"Schinus molle"</span><span class="op">)</span></span>
+<span><span class="va">distribucion</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clb_distribution.html">col_distribution</a></span><span class="op">(</span><span class="va">especies</span><span class="op">)</span></span>
+<span><span class="va">distribucion</span><span class="op">$</span><span class="va">nombre_consultado</span> <span class="op">&lt;-</span> <span class="va">especies</span><span class="op">[</span><span class="va">distribucion</span><span class="op">$</span><span class="va">input_row</span><span class="op">]</span></span>
+<span><span class="fu"><a href="../reference/clb_distribution.html">col_distribution</a></span><span class="op">(</span><span class="va">especies</span>, full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Clasificación desde un ID o una tabla de verificación</span></span>
+<span><span class="fu"><a href="../reference/col_shortcuts.html">col_classification</a></span><span class="op">(</span><span class="st">"4CGXP"</span>, wide <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">verificado</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clb_resolve_name.html">col_check_name</a></span><span class="op">(</span><span class="st">"Schinus molle"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/col_shortcuts.html">col_classification</a></span><span class="op">(</span><span class="va">verificado</span>, wide <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Lista de respuestas completas, una por entrada</span></span>
+<span><span class="va">respuestas</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/col_shortcuts.html">col_usage</a></span><span class="op">(</span><span class="va">especies</span>, .raw <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">respuestas</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<p>Para una sola entrada, la distribución devuelve <code>area</code> por
+defecto; <code>full = TRUE</code> añade <code>scientific_name</code> y
+los metadatos. Las consultas de usos, clasificación, sinónimos, nombres
+comunes y distribución con varias entradas y <code>.raw = TRUE</code>
+devuelven una lista de respuestas completas, incluidas las vacías. Con
+una entrada devuelven una sola respuesta. En clasificación,
+<code>.raw = TRUE</code> tiene prioridad sobre <code>wide</code>.</p>
+<p>Al recibir una tabla, la resolución busca un ID válido en
+<code>accepted_id</code>, <code>usage_id</code> e <code>id</code>, en
+ese orden, omitiendo valores ausentes o vacíos. Las filas sin resolución
+producen un error. Filtra los fallos y las filas sin coincidencia antes
+de utilizar los resultados en otra consulta taxonómica.</p>
+</div>
+<div class="section level2">
+<h2 id="documentación-y-pruebas-sin-conexión">Documentación y pruebas sin conexión<a class="anchor" aria-label="anchor" href="#documentaci%C3%B3n-y-pruebas-sin-conexi%C3%B3n"></a>
+</h2>
+<p>El README y las viñetas muestran los ejemplos de la API sin
+ejecutarlos durante la construcción. Las pruebas unitarias no necesitan
+acceso a ChecklistBank; las pruebas de integración requieren activación
+explícita y se omiten en CRAN.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">test</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Pruebas de integración en una sesión de desarrollo con Internet</span></span>
+<span><span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_envvar.html" class="external-link">with_envvar</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>RCOL_LIVE_TESTS <span class="op">=</span> <span class="st">"true"</span><span class="op">)</span>, <span class="fu">devtools</span><span class="fu">::</span><span class="fu">test</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">check</span><span class="op">(</span>cran <span class="op">=</span> <span class="cn">TRUE</span>, manual <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>La construcción de la documentación requiere Pandoc y el manual PDF
+requiere una instalación funcional de LaTeX, independientemente del
+acceso a la API.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

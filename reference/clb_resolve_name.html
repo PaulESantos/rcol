@@ -31,7 +31,7 @@ verify whether a name is accepted or a synonym, and what its accepted name is.">
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/CatalogueOfLife/rcol" aria-label="GitHub repository"><span class="fa fa-github"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/PaulESantos/rcol" aria-label="GitHub repository"><span class="fa fa-github"></span></a></li>
       </ul></div>
 
 
@@ -133,7 +133,11 @@ locally running dockerized matching container
 <dt>match_type</dt>
 <dd><p>Type of match (<code>"exact"</code>, <code>"variant"</code>, <code>"fuzzy"</code>, etc.).</p></dd>
 
-<dt>status</dt>
+</dl><p>For multiple names, failed requests have <code>match = NA</code>. Use
+<code><a href="clb_match_checklist.html">clb_match_checklist()</a></code> for the per-row <code>error</code> messages, which are not
+included in this simplified summary. Single-name request failures raise
+an error.</p>
+<dl><dt>status</dt>
 <dd><p>Taxonomic status of the queried name (<code>"accepted"</code>, <code>"synonym"</code>).</p></dd>
 
 <dt>matched_name</dt>

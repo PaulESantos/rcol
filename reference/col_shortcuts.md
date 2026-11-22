@@ -141,7 +141,11 @@ col_children(id, extinct = TRUE, ..., limit = 100L, max = limit, .raw = FALSE)
 
 ## Value
 
-As the corresponding `clb_*()` function.
+As the corresponding `clb_*()` function. Batch matching distinguishes
+failed requests (`match = NA`, with an `error` message) from successful
+non-matches (`match = FALSE`). Usage, classification, synonym and
+vernacular lookups with multiple inputs and `.raw = TRUE` return a list
+of intact responses in input order.
 
 ## See also
 

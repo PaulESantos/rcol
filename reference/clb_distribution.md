@@ -31,9 +31,10 @@ col_distribution(id, tidy = TRUE, full = FALSE, .raw = FALSE)
 
 - full:
 
-  Logical. If `FALSE` (default), returns only the essential `area`
-  column. If `TRUE`, includes secondary metadata (`gazetteer`, `status`,
-  `remarks`, `reference_id`).
+  Logical. If `FALSE` (default), returns `area` for one input, or
+  `input_row`, `scientific_name` and `area` for multiple inputs. If
+  `TRUE`, also includes `scientific_name` for one input and secondary
+  metadata (`gazetteer`, `status`, `remarks`, `reference_id`).
 
 - .raw:
 
@@ -45,7 +46,9 @@ A [tibble](https://tibble.tidyverse.org/reference/tibble.html) of
 distribution records. Multiple inputs include `input_row` (the one-based
 input position) and `scientific_name`. `full = TRUE` also retains
 `scientific_name` for a single input. With `.raw = TRUE`, multiple
-inputs return a list of intact responses.
+inputs return a list of intact responses. Inputs without distribution
+records contribute no rows to the tibble; `input_row` preserves the
+original position of inputs that have records.
 
 ## Examples
 

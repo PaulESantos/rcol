@@ -93,6 +93,11 @@ with columns:
 
   Type of match (`"exact"`, `"variant"`, `"fuzzy"`, etc.).
 
+For multiple names, failed requests have `match = NA`. Use
+[`clb_match_checklist()`](https://paulesantos.github.io/rcol/reference/clb_match_checklist.md)
+for the per-row `error` messages, which are not included in this
+simplified summary. Single-name request failures raise an error.
+
 - status:
 
   Taxonomic status of the queried name (`"accepted"`, `"synonym"`).

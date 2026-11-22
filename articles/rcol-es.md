@@ -44,7 +44,7 @@ columnas con el nombre aceptado válido y su estado taxonómico:
 # Verificación depurada de 1 o más especies (9 columnas)
 col_check_name(c("Werneria nubigena", "Panthera leo", "Schinus molle"))
 
-# Coincidencia directa completa (16 columnas)
+# Coincidencia detallada con clasificación
 col_match("Panthera leo")
 
 # Inspeccionar candidatos homónimos
@@ -56,9 +56,9 @@ col_match_checklist(c("Panthera leo", "Bufo bufo", "Abies alba"))
 
 ## Clasificación, sinónimos, vernáculos y distribución
 
-Todas las funciones de relación aceptan indistintamente **nombres
-científicos directos**, **vectores de especies**, **IDs alfanuméricos**
-o **tablas de resultados**:
+Las siguientes funciones de relación aceptan **nombres científicos
+directos**, **vectores de especies**, **IDs alfanuméricos** o **tablas
+de resultados**:
 
 ``` r
 
@@ -95,3 +95,95 @@ col_usage_search("Felidae", rank = "species")
 
 clb_parse_name("Abies alba Mill. var. alpina")
 ```
+
+## Resultados por lotes y errores
+
+[`col_match_checklist()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md)
+y
+[`clb_match_checklist()`](https://paulesantos.github.io/rcol/reference/clb_match_checklist.md)
+conservan una fila por entrada y las columnas originales con el prefijo
+`verbatim_`.
+
+| `match` | `error` | Significado                                            |
+|---------|---------|--------------------------------------------------------|
+| `TRUE`  | `NA`    | Se encontró una coincidencia.                          |
+| `FALSE` | `NA`    | La consulta terminó correctamente, sin coincidencias.  |
+| `NA`    | Mensaje | Falló la consulta o la interpretación de la respuesta. |
+
+``` r
+
+lote <- col_match_checklist(c("Panthera leo", "Schinus molle"))
+fallidos <- lote[is.na(lote$match), ]
+sin_coincidencia <- lote[!is.na(lote$match) & !lote$match, ]
+coincidencias <- lote[!is.na(lote$match) & lote$match, ]
+fallidos[c("verbatim_name", "error")]
+```
+
+Los fallos anteriores al envío del lote, como la resolución de
+[`col_key()`](https://paulesantos.github.io/rcol/reference/col_key.md),
+siguen generando un error.
+[`col_check_name()`](https://paulesantos.github.io/rcol/reference/clb_resolve_name.md)
+conserva `match = NA` para las filas fallidas, pero no incluye la
+columna `error`; utiliza
+[`col_match_checklist()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md)
+para consultar el diagnóstico.
+
+## Trazabilidad de distribuciones y respuestas crudas
+
+Con varias entradas,
+[`col_distribution()`](https://paulesantos.github.io/rcol/reference/clb_distribution.md)
+devuelve `input_row` (posición de la entrada, empezando en uno),
+`scientific_name` y `area`. Cada especie puede producir varias filas al
+separar áreas. Las especies sin registros no aportan filas: utiliza
+`input_row` para asociar los resultados con la entrada original.
+
+``` r
+
+especies <- c("Panthera leo", "Schinus molle")
+distribucion <- col_distribution(especies)
+distribucion$nombre_consultado <- especies[distribucion$input_row]
+col_distribution(especies, full = TRUE)
+
+# Clasificación desde un ID o una tabla de verificación
+col_classification("4CGXP", wide = TRUE)
+verificado <- col_check_name("Schinus molle")
+col_classification(verificado, wide = TRUE)
+
+# Lista de respuestas completas, una por entrada
+respuestas <- col_usage(especies, .raw = TRUE)
+respuestas[[1]]
+```
+
+Para una sola entrada, la distribución devuelve `area` por defecto;
+`full = TRUE` añade `scientific_name` y los metadatos. Las consultas de
+usos, clasificación, sinónimos, nombres comunes y distribución con
+varias entradas y `.raw = TRUE` devuelven una lista de respuestas
+completas, incluidas las vacías. Con una entrada devuelven una sola
+respuesta. En clasificación, `.raw = TRUE` tiene prioridad sobre `wide`.
+
+Al recibir una tabla, la resolución busca un ID válido en `accepted_id`,
+`usage_id` e `id`, en ese orden, omitiendo valores ausentes o vacíos.
+Las filas sin resolución producen un error. Filtra los fallos y las
+filas sin coincidencia antes de utilizar los resultados en otra consulta
+taxonómica.
+
+## Documentación y pruebas sin conexión
+
+El README y las viñetas muestran los ejemplos de la API sin ejecutarlos
+durante la construcción. Las pruebas unitarias no necesitan acceso a
+ChecklistBank; las pruebas de integración requieren activación explícita
+y se omiten en CRAN.
+
+``` r
+
+devtools::test()
+
+# Pruebas de integración en una sesión de desarrollo con Internet
+withr::with_envvar(c(RCOL_LIVE_TESTS = "true"), devtools::test())
+
+devtools::check(cran = TRUE, manual = TRUE)
+```
+
+La construcción de la documentación requiere Pandoc y el manual PDF
+requiere una instalación funcional de LaTeX, independientemente del
+acceso a la API.

@@ -27,7 +27,7 @@ By default, returns only the clean area column in tidy format."></head><body>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/CatalogueOfLife/rcol" aria-label="GitHub repository"><span class="fa fa-github"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/PaulESantos/rcol" aria-label="GitHub repository"><span class="fa fa-github"></span></a></li>
       </ul></div>
 
 
@@ -70,7 +70,10 @@ By default, returns only the clean <code>area</code> column in tidy format.</p>
 
 
 <dt id="arg-full">full<a class="anchor" aria-label="anchor" href="#arg-full"></a></dt>
-<dd><p>Logical. If <code>FALSE</code> (default), returns only the essential <code>area</code> column. If <code>TRUE</code>, includes secondary metadata (<code>gazetteer</code>, <code>status</code>, <code>remarks</code>, <code>reference_id</code>).</p></dd>
+<dd><p>Logical. If <code>FALSE</code> (default), returns <code>area</code> for one input, or
+<code>input_row</code>, <code>scientific_name</code> and <code>area</code> for multiple inputs. If <code>TRUE</code>,
+also includes <code>scientific_name</code> for one input and secondary metadata
+(<code>gazetteer</code>, <code>status</code>, <code>remarks</code>, <code>reference_id</code>).</p></dd>
 
 
 <dt id="arg--raw">.raw<a class="anchor" aria-label="anchor" href="#arg--raw"></a></dt>
@@ -82,7 +85,9 @@ By default, returns only the clean <code>area</code> column in tidy format.</p>
     <p>A <a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a> of distribution records. Multiple inputs
 include <code>input_row</code> (the one-based input position) and <code>scientific_name</code>.
 <code>full = TRUE</code> also retains <code>scientific_name</code> for a single input.
-With <code>.raw = TRUE</code>, multiple inputs return a list of intact responses.</p>
+With <code>.raw = TRUE</code>, multiple inputs return a list of intact responses.
+Inputs without distribution records contribute no rows to the tibble;
+<code>input_row</code> preserves the original position of inputs that have records.</p>
     </div>
 
     <div class="section level2">

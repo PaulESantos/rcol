@@ -38,7 +38,11 @@ clb_classification(id, dataset = "3LXR", wide = FALSE, .raw = FALSE)
 ## Value
 
 A [tibble](https://tibble.tidyverse.org/reference/tibble.html) of
-ancestors or classification.
+ancestors or classification. With `wide = TRUE`, IDs, names and result
+tables are resolved before retrieving the classification; the resolved
+usage's own rank is included when it is a major rank. Multiple inputs
+are supported. `.raw = TRUE` takes precedence over `wide` and returns a
+list of intact responses for multiple inputs.
 
 ## See also
 

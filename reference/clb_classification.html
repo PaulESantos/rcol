@@ -27,7 +27,7 @@ Accepts a taxon ID, a scientific name, or a data frame from col_check_name() or 
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/CatalogueOfLife/rcol" aria-label="GitHub repository"><span class="fa fa-github"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/PaulESantos/rcol" aria-label="GitHub repository"><span class="fa fa-github"></span></a></li>
       </ul></div>
 
 
@@ -73,7 +73,11 @@ Accepts a taxon ID, a scientific name, or a data frame from <code><a href="clb_r
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a> of ancestors or classification.</p>
+    <p>A <a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a> of ancestors or classification. With
+<code>wide = TRUE</code>, IDs, names and result tables are resolved before retrieving
+the classification; the resolved usage's own rank is included when it is
+a major rank. Multiple inputs are supported. <code>.raw = TRUE</code> takes precedence
+over <code>wide</code> and returns a list of intact responses for multiple inputs.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

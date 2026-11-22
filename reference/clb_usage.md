@@ -12,7 +12,10 @@ clb_usage(id, dataset = "3LXR", .raw = FALSE)
 
 - id:
 
-  Usage id within the dataset.
+  Usage id, scientific name, or match-result data frame. Multiple inputs
+  are supported. Missing or empty ID candidates in result tables are
+  skipped in favour of `accepted_id`, `usage_id`, then `id`; unresolved
+  rows raise an error.
 
 - dataset:
 

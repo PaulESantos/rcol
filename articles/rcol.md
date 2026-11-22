@@ -68,7 +68,7 @@ authorship, status, and ID for single or multiple species:
 # Clean 9-column verification
 col_check_name(c("Werneria nubigena", "Panthera leo", "Schinus molle"))
 
-# Full raw match (16 columns)
+# Detailed match with classification
 col_match("Panthera leo")
 
 # Inspect homonym candidates
@@ -91,7 +91,7 @@ clb_match("Bellis perennis", dataset = 2099)
 
 ## Classification, synonyms, vernaculars and distribution
 
-All relationship functions accept **direct scientific names**,
+The following relationship functions accept **direct scientific names**,
 **character vectors of species**, **taxon IDs**, or **match data
 frames**:
 
@@ -138,6 +138,104 @@ col_children("Panthera")
 col_usage_search("Felidae")
 col_suggest("Panth")
 ```
+
+## Batch results and failures
+
+[`col_match_checklist()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md)
+and
+[`clb_match_checklist()`](https://paulesantos.github.io/rcol/reference/clb_match_checklist.md)
+keep one row per input and preserve input columns with a `verbatim_`
+prefix. Inspect `match` and `error` before interpreting the results:
+
+| `match` | `error` | Meaning                                       |
+|---------|---------|-----------------------------------------------|
+| `TRUE`  | `NA`    | A matching usage was returned.                |
+| `FALSE` | `NA`    | The request succeeded but no match was found. |
+| `NA`    | Message | The request or response parsing failed.       |
+
+``` r
+
+batch <- col_match_checklist(c("Panthera leo", "Schinus molle"))
+failed <- batch[is.na(batch$match), ]
+unmatched <- batch[!is.na(batch$match) & !batch$match, ]
+matched <- batch[!is.na(batch$match) & batch$match, ]
+failed[c("verbatim_name", "error")]
+```
+
+These per-row diagnostics apply to batch requests. Failures before
+requests are submitted, such as resolving
+[`col_key()`](https://paulesantos.github.io/rcol/reference/col_key.md),
+still raise an error. The simpler
+[`col_check_name()`](https://paulesantos.github.io/rcol/reference/clb_resolve_name.md)
+summary retains `match = NA` for failed rows but does not include the
+`error` column; use
+[`col_match_checklist()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md)
+when diagnosing failures.
+
+## Distribution provenance and raw responses
+
+For multiple inputs,
+[`col_distribution()`](https://paulesantos.github.io/rcol/reference/clb_distribution.md)
+includes `input_row` (the one-based position in the input),
+`scientific_name`, and `area`. A species can have several rows after
+splitting semicolon-separated areas. Species with no distribution
+records contribute no rows, so use `input_row` rather than row position
+to join results back to your input.
+
+``` r
+
+species <- c("Panthera leo", "Schinus molle")
+distribution <- col_distribution(species)
+distribution$queried_name <- species[distribution$input_row]
+
+# Add status, gazetteer, remarks and reference metadata
+col_distribution(species, full = TRUE)
+
+# Resolve an ID or a verification result before formatting the classification
+col_classification("4CGXP", wide = TRUE)
+verified <- col_check_name("Schinus molle")
+col_classification(verified, wide = TRUE)
+
+# Keep nested API responses intact and aligned with each input
+responses <- col_usage(species, .raw = TRUE)
+responses[[1]]
+```
+
+For a single input, distribution output defaults to `area`;
+`full = TRUE` also includes `scientific_name` and metadata. Usage,
+classification, synonym, vernacular and distribution lookups with
+multiple inputs and `.raw = TRUE` return a list of complete parsed
+responses, including empty responses, instead of combining them into a
+tibble. With one input, `.raw = TRUE` returns the single parsed
+response. For classification, `.raw = TRUE` takes precedence over
+`wide`.
+
+When passing a result table to a taxon lookup, valid IDs are selected in
+order from `accepted_id`, `usage_id`, and `id`, skipping missing or
+empty values. Unresolved rows raise an error. Filter failed and
+unmatched rows before passing a batch result to a downstream lookup.
+
+## Building documentation and running tests
+
+Online examples are displayed without execution when the README and
+vignettes are built. This allows documentation builds without contacting
+ChecklistBank. Unit tests run without API access; live integration tests
+are opt-in and remain skipped on CRAN.
+
+``` r
+
+devtools::test()
+
+# Run live integration tests in a development session with Internet access
+withr::with_envvar(c(RCOL_LIVE_TESTS = "true"), devtools::test())
+
+# Build and check the package, including its vignettes and PDF manual
+devtools::check(cran = TRUE, manual = TRUE)
+```
+
+Documentation builds require Pandoc; the PDF manual also requires a
+working LaTeX installation. These tools are separate from access to the
+API.
 
 ## Custom API Endpoints
 

@@ -53,7 +53,8 @@ match result columns of
 [`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md).
 Failed requests or invalid JSON have `match = NA` and an `error`
 message; successful requests have `error = NA`. A genuine non-match has
-`match = FALSE`.
+`match = FALSE`. Errors before submission of the requests still abort
+the call.
 
 ## See also
 
