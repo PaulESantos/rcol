@@ -16,7 +16,10 @@ col_distribution(id, tidy = TRUE, full = FALSE, .raw = FALSE)
 
 \item{tidy}{Logical. If \code{TRUE} (default), splits semicolon-delimited areas into distinct rows.}
 
-\item{full}{Logical. If \code{FALSE} (default), returns only the essential \code{area} column. If \code{TRUE}, includes secondary metadata (\code{gazetteer}, \code{status}, \code{remarks}, \code{reference_id}).}
+\item{full}{Logical. If \code{FALSE} (default), returns \code{area} for one input, or
+\code{input_row}, \code{scientific_name} and \code{area} for multiple inputs. If \code{TRUE},
+also includes \code{scientific_name} for one input and secondary metadata
+(\code{gazetteer}, \code{status}, \code{remarks}, \code{reference_id}).}
 
 \item{.raw}{Return the raw parsed JSON instead of a tibble?}
 }
@@ -25,6 +28,8 @@ A \link[tibble:tibble]{tibble} of distribution records. Multiple inputs
 include \code{input_row} (the one-based input position) and \code{scientific_name}.
 \code{full = TRUE} also retains \code{scientific_name} for a single input.
 With \code{.raw = TRUE}, multiple inputs return a list of intact responses.
+Inputs without distribution records contribute no rows to the tibble;
+\code{input_row} preserves the original position of inputs that have records.
 }
 \description{
 Retrieves geographic distribution records (regions, countries) for a taxon.

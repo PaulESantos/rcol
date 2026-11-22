@@ -24,7 +24,7 @@ navbar:
         href: articles/rcol-es.html
     github:
       icon: fa-github
-      href: https://github.com/CatalogueOfLife/rcol
+      href: https://github.com/PaulESantos/rcol
       aria-label: GitHub repository
 articles:
 - title: Package Guides / Guías de Uso

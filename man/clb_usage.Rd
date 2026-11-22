@@ -7,7 +7,10 @@
 clb_usage(id, dataset = "3LXR", .raw = FALSE)
 }
 \arguments{
-\item{id}{Usage id within the dataset.}
+\item{id}{Usage id, scientific name, or match-result data frame. Multiple
+inputs are supported. Missing or empty ID candidates in result tables are
+skipped in favour of \code{accepted_id}, \code{usage_id}, then \code{id}; unresolved rows
+raise an error.}
 
 \item{dataset}{Dataset key or alias. Defaults to \code{"3LXR"}.}
 

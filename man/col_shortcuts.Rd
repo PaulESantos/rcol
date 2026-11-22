@@ -121,6 +121,10 @@ function.}
 }
 \value{
 As the corresponding \verb{clb_*()} function.
+Batch matching distinguishes failed requests (\code{match = NA}, with an
+\code{error} message) from successful non-matches (\code{match = FALSE}). Usage,
+classification, synonym and vernacular lookups with multiple inputs and
+\code{.raw = TRUE} return a list of intact responses in input order.
 }
 \description{
 Convenience siblings of the dataset-scoped \verb{clb_*()} functions that always

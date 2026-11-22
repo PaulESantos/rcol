@@ -27,7 +27,10 @@ clb_as_usage_list <- function(x) {
 
 #' Get a name usage (taxon or synonym) by id
 #'
-#' @param id Usage id within the dataset.
+#' @param id Usage id, scientific name, or match-result data frame. Multiple
+#'   inputs are supported. Missing or empty ID candidates in result tables are
+#'   skipped in favour of `accepted_id`, `usage_id`, then `id`; unresolved rows
+#'   raise an error.
 #' @param dataset Dataset key or alias. Defaults to `"3LXR"`.
 #' @param .raw Return the raw parsed JSON instead of a tibble?
 #'
@@ -138,7 +141,11 @@ clb_suggest <- function(q, dataset = "3LXR", ..., .raw = FALSE) {
 #' @param wide Logical. If `TRUE`, returns major ranks in wide format columns (`kingdom` to `species`).
 #' @param .raw Return the raw parsed JSON instead of a tibble?
 #'
-#' @return A [tibble][tibble::tibble] of ancestors or classification.
+#' @return A [tibble][tibble::tibble] of ancestors or classification. With
+#'   `wide = TRUE`, IDs, names and result tables are resolved before retrieving
+#'   the classification; the resolved usage's own rank is included when it is
+#'   a major rank. Multiple inputs are supported. `.raw = TRUE` takes precedence
+#'   over `wide` and returns a list of intact responses for multiple inputs.
 #' @seealso [clb_usage()], [clb_children()], [clb_extract_classification()]
 #' @export
 #' @examples
@@ -421,13 +428,18 @@ clb_usage_metrics <- function(id, dataset = "3LXR", .raw = FALSE) {
 #' @param id Taxon id (character), scientific name, or a data frame from [col_match()] or [col_check_name()].
 #' @param dataset Dataset key or alias. Defaults to `"3LXR"`.
 #' @param tidy Logical. If `TRUE` (default), splits semicolon-delimited areas into distinct rows.
-#' @param full Logical. If `FALSE` (default), returns only the essential `area` column. If `TRUE`, includes secondary metadata (`gazetteer`, `status`, `remarks`, `reference_id`).
+#' @param full Logical. If `FALSE` (default), returns `area` for one input, or
+#'   `input_row`, `scientific_name` and `area` for multiple inputs. If `TRUE`,
+#'   also includes `scientific_name` for one input and secondary metadata
+#'   (`gazetteer`, `status`, `remarks`, `reference_id`).
 #' @param .raw Return the raw parsed JSON instead of a tibble?
 #'
 #' @return A [tibble][tibble::tibble] of distribution records. Multiple inputs
 #'   include `input_row` (the one-based input position) and `scientific_name`.
 #'   `full = TRUE` also retains `scientific_name` for a single input.
 #'   With `.raw = TRUE`, multiple inputs return a list of intact responses.
+#'   Inputs without distribution records contribute no rows to the tibble;
+#'   `input_row` preserves the original position of inputs that have records.
 #' @export
 #' @examples
 #' \dontrun{

@@ -175,6 +175,7 @@ clb_match_verbose <- function(name, authorship = NULL, rank = NULL, code = NULL,
 #'   input columns first followed by the match result columns of [clb_match()].
 #'   Failed requests or invalid JSON have `match = NA` and an `error` message;
 #'   successful requests have `error = NA`. A genuine non-match has `match = FALSE`.
+#'   Errors before submission of the requests still abort the call.
 #' @seealso [clb_match()]
 #' @export
 #' @examples
@@ -358,6 +359,10 @@ col_extract_classification <- clb_extract_classification
 #'   \item{queried_name}{The original scientific name queried.}
 #'   \item{match}{Logical indicator of whether a match was found.}
 #'   \item{match_type}{Type of match (`"exact"`, `"variant"`, `"fuzzy"`, etc.).}
+#'   For multiple names, failed requests have `match = NA`. Use
+#'   [clb_match_checklist()] for the per-row `error` messages, which are not
+#'   included in this simplified summary. Single-name request failures raise
+#'   an error.
 #'   \item{status}{Taxonomic status of the queried name (`"accepted"`, `"synonym"`).}
 #'   \item{matched_name}{Scientific name returned by the match service.}
 #'   \item{accepted_name}{The valid/accepted scientific name.}

@@ -16,7 +16,11 @@ clb_classification(id, dataset = "3LXR", wide = FALSE, .raw = FALSE)
 \item{.raw}{Return the raw parsed JSON instead of a tibble?}
 }
 \value{
-A \link[tibble:tibble]{tibble} of ancestors or classification.
+A \link[tibble:tibble]{tibble} of ancestors or classification. With
+\code{wide = TRUE}, IDs, names and result tables are resolved before retrieving
+the classification; the resolved usage's own rank is included when it is
+a major rank. Multiple inputs are supported. \code{.raw = TRUE} takes precedence
+over \code{wide} and returns a list of intact responses for multiple inputs.
 }
 \description{
 Retrieves the ordered classification hierarchy (ancestors) for a taxon in a dataset.

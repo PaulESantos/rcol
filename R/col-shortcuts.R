@@ -27,6 +27,10 @@
 #' @param .raw Return the raw parsed JSON instead of a tibble?
 #'
 #' @return As the corresponding `clb_*()` function.
+#'   Batch matching distinguishes failed requests (`match = NA`, with an
+#'   `error` message) from successful non-matches (`match = FALSE`). Usage,
+#'   classification, synonym and vernacular lookups with multiple inputs and
+#'   `.raw = TRUE` return a list of intact responses in input order.
 #' @seealso [col_key()], [clb_match()], [clb_usage_search()], [clb_tree()]
 #' @name col_shortcuts
 #' @examples

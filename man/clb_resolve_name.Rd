@@ -63,6 +63,10 @@ A \link[tibble:tibble]{tibble::tibble} with columns:
 \item{queried_name}{The original scientific name queried.}
 \item{match}{Logical indicator of whether a match was found.}
 \item{match_type}{Type of match (\code{"exact"}, \code{"variant"}, \code{"fuzzy"}, etc.).}
+For multiple names, failed requests have \code{match = NA}. Use
+\code{\link[=clb_match_checklist]{clb_match_checklist()}} for the per-row \code{error} messages, which are not
+included in this simplified summary. Single-name request failures raise
+an error.
 \item{status}{Taxonomic status of the queried name (\code{"accepted"}, \code{"synonym"}).}
 \item{matched_name}{Scientific name returned by the match service.}
 \item{accepted_name}{The valid/accepted scientific name.}

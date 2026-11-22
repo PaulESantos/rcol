@@ -1,5 +1,7 @@
 ---
-output: github_document
+output:
+  github_document:
+    html_preview: false
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -23,11 +25,12 @@ via the [ChecklistBank](https://www.checklistbank.org) API
 (<https://api.checklistbank.org>). It allows you to verify and match scientific names, retrieve hierarchical classifications, look up datasets, taxa, synonyms, vernacular names, and geographic distributions, and run ChecklistBank parsers — against **any** public dataset in ChecklistBank or the latest Catalogue of Life release. It is modelled on the conventions of [`rgbif`](https://docs.ropensci.org/rgbif/) and [`taxadb`](https://docs.ropensci.org/taxadb/).
 
 > **Note on Origin & Architectural Evolution**: This package builds upon the original [`rcol` project by Catalogue of Life](https://github.com/CatalogueOfLife/rcol) (<https://catalogueoflife.github.io/rcol/>). This version introduces substantial architectural enhancements to simplify scientific workflows, including:
+>
 > - **Direct Scientific Name Support**: Pass scientific names directly (e.g., `"Panthera leo"` or `"Werneria nubigena"`) to downstream functions without needing prior manual ID lookups.
 > - **Vectorized Multi-Species Queries**: Seamlessly pass character vectors of multiple species (e.g., `c("Werneria nubigena", "Panthera leo")`) and receive clean, concatenated tidy data frames.
-> - **Species Traceability**: Preserves species association (`scientific_name` column) across synonyms, vernacular/common names, and distribution records.
+> - **Distribution Traceability**: Multi-species distributions include `input_row` and `scientific_name`, preserving their association with the original input.
 > - **Clean Name Verification**: `col_check_name()` returns an essential 9-column resolution summary showing accepted names, status, and IDs.
-> - **Flexible Classification Extraction**: `col_classification()` supports both Long format and desanided Wide format (`wide = TRUE`).
+> - **Flexible Classification Extraction**: `col_classification()` supports both Long format and Wide format (`wide = TRUE`).
 
 There are two parallel families of functions:
 
@@ -53,13 +56,13 @@ Documentation is published at <https://paulesantos.github.io/rcol/>.
 
 ### 1. Name Verification & Matching
 
-```{r}
+```{r, eval = FALSE}
 library(rcol)
 
 # High-level clean verification (9 columns) for 1 or multiple species
 col_check_name(c("Werneria nubigena", "Panthera leo", "Schinus molle"))
 
-# Raw matching against the latest Catalogue of Life release
+# Detailed matching against the latest Catalogue of Life release
 col_match("Panthera leo")
 
 # Disambiguate with rank and nomenclatural code
@@ -74,16 +77,16 @@ col_match_checklist(c("Panthera leo", "Bufo bufo", "Abies alba"))
 
 To match against a specific dataset instead of the latest COL release, use the `clb_*()` form with a `dataset =` key or alias:
 
-```{r}
+```{r, eval = FALSE}
 clb_match("Felis catus", dataset = "COL25")          # 2025 annual release
 clb_match("Macrocystis pyrifera", dataset = 2099)    # public dataset by key
 ```
 
 ### 2. Classification, Synonyms, Vernaculars & Distribution
 
-All functions work seamlessly with direct scientific names, IDs, character vectors, or match data frames:
+The following lookup functions accept scientific names, IDs, vectors, or match result tables:
 
-```{r}
+```{r, eval = FALSE}
 # Hierarchical classification in Wide or Long format
 col_classification("Schinus molle", wide = TRUE)
 
@@ -102,7 +105,7 @@ col_usage("Panthera leo")
 
 ### 3. Tree Navigation & Search
 
-```{r}
+```{r, eval = FALSE}
 # Walk the COL tree roots (Domains / Realms)
 roots <- col_tree()
 
@@ -115,22 +118,105 @@ col_usage_search("Panthera", rank = "species", status = "accepted")
 
 ### 4. Parsers
 
-```{r}
+```{r, eval = FALSE}
 # Parse a scientific name into its atomic components
 clb_parse_name("Abies alba Mill. var. alpina")
 ```
 
 ## Catalogue of Life Releases
 
-The Catalogue of Life is published in two cadences (monthly and annual) and two flavours (base and extended `XR`). Every `clb_*()` function takes a `dataset =` argument; helpful aliases resolve to the latest of each:
+The Catalogue of Life is published in two cadences (monthly and annual) and two flavours (base and extended `XR`). Dataset-scoped `clb_*()` functions take a `dataset =` argument; helpful aliases resolve to the latest of each:
 
-```{r}
+```{r, eval = FALSE}
 clb_col_release("monthly")                  # "3LR"   latest monthly base
 clb_col_release("monthly", extended = TRUE) # "3LXR"  latest monthly extended
 clb_col_release("annual")                   # e.g. "COL25"
 
 clb_usage_search("Felidae", dataset = "COL25")
 ```
+
+## Batch results and failures
+
+`col_match_checklist()` and `clb_match_checklist()` keep one row per input and
+preserve input columns with a `verbatim_` prefix. Inspect `match` and `error`
+before interpreting the results:
+
+| `match` | `error` | Meaning |
+|---|---|---|
+| `TRUE` | `NA` | A matching usage was returned. |
+| `FALSE` | `NA` | The request succeeded but no match was found. |
+| `NA` | Message | The request or response parsing failed. |
+
+```{r, eval = FALSE}
+batch <- col_match_checklist(c("Panthera leo", "Schinus molle"))
+failed <- batch[is.na(batch$match), ]
+unmatched <- batch[!is.na(batch$match) & !batch$match, ]
+matched <- batch[!is.na(batch$match) & batch$match, ]
+failed[c("verbatim_name", "error")]
+```
+
+These per-row diagnostics apply to batch requests. Failures before requests
+are submitted, such as resolving `col_key()`, still raise an error. The simpler
+`col_check_name()` summary retains `match = NA` for failed rows but does not
+include the `error` column; use `col_match_checklist()` when diagnosing failures.
+
+## Distribution provenance and raw responses
+
+For multiple inputs, `col_distribution()` includes `input_row` (the one-based
+position in the input), `scientific_name`, and `area`. A species can have several
+rows after splitting semicolon-separated areas. Species with no distribution
+records contribute no rows, so use `input_row` rather than row position to join
+results back to your input.
+
+```{r, eval = FALSE}
+species <- c("Panthera leo", "Schinus molle")
+distribution <- col_distribution(species)
+distribution$queried_name <- species[distribution$input_row]
+
+# Add status, gazetteer, remarks and reference metadata
+col_distribution(species, full = TRUE)
+
+# Resolve an ID or a verification result before formatting the classification
+col_classification("4CGXP", wide = TRUE)
+verified <- col_check_name("Schinus molle")
+col_classification(verified, wide = TRUE)
+
+# Keep nested API responses intact and aligned with each input
+responses <- col_usage(species, .raw = TRUE)
+responses[[1]]
+```
+
+For a single input, distribution output defaults to `area`; `full = TRUE` also
+includes `scientific_name` and metadata. Usage, classification, synonym,
+vernacular and distribution lookups with multiple inputs and `.raw = TRUE`
+return a list of complete parsed responses, including empty responses, instead
+of combining them into a tibble. With one input, `.raw = TRUE` returns the single
+parsed response. For classification, `.raw = TRUE` takes precedence over `wide`.
+
+When passing a result table to a taxon lookup, valid IDs are selected in order
+from `accepted_id`, `usage_id`, and `id`, skipping missing or empty values.
+Unresolved rows raise an error. Filter failed and unmatched rows before passing
+a batch result to a downstream lookup.
+
+## Building documentation and running tests
+
+Online examples are displayed without execution when the README and vignettes
+are built. This allows documentation builds without contacting ChecklistBank.
+Unit tests run without API access; live integration tests are opt-in and remain
+skipped on CRAN.
+
+```r
+devtools::test()
+
+# Run live integration tests in a development session with Internet access
+withr::with_envvar(c(RCOL_LIVE_TESTS = "true"), devtools::test())
+
+# Build and check the package, including its vignettes and PDF manual
+devtools::check(cran = TRUE, manual = TRUE)
+```
+
+Documentation builds require Pandoc; the PDF manual also requires a working
+LaTeX installation. These tools are separate from access to the API.
 
 ## Configuration
 
@@ -144,7 +230,7 @@ Sys.setenv(CLB_BASE_URL = "https://api.dev.checklistbank.org")
 
 To cite `rcol` in publications, please use:
 
-```{r}
+```{r, eval = FALSE}
 citation("rcol")
 ```
 
