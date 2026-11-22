@@ -91,18 +91,58 @@ library(rcolapi)
 
 # High-level clean verification (9 columns) for 1 or multiple species
 col_check_name(c("Werneria nubigena", "Panthera leo", "Schinus molle"))
+#> # A tibble: 3 × 9
+#>   queried_name      matched_name      status   accepted_name accepted_authorship
+#>   <chr>             <chr>             <chr>    <chr>         <chr>              
+#> 1 Werneria nubigena Werneria nubigena synonym  Rockhausenia… (Kunth) D.J.N.Hind 
+#> 2 Panthera leo      Panthera leo      accepted Panthera leo  (Linnaeus, 1758)   
+#> 3 Schinus molle     Schinus molle     accepted Schinus molle L.                 
+#> # ℹ 4 more variables: accepted_rank <chr>, accepted_id <chr>, match <lgl>,
+#> #   match_type <chr>
 
 # Detailed matching against the latest Catalogue of Life release
 col_match("Panthera leo")
+#> # A tibble: 1 × 17
+#>   match match_type usage_id name         authorship     rank  status accepted_id
+#>   <lgl> <chr>      <chr>    <chr>        <chr>          <chr> <chr>  <chr>      
+#> 1 TRUE  variant    4CGXP    Panthera leo (Linnaeus, 17… spec… accep… 4CGXP      
+#> # ℹ 9 more variables: accepted_name <chr>, accepted_authorship <chr>,
+#> #   accepted_rank <chr>, code <chr>, label <chr>, parent_id <chr>,
+#> #   names_index_id <int>, names_index_match_type <chr>, classification <list>
 
 # Disambiguate with rank and nomenclatural code
 col_match("Abies alba", rank = "species", code = "botanical")
+#> # A tibble: 1 × 17
+#>   match match_type usage_id name       authorship rank    status   accepted_id
+#>   <lgl> <chr>      <chr>    <chr>      <chr>      <chr>   <chr>    <chr>      
+#> 1 TRUE  variant    8K9Y     Abies alba Mill.      species accepted 8K9Y       
+#> # ℹ 9 more variables: accepted_name <chr>, accepted_authorship <chr>,
+#> #   accepted_rank <chr>, code <chr>, label <chr>, parent_id <chr>,
+#> #   names_index_id <int>, names_index_match_type <chr>, classification <list>
 
 # See all candidate matches (homonyms), not just the best one
 col_match_verbose("Oenanthe")
+#> # A tibble: 2 × 16
+#>   primary usage_id name     authorship    rank  status accepted_id accepted_name
+#>   <lgl>   <chr>    <chr>    <chr>         <chr> <chr>  <chr>       <chr>        
+#> 1 FALSE   679P     Oenanthe Vieillot, 18… genus accep… 679P        Oenanthe     
+#> 2 FALSE   679Q     Oenanthe L.            genus accep… 679Q        Oenanthe     
+#> # ℹ 8 more variables: accepted_authorship <chr>, accepted_rank <chr>,
+#> #   code <chr>, label <chr>, parent_id <chr>, names_index_id <int>,
+#> #   names_index_match_type <chr>, classification <list>
 
 # Match many names at once in parallel
 col_match_checklist(c("Panthera leo", "Bufo bufo", "Abies alba"))
+#> # A tibble: 3 × 19
+#>   verbatim_name match match_type usage_id name         authorship   rank  status
+#>   <chr>         <lgl> <chr>      <chr>    <chr>        <chr>        <chr> <chr> 
+#> 1 Panthera leo  TRUE  variant    4CGXP    Panthera leo (Linnaeus, … spec… accep…
+#> 2 Bufo bufo     TRUE  variant    NP2D     Bufo bufo    (Linnaeus, … spec… accep…
+#> 3 Abies alba    TRUE  variant    8K9Y     Abies alba   Mill.        spec… accep…
+#> # ℹ 11 more variables: accepted_id <chr>, accepted_name <chr>,
+#> #   accepted_authorship <chr>, accepted_rank <chr>, code <chr>, label <chr>,
+#> #   parent_id <chr>, names_index_id <int>, names_index_match_type <chr>,
+#> #   classification <list>, error <chr>
 ```
 
 To match against a specific dataset instead of the latest COL release,
@@ -110,7 +150,21 @@ use the `clb_*()` form with a `dataset =` key or alias:
 
 ``` r
 clb_match("Felis catus", dataset = "COL25")          # 2025 annual release
+#> # A tibble: 1 × 17
+#>   match match_type usage_id name        authorship     rank   status accepted_id
+#>   <lgl> <chr>      <chr>    <chr>       <chr>          <chr>  <chr>  <chr>      
+#> 1 TRUE  variant    3DXV3    Felis catus Linnaeus, 1758 speci… accep… 3DXV3      
+#> # ℹ 9 more variables: accepted_name <chr>, accepted_authorship <chr>,
+#> #   accepted_rank <chr>, code <chr>, label <chr>, parent_id <chr>,
+#> #   names_index_id <int>, names_index_match_type <chr>, classification <list>
 clb_match("Macrocystis pyrifera", dataset = 2099)    # public dataset by key
+#> # A tibble: 1 × 17
+#>   match match_type usage_id name  authorship rank  status accepted_id
+#>   <lgl> <chr>      <chr>    <chr> <chr>      <chr> <chr>  <chr>      
+#> 1 FALSE none       <NA>     <NA>  <NA>       <NA>  <NA>   <NA>       
+#> # ℹ 9 more variables: accepted_name <chr>, accepted_authorship <chr>,
+#> #   accepted_rank <chr>, code <chr>, label <chr>, parent_id <chr>,
+#> #   names_index_id <chr>, names_index_match_type <chr>, classification <list>
 ```
 
 ### 2. Classification, Synonyms, Vernaculars & Distribution
@@ -121,18 +175,74 @@ match result tables:
 ``` r
 # Hierarchical classification in Wide or Long format
 col_classification("Schinus molle", wide = TRUE)
+#> # A tibble: 1 × 10
+#>   id    name          rank    kingdom phylum    class order family genus species
+#>   <chr> <chr>         <chr>   <chr>   <chr>     <chr> <chr> <chr>  <chr> <chr>  
+#> 1 4V8GC Schinus molle species Plantae Tracheop… Magn… Sapi… Anaca… Schi… Schinu…
 
 # Synonyms for 1 or multiple species
 col_synonyms(c("Werneria nubigena", "Panthera leo"))
+#> # A tibble: 16 × 6
+#>    accepted_name         scientific_name authorship synonym_type rank  full_name
+#>    <chr>                 <chr>           <chr>      <chr>        <chr> <chr>    
+#>  1 Rockhausenia nubigena Werneria nubig… Kunth      homotypic    spec… Werneria…
+#>  2 Rockhausenia nubigena Oresigonia gra… Willd. ex… heterotypic  spec… Oresigon…
+#>  3 Rockhausenia nubigena Oresigonia lat… Willd. ex… heterotypic  spec… Oresigon…
+#>  4 Rockhausenia nubigena Oribasia acaul… DC.        heterotypic  spec… Oribasia…
+#>  5 Rockhausenia nubigena Werneria disti… Kunth      heterotypic  spec… Werneria…
+#>  6 Rockhausenia nubigena Werneria dombe… (Wedd.) H… heterotypic  spec… Werneria…
+#>  7 Rockhausenia nubigena Werneria mocin… DC.        heterotypic  spec… Werneria…
+#>  8 Rockhausenia nubigena Werneria nubig… Wedd.      heterotypic  subv… Werneria…
+#>  9 Rockhausenia nubigena Werneria nubig… Wedd.      heterotypic  subv… Werneria…
+#> 10 Rockhausenia nubigena Werneria nubig… Wedd.      heterotypic  vari… Werneria…
+#> 11 Rockhausenia nubigena Werneria nubig… Wedd.      heterotypic  vari… Werneria…
+#> 12 Rockhausenia nubigena Werneria nubig… <NA>       heterotypic  vari… Werneria…
+#> 13 Rockhausenia nubigena Werneria steub… Hieron.    heterotypic  spec… Werneria…
+#> 14 Rockhausenia nubigena Werneria stueb… Hieron.    heterotypic  spec… Werneria…
+#> 15 Panthera leo          Felis leo       Linnaeus,… homotypic    spec… Felis le…
+#> 16 Panthera leo          Panthera leo n… (de Blain… heterotypic  subs… Panthera…
 
 # Vernacular / common names with species association (scientific_name column)
 col_vernacular(c("Werneria nubigena", "Panthera leo"))
+#> # A tibble: 206 × 7
+#>    scientific_name       name               language latin country area  remarks
+#>    <chr>                 <chr>              <chr>    <chr> <chr>   <chr> <chr>  
+#>  1 Rockhausenia nubigena Chicoria blanca    spa      Chic… <NA>    <NA>  <NA>   
+#>  2 Rockhausenia nubigena Cóndor cebolla     spa      Cond… <NA>    <NA>  <NA>   
+#>  3 Panthera leo          African Lion       eng      Afri… <NA>    <NA>  <NA>   
+#>  4 Panthera leo          Afrikaanse Leeuw   nld      Afri… <NA>    <NA>  Contri…
+#>  5 Panthera leo          Afrikanischer Löwe deu      Afri… DE      <NA>  <NA>   
+#>  6 Panthera leo          Agrzam             shi      Agrz… <NA>    <NA>  Contri…
+#>  7 Panthera leo          Ambessa            amh      Ambe… <NA>    <NA>  <NA>   
+#>  8 Panthera leo          Arslon             uzb      Arsl… <NA>    <NA>  Contri…
+#>  9 Panthera leo          Aslan              tur      Aslan <NA>    <NA>  Contri…
+#> 10 Panthera leo          Dzata              ewe      Dzata <NA>    <NA>  Contri…
+#> # ℹ 196 more rows
 
 # Geographic distribution in tidy format
 col_distribution(c("Werneria nubigena", "Schinus molle"))
+#> # A tibble: 54 × 3
+#>    input_row scientific_name       area                                
+#>        <int> <chr>                 <chr>                               
+#>  1         1 Rockhausenia nubigena Mexico (Chiapas)                    
+#>  2         1 Rockhausenia nubigena Guatemala                           
+#>  3         1 Rockhausenia nubigena Costa Rica                          
+#>  4         1 Rockhausenia nubigena Panama                              
+#>  5         1 Rockhausenia nubigena Ecuador                             
+#>  6         1 Rockhausenia nubigena Peru                                
+#>  7         1 Rockhausenia nubigena Bolivia (Cochabamba, La Paz, Tarija)
+#>  8         2 Schinus molle         Portugal [I]                        
+#>  9         2 Schinus molle         Spain [I]                           
+#> 10         2 Schinus molle         Gibraltar [I]                       
+#> # ℹ 44 more rows
 
 # Details of a name usage
 col_usage("Panthera leo")
+#> # A tibble: 1 × 9
+#>   id    scientific_name authorship       rank    status  label parent_id extinct
+#>   <chr> <chr>           <chr>            <chr>   <chr>   <chr> <chr>     <lgl>  
+#> 1 4CGXP Panthera leo    (Linnaeus, 1758) species accept… Pant… 6DBT      FALSE  
+#> # ℹ 1 more variable: name <list>
 ```
 
 ### 3. Tree Navigation & Search
@@ -143,9 +253,46 @@ roots <- col_tree()
 
 # Get direct child species under a genus
 col_children("Panthera")
+#> # A tibble: 17 × 10
+#>    datasetKey id    parentId rank    status    count childCount name  authorship
+#>         <int> <chr> <chr>    <chr>   <chr>     <int>      <int> <chr> <chr>     
+#>  1     316691 TZBNY 6DBT     species provisio…     0          0 Leo … Brehm, 18…
+#>  2     316691 TZ9SL 6DBT     species provisio…     0          0 Leo … Brehm, 18…
+#>  3     316691 TZ8S4 6DBT     species provisio…     0          0 Leo … Gray, 1843
+#>  4     316691 V32ZM 6DBT     species provisio…     0          0 Leo … Kretzoi, …
+#>  5     316691 R9G88 6DBT     species provisio…     0          0 Pant… Fitzinger…
+#>  6     316691 R9G8X 6DBT     species provisio…     0          0 Pant… Stinnesbe…
+#>  7     316691 R9G95 6DBT     species provisio…     0          0 Pant… Tseng, Wa…
+#>  8     316691 R9GBB 6DBT     species accepted      0          0 Pant… Kretzoï, …
+#>  9     316691 4CGXP 6DBT     species accepted      0          3 Pant… (Linnaeus…
+#> 10     316691 4CGXQ 6DBT     species accepted      0          1 Pant… (Linnaeus…
+#> 11     316691 4CGXR 6DBT     species accepted      0         10 Pant… (Linnaeus…
+#> 12     316691 V2VKY 6DBT     species provisio…     0          0 Pant… Hemmer, 2…
+#> 13     316691 R9GXP 6DBT     species accepted      0          0 Pant… (Goldfuss…
+#> 14     316691 4CGXS 6DBT     species accepted      0          3 Pant… (Linnaeus…
+#> 15     316691 4CGXT 6DBT     species accepted      0          2 Pant… (Schreber…
+#> 16     316691 R9H5S 6DBT     species provisio…     0          0 Pant… Mazák, Ch…
+#> 17     316691 T673T 6DBT     species provisio…     0          0 Tigr… Fitzinger…
+#> # ℹ 1 more variable: full_name <chr>
 
 # Full-text search with rank and status filters
 col_usage_search("Panthera", rank = "species", status = "accepted")
+#> <clb> result: 47 rows (total: 47)
+#> # A tibble: 47 × 11
+#>    id    scientific_name         authorship rank  status label parent_id extinct
+#>    <chr> <chr>                   <chr>      <chr> <chr>  <chr> <chr>     <lgl>  
+#>  1 VYR7  Clemensia panthera      Schaus, 1… spec… accep… Clem… 925L7     NA     
+#>  2 57GDM Torpedo panthera        Olfers, 1… spec… accep… Torp… KVVXY     NA     
+#>  3 R9GBB Panthera gombaszoegens… Kretzoï, … spec… accep… Pant… 6DBT      NA     
+#>  4 32TYW Cyclocephala panthera   Dechambre… spec… accep… Cycl… 3XVL      FALSE  
+#>  5 4P5TM Pseudopanthera flavaria (Leech, 1… spec… accep… Pseu… VJ7H5     FALSE  
+#>  6 4P5TT Pseudopanthera syriaca… (Guenée, … spec… accep… Pseu… VJ7H5     FALSE  
+#>  7 4P5TS Pseudopanthera oberthu… (Alphérak… spec… accep… Pseu… VJ7H5     FALSE  
+#>  8 8YPT6 Lissoclinum panthera    Monniot F… spec… accep… Liss… 7PBV2     NA     
+#>  9 4CGXS Panthera tigris         (Linnaeus… spec… accep… Pant… 6DBT      FALSE  
+#> 10 47JK7 Nitiocellus panthera    (Boucomon… spec… accep… Niti… 64GJ      FALSE  
+#> # ℹ 37 more rows
+#> # ℹ 3 more variables: name <list>, group <chr>, classification <list>
 ```
 
 ### 4. Parsers
@@ -153,6 +300,12 @@ col_usage_search("Panthera", rank = "species", status = "accepted")
 ``` r
 # Parse a scientific name into its atomic components
 clb_parse_name("Abies alba Mill. var. alpina")
+#> # A tibble: 1 × 12
+#>   scientificName  rank  genus specificEpithet infraspecificEpithet type  extinct
+#>   <chr>           <chr> <chr> <chr>           <chr>                <chr> <lgl>  
+#> 1 Abies alba var… vari… Abies alba            alpina               scie… FALSE  
+#> # ℹ 5 more variables: issues <list>, label <chr>, labelHtml <chr>,
+#> #   parsed <lgl>, notho <list>
 ```
 
 ## Catalogue of Life Releases
@@ -164,10 +317,19 @@ latest of each:
 
 ``` r
 clb_col_release("monthly")                  # "3LR"   latest monthly base
+#> [1] "3LR"
 clb_col_release("monthly", extended = TRUE) # "3LXR"  latest monthly extended
+#> [1] "3LXR"
 clb_col_release("annual")                   # e.g. "COL25"
+#> [1] "COL25"
 
 clb_usage_search("Felidae", dataset = "COL25")
+#> <clb> result: 1 rows (total: 1)
+#> # A tibble: 1 × 11
+#>   id    scientific_name authorship          rank  status label parent_id extinct
+#>   <chr> <chr>           <chr>               <chr> <chr>  <chr> <chr>     <lgl>  
+#> 1 623RM Felidae         Fischer de Waldhei… fami… accep… Feli… 4DL       FALSE  
+#> # ℹ 3 more variables: name <list>, group <chr>, classification <list>
 ```
 
 ## Batch results and failures
@@ -188,6 +350,8 @@ failed <- batch[is.na(batch$match), ]
 unmatched <- batch[!is.na(batch$match) & !batch$match, ]
 matched <- batch[!is.na(batch$match) & batch$match, ]
 failed[c("verbatim_name", "error")]
+#> # A tibble: 0 × 2
+#> # ℹ 2 variables: verbatim_name <chr>, error <chr>
 ```
 
 These per-row diagnostics apply to batch requests. Failures before
@@ -211,15 +375,196 @@ distribution$queried_name <- species[distribution$input_row]
 
 # Add status, gazetteer, remarks and reference metadata
 col_distribution(species, full = TRUE)
+#> # A tibble: 49 × 7
+#>    input_row scientific_name area          gazetteer status remarks reference_id
+#>        <int> <chr>           <chr>         <chr>     <chr>  <chr>   <chr>       
+#>  1         1 Panthera leo    Africa        text      <NA>   <NA>    <NA>        
+#>  2         1 Panthera leo    Southern Asia text      <NA>   <NA>    <NA>        
+#>  3         2 Schinus molle   Portugal [I]  text      <NA>   <NA>    <NA>        
+#>  4         2 Schinus molle   Spain [I]     text      <NA>   <NA>    <NA>        
+#>  5         2 Schinus molle   Gibraltar [I] text      <NA>   <NA>    <NA>        
+#>  6         2 Schinus molle   Baleares [I]  text      <NA>   <NA>    <NA>        
+#>  7         2 Schinus molle   Italy [I]     text      <NA>   <NA>    <NA>        
+#>  8         2 Schinus molle   Sicily [I]    text      <NA>   <NA>    <NA>        
+#>  9         2 Schinus molle   Croatia [I]   text      <NA>   <NA>    <NA>        
+#> 10         2 Schinus molle   Morocco [I]   text      <NA>   <NA>    <NA>        
+#> # ℹ 39 more rows
 
 # Resolve an ID or a verification result before formatting the classification
 col_classification("4CGXP", wide = TRUE)
+#> # A tibble: 1 × 10
+#>   id    name         rank    kingdom  phylum   class  order family genus species
+#>   <chr> <chr>        <chr>   <chr>    <chr>    <chr>  <chr> <chr>  <chr> <chr>  
+#> 1 4CGXP Panthera leo species Animalia Chordata Mamma… Carn… Felid… Pant… Panthe…
 verified <- col_check_name("Schinus molle")
 col_classification(verified, wide = TRUE)
+#> # A tibble: 1 × 10
+#>   id    name          rank    kingdom phylum    class order family genus species
+#>   <chr> <chr>         <chr>   <chr>   <chr>     <chr> <chr> <chr>  <chr> <chr>  
+#> 1 4V8GC Schinus molle species Plantae Tracheop… Magn… Sapi… Anaca… Schi… Schinu…
 
 # Keep nested API responses intact and aligned with each input
 responses <- col_usage(species, .raw = TRUE)
 responses[[1]]
+#> $created
+#> [1] "2026-10-07T19:40:07.596881"
+#> 
+#> $createdBy
+#> [1] 102
+#> 
+#> $modified
+#> [1] "2026-10-07T19:40:07.596881"
+#> 
+#> $modifiedBy
+#> [1] 102
+#> 
+#> $datasetKey
+#> [1] 316691
+#> 
+#> $id
+#> [1] "4CGXP"
+#> 
+#> $sectorKey
+#> [1] 1508
+#> 
+#> $verbatimSourceKey
+#> [1] 362093236
+#> 
+#> $name
+#> $name$created
+#> [1] "2026-10-17T03:24:32.206233"
+#> 
+#> $name$createdBy
+#> [1] 102
+#> 
+#> $name$modified
+#> [1] "2026-10-17T03:24:32.206233"
+#> 
+#> $name$modifiedBy
+#> [1] 102
+#> 
+#> $name$datasetKey
+#> [1] 316691
+#> 
+#> $name$id
+#> [1] "v2QQZGBB_H8c94-cNZtNW0"
+#> 
+#> $name$sectorKey
+#> [1] 1508
+#> 
+#> $name$verbatimSourceKey
+#> [1] 362093236
+#> 
+#> $name$namesIndexId
+#> [1] 6525746
+#> 
+#> $name$scientificName
+#> [1] "Panthera leo"
+#> 
+#> $name$authorship
+#> [1] "(Linnaeus, 1758)"
+#> 
+#> $name$rank
+#> [1] "species"
+#> 
+#> $name$genus
+#> [1] "Panthera"
+#> 
+#> $name$specificEpithet
+#> [1] "leo"
+#> 
+#> $name$basionymAuthorship
+#> $name$basionymAuthorship$authors
+#> $name$basionymAuthorship$authors[[1]]
+#> [1] "Linnaeus"
+#> 
+#> 
+#> $name$basionymAuthorship$year
+#> [1] "1758"
+#> 
+#> 
+#> $name$code
+#> [1] "zoological"
+#> 
+#> $name$nomStatus
+#> [1] "acceptable"
+#> 
+#> $name$publishedInId
+#> [1] "69532ae1-a582-4c70-87b7-0bbfbf8eb10a"
+#> 
+#> $name$origin
+#> [1] "source"
+#> 
+#> $name$type
+#> [1] "scientific"
+#> 
+#> $name$link
+#> [1] "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=183803"
+#> 
+#> $name$remarks
+#> [1] "http://purl.obolibrary.org/obo/NOMEN_0000224"
+#> 
+#> $name$parsed
+#> [1] TRUE
+#> 
+#> $name$notho
+#> list()
+#> 
+#> 
+#> $status
+#> [1] "accepted"
+#> 
+#> $origin
+#> [1] "source"
+#> 
+#> $parentId
+#> [1] "6DBT"
+#> 
+#> $identifier
+#> $identifier[[1]]
+#> [1] "taxref:644245"
+#> 
+#> $identifier[[2]]
+#> [1] "inat:41964"
+#> 
+#> 
+#> $link
+#> [1] "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=183803"
+#> 
+#> $referenceIds
+#> $referenceIds[[1]]
+#> [1] "db07644c-53fa-4cfe-9306-760c08c39b61"
+#> 
+#> $referenceIds[[2]]
+#> [1] "f167ab3e-4852-4af8-9154-dba859ffd8e0"
+#> 
+#> $referenceIds[[3]]
+#> [1] "955f35f3-b560-4f56-bb7b-6de2c0154153"
+#> 
+#> $referenceIds[[4]]
+#> [1] "2f2283ae-4abb-49bc-8840-c3af8bd6236e"
+#> 
+#> $referenceIds[[5]]
+#> [1] "80052a63-d318-41d8-b039-559debeebbb2"
+#> 
+#> $referenceIds[[6]]
+#> [1] "93f9dbd1-0527-4207-9d23-b3ff7e2067ed"
+#> 
+#> 
+#> $scrutinizer
+#> [1] "W. Christopher Wozencraft,Alfred L. Gardner"
+#> 
+#> $scrutinizerDate
+#> [1] "2024-06-25"
+#> 
+#> $extinct
+#> [1] FALSE
+#> 
+#> $label
+#> [1] "Panthera leo (Linnaeus, 1758)"
+#> 
+#> $labelHtml
+#> [1] "<i>Panthera leo</i> (Linnaeus, 1758)"
 ```
 
 For a single input, distribution output defaults to `area`;
@@ -272,6 +617,24 @@ To cite `rcolapi` in publications, please use:
 
 ``` r
 citation("rcolapi")
+#> To cite rcolapi in publications, please use:
+#> 
+#> To cite the rcolapi package in publications, please use:
+#> 
+#>   Santos Andrade, P. E., & Döring, M. (2026). rcolapi: Client for the
+#>   Catalogue of Life and ChecklistBank. R package version 0.0.2.
+#>   https://paulesantos.github.io/rcolapi/
+#> 
+#> The taxonomic data and API services accessed by this package are
+#> provided by:
+#> 
+#>   Bánki, O., Döring, M., & Ower, G. (2026). Catalogue of Life /
+#>   ChecklistBank API. ChecklistBank Infrastructure.
+#>   https://doi.org/10.48580/d4tm
+#> 
+#> To see these entries in BibTeX format, use 'print(<citation>,
+#> bibtex=TRUE)', 'toBibtex(.)', or set
+#> 'options(citation.bibtex.max=999)'.
 ```
 
 - **Package Citation**: Santos Andrade, P. E. & Döring, M. (2026).

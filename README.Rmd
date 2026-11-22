@@ -1,7 +1,6 @@
 ---
 output:
-  github_document:
-    html_preview: false
+  github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -68,7 +67,7 @@ install.packages("rcolapi")
 
 ### 1. Name Verification & Matching
 
-```{r, eval = FALSE}
+```{r}
 library(rcolapi)
 
 # High-level clean verification (9 columns) for 1 or multiple species
@@ -89,7 +88,7 @@ col_match_checklist(c("Panthera leo", "Bufo bufo", "Abies alba"))
 
 To match against a specific dataset instead of the latest COL release, use the `clb_*()` form with a `dataset =` key or alias:
 
-```{r, eval = FALSE}
+```{r}
 clb_match("Felis catus", dataset = "COL25")          # 2025 annual release
 clb_match("Macrocystis pyrifera", dataset = 2099)    # public dataset by key
 ```
@@ -98,7 +97,7 @@ clb_match("Macrocystis pyrifera", dataset = 2099)    # public dataset by key
 
 The following lookup functions accept scientific names, IDs, vectors, or match result tables:
 
-```{r, eval = FALSE}
+```{r}
 # Hierarchical classification in Wide or Long format
 col_classification("Schinus molle", wide = TRUE)
 
@@ -117,7 +116,7 @@ col_usage("Panthera leo")
 
 ### 3. Tree Navigation & Search
 
-```{r, eval = FALSE}
+```{r}
 # Walk the COL tree roots (Domains / Realms)
 roots <- col_tree()
 
@@ -130,7 +129,7 @@ col_usage_search("Panthera", rank = "species", status = "accepted")
 
 ### 4. Parsers
 
-```{r, eval = FALSE}
+```{r}
 # Parse a scientific name into its atomic components
 clb_parse_name("Abies alba Mill. var. alpina")
 ```
@@ -139,7 +138,7 @@ clb_parse_name("Abies alba Mill. var. alpina")
 
 The Catalogue of Life is published in two cadences (monthly and annual) and two flavours (base and extended `XR`). Dataset-scoped `clb_*()` functions take a `dataset =` argument; helpful aliases resolve to the latest of each:
 
-```{r, eval = FALSE}
+```{r}
 clb_col_release("monthly")                  # "3LR"   latest monthly base
 clb_col_release("monthly", extended = TRUE) # "3LXR"  latest monthly extended
 clb_col_release("annual")                   # e.g. "COL25"
@@ -159,7 +158,7 @@ before interpreting the results:
 | `FALSE` | `NA` | The request succeeded but no match was found. |
 | `NA` | Message | The request or response parsing failed. |
 
-```{r, eval = FALSE}
+```{r}
 batch <- col_match_checklist(c("Panthera leo", "Schinus molle"))
 failed <- batch[is.na(batch$match), ]
 unmatched <- batch[!is.na(batch$match) & !batch$match, ]
@@ -180,7 +179,7 @@ rows after splitting semicolon-separated areas. Species with no distribution
 records contribute no rows, so use `input_row` rather than row position to join
 results back to your input.
 
-```{r, eval = FALSE}
+```{r}
 species <- c("Panthera leo", "Schinus molle")
 distribution <- col_distribution(species)
 distribution$queried_name <- species[distribution$input_row]
@@ -242,7 +241,7 @@ Sys.setenv(CLB_BASE_URL = "https://api.dev.checklistbank.org")
 
 To cite `rcolapi` in publications, please use:
 
-```{r, eval = FALSE}
+```{r}
 citation("rcolapi")
 ```
 
