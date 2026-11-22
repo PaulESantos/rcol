@@ -53,14 +53,14 @@ datasets, one row each, with columns such as `key`, `alias`, `title`,
 
 ## See also
 
-[`clb_dataset()`](https://paulesantos.github.io/rcol/reference/clb_dataset.md),
-[`clb_dataset_metrics()`](https://paulesantos.github.io/rcol/reference/clb_dataset_metrics.md)
+[`clb_dataset()`](https://paulesantos.github.io/rcolapi/reference/clb_dataset.md),
+[`clb_dataset_metrics()`](https://paulesantos.github.io/rcolapi/reference/clb_dataset_metrics.md)
 
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (interactive()) {
 clb_dataset_search("mammal")
 clb_dataset_search(origin = "release", max = 1000)
-} # }
+}
 ```

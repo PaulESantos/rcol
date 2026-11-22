@@ -1,13 +1,13 @@
-# Guía de inicio en español para rcol
+# Guía de inicio en español para rcolapi
 
-`rcol` proporciona un acceso idiomático desde R a la API de
+`rcolapi` proporciona un acceso idiomático desde R a la API de
 [ChecklistBank](https://www.checklistbank.org) y a las publicaciones
 mensuales y anuales del [Catalogue of
 Life](https://www.catalogueoflife.org) (COL).
 
 ``` r
 
-library(rcol)
+library(rcolapi)
 ```
 
 Los ejemplos siguientes que consultan ChecklistBank se muestran sin
@@ -23,7 +23,7 @@ El paquete organiza sus 46 funciones públicas en dos familias:
 - **`col_*()`**: Funciones de alto nivel diseñadas para trabajar
   directamente con la versión extendida más reciente del Catalogue of
   Life (`"3LXR"`). La versión se fija automáticamente en la sesión
-  ([`col_key()`](https://paulesantos.github.io/rcol/reference/col_key.md)).
+  ([`col_key()`](https://paulesantos.github.io/rcolapi/reference/col_key.md)).
 - **`clb_*()`**: Funciones universales de bajo nivel que aceptan el
   argumento `dataset =` para consultar cualquier conjunto de datos
   publicado en ChecklistBank.
@@ -98,9 +98,9 @@ clb_parse_name("Abies alba Mill. var. alpina")
 
 ## Resultados por lotes y errores
 
-[`col_match_checklist()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md)
+[`col_match_checklist()`](https://paulesantos.github.io/rcolapi/reference/col_shortcuts.md)
 y
-[`clb_match_checklist()`](https://paulesantos.github.io/rcol/reference/clb_match_checklist.md)
+[`clb_match_checklist()`](https://paulesantos.github.io/rcolapi/reference/clb_match_checklist.md)
 conservan una fila por entrada y las columnas originales con el prefijo
 `verbatim_`.
 
@@ -120,18 +120,18 @@ fallidos[c("verbatim_name", "error")]
 ```
 
 Los fallos anteriores al envío del lote, como la resolución de
-[`col_key()`](https://paulesantos.github.io/rcol/reference/col_key.md),
+[`col_key()`](https://paulesantos.github.io/rcolapi/reference/col_key.md),
 siguen generando un error.
-[`col_check_name()`](https://paulesantos.github.io/rcol/reference/clb_resolve_name.md)
+[`col_check_name()`](https://paulesantos.github.io/rcolapi/reference/clb_resolve_name.md)
 conserva `match = NA` para las filas fallidas, pero no incluye la
 columna `error`; utiliza
-[`col_match_checklist()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md)
+[`col_match_checklist()`](https://paulesantos.github.io/rcolapi/reference/col_shortcuts.md)
 para consultar el diagnóstico.
 
 ## Trazabilidad de distribuciones y respuestas crudas
 
 Con varias entradas,
-[`col_distribution()`](https://paulesantos.github.io/rcol/reference/clb_distribution.md)
+[`col_distribution()`](https://paulesantos.github.io/rcolapi/reference/clb_distribution.md)
 devuelve `input_row` (posición de la entrada, empezando en uno),
 `scientific_name` y `area`. Cada especie puede producir varias filas al
 separar áreas. Las especies sin registros no aportan filas: utiliza

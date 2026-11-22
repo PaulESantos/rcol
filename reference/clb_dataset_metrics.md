@@ -29,14 +29,14 @@ list-columns. `NULL` (with a message) if the dataset has no import yet.
 
 ## See also
 
-[`clb_dataset()`](https://paulesantos.github.io/rcol/reference/clb_dataset.md),
-[`clb_usage_metrics()`](https://paulesantos.github.io/rcol/reference/clb_usage_metrics.md)
+[`clb_dataset()`](https://paulesantos.github.io/rcolapi/reference/clb_dataset.md),
+[`clb_usage_metrics()`](https://paulesantos.github.io/rcolapi/reference/clb_usage_metrics.md)
 
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (interactive()) {
 clb_dataset_metrics()         # latest extended COL release
 clb_dataset_metrics("COL25")
-} # }
+}
 ```

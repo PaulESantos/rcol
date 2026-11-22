@@ -29,7 +29,7 @@ releases with columns such as `key`, `alias`, `title`, `origin`,
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (interactive()) {
 clb_col_releases()
-} # }
+}
 ```

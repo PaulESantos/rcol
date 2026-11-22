@@ -5,7 +5,7 @@ Resolves the latest monthly extended Catalogue of Life release (the
 the rest of the session. All `col_*()` convenience functions use this
 key, so a new release published mid-session will not silently change the
 data you are working against during a long-running job. Call
-[`col_refresh()`](https://paulesantos.github.io/rcol/reference/col_refresh.md)
+[`col_refresh()`](https://paulesantos.github.io/rcolapi/reference/col_refresh.md)
 to re-resolve.
 
 ## Usage
@@ -27,13 +27,13 @@ The integer dataset key of the pinned COL extended release.
 
 ## See also
 
-[`col_refresh()`](https://paulesantos.github.io/rcol/reference/col_refresh.md),
-[`clb_col_release()`](https://paulesantos.github.io/rcol/reference/clb_col_release.md)
+[`col_refresh()`](https://paulesantos.github.io/rcolapi/reference/col_refresh.md),
+[`clb_col_release()`](https://paulesantos.github.io/rcolapi/reference/clb_col_release.md)
 
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (interactive()) {
 col_key()
-} # }
+}
 ```

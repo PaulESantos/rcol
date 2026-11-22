@@ -12,18 +12,18 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/PaulESantos/rcol/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/PaulESantos/rcolapi/blob/main/inst/CITATION)
 
-Santos Andrade, P. E., & Döring, M. (2026). rcol: R Client for the
-Catalogue of Life / ChecklistBank API. R package version 0.0.1.
-https://paulesantos.github.io/rcol/
+Santos Andrade, P. E., & Döring, M. (2026). rcolapi: Client for the
+Catalogue of Life and ChecklistBank. R package version 0.0.2.
+https://paulesantos.github.io/rcolapi/
 
     @Manual{,
-      title = {rcol: R Client for the Catalogue of Life / ChecklistBank API},
+      title = {rcolapi: Client for the Catalogue of Life and ChecklistBank},
       author = {Paul E. {Santos Andrade} and Markus Döring},
       year = {2026},
-      note = {R package version 0.0.1},
-      url = {https://paulesantos.github.io/rcol/},
+      note = {R package version 0.0.2},
+      url = {https://paulesantos.github.io/rcolapi/},
     }
 
 Bánki, O., Döring, M., & Ower, G. (2026). Catalogue of Life /

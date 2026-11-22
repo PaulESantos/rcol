@@ -35,14 +35,14 @@ usage's `id`, `scientific_name`, `authorship`, `rank`, `status`,
 
 ## See also
 
-[`clb_usage_search()`](https://paulesantos.github.io/rcol/reference/clb_usage_search.md),
-[`clb_classification()`](https://paulesantos.github.io/rcol/reference/clb_classification.md),
-[`clb_synonyms()`](https://paulesantos.github.io/rcol/reference/clb_synonyms.md)
+[`clb_usage_search()`](https://paulesantos.github.io/rcolapi/reference/clb_usage_search.md),
+[`clb_classification()`](https://paulesantos.github.io/rcolapi/reference/clb_classification.md),
+[`clb_synonyms()`](https://paulesantos.github.io/rcolapi/reference/clb_synonyms.md)
 
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (interactive()) {
 clb_usage("4CGXP", dataset = "3LR")
-} # }
+}
 ```

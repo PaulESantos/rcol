@@ -39,7 +39,7 @@ clb_match_checklist(
 - server:
 
   Optional alternative matching service base URL (see
-  [`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md)).
+  [`clb_match()`](https://paulesantos.github.io/rcolapi/reference/clb_match.md)).
 
 - max_active:
 
@@ -50,7 +50,7 @@ clb_match_checklist(
 A [tibble](https://tibble.tidyverse.org/reference/tibble.html) with one
 row per input, the `verbatim_*` input columns first followed by the
 match result columns of
-[`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md).
+[`clb_match()`](https://paulesantos.github.io/rcolapi/reference/clb_match.md).
 Failed requests or invalid JSON have `match = NA` and an `error`
 message; successful requests have `error = NA`. A genuine non-match has
 `match = FALSE`. Errors before submission of the requests still abort
@@ -58,12 +58,12 @@ the call.
 
 ## See also
 
-[`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md)
+[`clb_match()`](https://paulesantos.github.io/rcolapi/reference/clb_match.md)
 
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (interactive()) {
 clb_match_checklist(c("Panthera leo", "Bufo bufo", "Abies alba"))
 
 df <- data.frame(
@@ -71,5 +71,5 @@ df <- data.frame(
   rank = c("species", "species")
 )
 clb_match_checklist(df, name = "sciname", rank = "rank")
-} # }
+}
 ```

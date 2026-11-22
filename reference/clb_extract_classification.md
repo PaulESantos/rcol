@@ -2,11 +2,11 @@
 
 Helper function to extract and unnest the nested `classification`
 list-column returned by
-[`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md),
-[`clb_match_checklist()`](https://paulesantos.github.io/rcol/reference/clb_match_checklist.md),
-[`col_match()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md),
+[`clb_match()`](https://paulesantos.github.io/rcolapi/reference/clb_match.md),
+[`clb_match_checklist()`](https://paulesantos.github.io/rcolapi/reference/clb_match_checklist.md),
+[`col_match()`](https://paulesantos.github.io/rcolapi/reference/col_shortcuts.md),
 or
-[`clb_usage_search()`](https://paulesantos.github.io/rcol/reference/clb_usage_search.md)
+[`clb_usage_search()`](https://paulesantos.github.io/rcolapi/reference/clb_usage_search.md)
 into a tidy long or wide tibble. Also accepts a character vector of
 scientific names directly.
 
@@ -41,9 +41,9 @@ col_extract_classification(data, wide = FALSE, dataset = "3LXR", ...)
 - ...:
 
   Further query parameters passed to
-  [`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md)
+  [`clb_match()`](https://paulesantos.github.io/rcolapi/reference/clb_match.md)
   or
-  [`clb_match_checklist()`](https://paulesantos.github.io/rcol/reference/clb_match_checklist.md)
+  [`clb_match_checklist()`](https://paulesantos.github.io/rcolapi/reference/clb_match_checklist.md)
   when `data` is a character vector.
 
 ## Value
@@ -52,14 +52,25 @@ A [tibble](https://tibble.tidyverse.org/reference/tibble.html).
 
 ## See also
 
-[`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md),
-[`col_match()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md),
-[`clb_classification()`](https://paulesantos.github.io/rcol/reference/clb_classification.md)
+[`clb_match()`](https://paulesantos.github.io/rcolapi/reference/clb_match.md),
+[`col_match()`](https://paulesantos.github.io/rcolapi/reference/col_shortcuts.md),
+[`clb_classification()`](https://paulesantos.github.io/rcolapi/reference/clb_classification.md)
 
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+example_match <- data.frame(name = "Panthera leo", rank = "species")
+example_match$classification <- list(list(
+  list(name = "Animalia", rank = "kingdom"),
+  list(name = "Panthera", rank = "genus")
+))
+clb_extract_classification(example_match, wide = TRUE)
+#> # A tibble: 1 × 9
+#>   name         rank    kingdom  phylum class order family genus    species     
+#>   <chr>        <chr>   <chr>    <chr>  <chr> <chr> <chr>  <chr>    <chr>       
+#> 1 Panthera leo species Animalia NA     NA    NA    NA     Panthera Panthera leo
+
+if (interactive()) {
 # Pass a character string directly:
 col_extract_classification("Schinus molle")
 col_extract_classification("Schinus molle", wide = TRUE)
@@ -68,5 +79,5 @@ col_extract_classification(c("Schinus molle", "Panthera leo"), wide = TRUE)
 # Pass a match result data frame:
 res <- col_match("Schinus molle")
 col_extract_classification(res)
-} # }
+}
 ```

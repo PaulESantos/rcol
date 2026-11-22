@@ -42,14 +42,14 @@ row per input name and columns such as `scientificName`, `authorship`,
 
 ## See also
 
-[`clb_parse()`](https://paulesantos.github.io/rcol/reference/clb_parse.md),
-[`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md)
+[`clb_parse()`](https://paulesantos.github.io/rcolapi/reference/clb_parse.md),
+[`clb_match()`](https://paulesantos.github.io/rcolapi/reference/clb_match.md)
 
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (interactive()) {
 clb_parse_name("Abies alba Mill.")
 clb_parse_name(c("Panthera leo (Linnaeus, 1758)", "Bellis perennis L."))
-} # }
+}
 ```

@@ -4,9 +4,9 @@ Convenience siblings of the dataset-scoped `clb_*()` functions that
 always operate on the latest extended Catalogue of Life release. They
 take the same arguments as their `clb_*()` counterparts but without the
 `dataset` parameter; the release is resolved once to its integer key via
-[`col_key()`](https://paulesantos.github.io/rcol/reference/col_key.md)
+[`col_key()`](https://paulesantos.github.io/rcolapi/reference/col_key.md)
 and reused for the rest of the session (see
-[`col_refresh()`](https://paulesantos.github.io/rcol/reference/col_refresh.md)
+[`col_refresh()`](https://paulesantos.github.io/rcolapi/reference/col_refresh.md)
 to re-pin).
 
 ## Usage
@@ -93,9 +93,9 @@ col_children(id, extinct = TRUE, ..., limit = 100L, max = limit, .raw = FALSE)
 - name, authorship, rank, code, server, data, max_active:
 
   See
-  [`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md)
+  [`clb_match()`](https://paulesantos.github.io/rcolapi/reference/clb_match.md)
   and
-  [`clb_match_checklist()`](https://paulesantos.github.io/rcol/reference/clb_match_checklist.md).
+  [`clb_match_checklist()`](https://paulesantos.github.io/rcolapi/reference/clb_match_checklist.md).
 
 - .raw:
 
@@ -149,19 +149,19 @@ of intact responses in input order.
 
 ## See also
 
-[`col_key()`](https://paulesantos.github.io/rcol/reference/col_key.md),
-[`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md),
-[`clb_usage_search()`](https://paulesantos.github.io/rcol/reference/clb_usage_search.md),
-[`clb_tree()`](https://paulesantos.github.io/rcol/reference/clb_tree.md)
+[`col_key()`](https://paulesantos.github.io/rcolapi/reference/col_key.md),
+[`clb_match()`](https://paulesantos.github.io/rcolapi/reference/clb_match.md),
+[`clb_usage_search()`](https://paulesantos.github.io/rcolapi/reference/clb_usage_search.md),
+[`clb_tree()`](https://paulesantos.github.io/rcolapi/reference/clb_tree.md)
 
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (interactive()) {
 col_match("Panthera leo")
 col_usage_search("Felidae")
 roots <- col_tree()
 col_children(roots$id[1])
 col_classification("4CGXP")
-} # }
+}
 ```

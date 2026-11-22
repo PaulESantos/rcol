@@ -1,6 +1,6 @@
-# rcol
+# rcolapi
 
-`rcol` is an R client for the [Catalogue of
+`rcolapi` is an R client for the [Catalogue of
 Life](https://www.catalogueoflife.org) via the
 [ChecklistBank](https://www.checklistbank.org) API
 (<https://api.checklistbank.org>). It allows you to verify and match
@@ -30,11 +30,11 @@ modelled on the conventions of
 >   `input_row` and `scientific_name`, preserving their association with
 >   the original input.
 > - **Clean Name Verification**:
->   [`col_check_name()`](https://paulesantos.github.io/rcol/reference/clb_resolve_name.md)
+>   [`col_check_name()`](https://paulesantos.github.io/rcolapi/reference/clb_resolve_name.md)
 >   returns an essential 9-column resolution summary showing accepted
 >   names, status, and IDs.
 > - **Flexible Classification Extraction**:
->   [`col_classification()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md)
+>   [`col_classification()`](https://paulesantos.github.io/rcolapi/reference/col_shortcuts.md)
 >   supports both Long format and Wide format (`wide = TRUE`).
 
 There are two parallel families of functions:
@@ -42,10 +42,10 @@ There are two parallel families of functions:
 - **`col_*()`** convenience functions that target the **latest extended
   Catalogue of Life release** (`"3LXR"`). On first use, the release key
   is pinned in session
-  ([`col_key()`](https://paulesantos.github.io/rcol/reference/col_key.md)),
+  ([`col_key()`](https://paulesantos.github.io/rcolapi/reference/col_key.md)),
   ensuring long-running jobs are never disrupted by mid-session release
   updates. Use
-  [`col_refresh()`](https://paulesantos.github.io/rcol/reference/col_refresh.md)
+  [`col_refresh()`](https://paulesantos.github.io/rcolapi/reference/col_refresh.md)
   to re-pin.
 - **`clb_*()`** universal low-level functions that accept an explicit
   `dataset =` argument (e.g., `"COL25"`, `2099`) to query any dataset in
@@ -53,19 +53,33 @@ There are two parallel families of functions:
 
 ## Installation
 
-Install the package from GitHub:
+The package is now named `rcolapi`; load it with
+[`library(rcolapi)`](https://github.com/PaulESantos/rcolapi). The
+`col_*()` and `clb_*()` function names are unchanged. This package is
+not the archived CRAN package `rcol`. The GitHub repository is
+`PaulESantos/rcolapi`.
+
+Version 0.0.2 is being prepared for CRAN submission. Until it is
+accepted, install this version from GitHub:
 
 ``` r
 
 # install.packages("pak")
-pak::pak("PaulESantos/rcol")
+pak::pak("PaulESantos/rcolapi")
 
 # or
 # install.packages("remotes")
-remotes::install_github("PaulESantos/rcol")
+remotes::install_github("PaulESantos/rcolapi")
 ```
 
-Documentation is published at <https://paulesantos.github.io/rcol/>.
+Documentation is published at <https://paulesantos.github.io/rcolapi/>.
+
+After CRAN accepts `rcolapi`, the CRAN installation command will be:
+
+``` r
+
+install.packages("rcolapi")
+```
 
 ## Quick start
 
@@ -73,7 +87,7 @@ Documentation is published at <https://paulesantos.github.io/rcol/>.
 
 ``` r
 
-library(rcol)
+library(rcolapi)
 
 # High-level clean verification (9 columns) for 1 or multiple species
 col_check_name(c("Werneria nubigena", "Panthera leo", "Schinus molle"))
@@ -163,9 +177,9 @@ clb_usage_search("Felidae", dataset = "COL25")
 
 ## Batch results and failures
 
-[`col_match_checklist()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md)
+[`col_match_checklist()`](https://paulesantos.github.io/rcolapi/reference/col_shortcuts.md)
 and
-[`clb_match_checklist()`](https://paulesantos.github.io/rcol/reference/clb_match_checklist.md)
+[`clb_match_checklist()`](https://paulesantos.github.io/rcolapi/reference/clb_match_checklist.md)
 keep one row per input and preserve input columns with a `verbatim_`
 prefix. Inspect `match` and `error` before interpreting the results:
 
@@ -186,18 +200,18 @@ failed[c("verbatim_name", "error")]
 
 These per-row diagnostics apply to batch requests. Failures before
 requests are submitted, such as resolving
-[`col_key()`](https://paulesantos.github.io/rcol/reference/col_key.md),
+[`col_key()`](https://paulesantos.github.io/rcolapi/reference/col_key.md),
 still raise an error. The simpler
-[`col_check_name()`](https://paulesantos.github.io/rcol/reference/clb_resolve_name.md)
+[`col_check_name()`](https://paulesantos.github.io/rcolapi/reference/clb_resolve_name.md)
 summary retains `match = NA` for failed rows but does not include the
 `error` column; use
-[`col_match_checklist()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md)
+[`col_match_checklist()`](https://paulesantos.github.io/rcolapi/reference/col_shortcuts.md)
 when diagnosing failures.
 
 ## Distribution provenance and raw responses
 
 For multiple inputs,
-[`col_distribution()`](https://paulesantos.github.io/rcol/reference/clb_distribution.md)
+[`col_distribution()`](https://paulesantos.github.io/rcolapi/reference/clb_distribution.md)
 includes `input_row` (the one-based position in the input),
 `scientific_name`, and `area`. A species can have several rows after
 splitting semicolon-separated areas. Species with no distribution
@@ -271,16 +285,16 @@ Sys.setenv(CLB_BASE_URL = "https://api.dev.checklistbank.org")
 
 ## Citation
 
-To cite `rcol` in publications, please use:
+To cite `rcolapi` in publications, please use:
 
 ``` r
 
-citation("rcol")
+citation("rcolapi")
 ```
 
 - **Package Citation**: Santos Andrade, P. E. & Döring, M. (2026).
-  *rcol: R Client for the Catalogue of Life / ChecklistBank API*. R
-  package version 0.0.1. URL: <https://github.com/PaulESantos/rcol>
+  *rcolapi: Client for the Catalogue of Life and ChecklistBank*. R
+  package version 0.0.2. URL: <https://github.com/PaulESantos/rcolapi>
 - **Catalogue of Life Data Citation**: Bánki, O., Döring, M., Ower, G.,
   et al. (2026). *Catalogue of Life ChecklistBank API*.
   <https://doi.org/10.48580/d4tm>

@@ -3,9 +3,9 @@
 Retrieves the ordered classification hierarchy (ancestors) for a taxon
 in a dataset. Accepts a taxon ID, a scientific name, or a data frame
 from
-[`col_check_name()`](https://paulesantos.github.io/rcol/reference/clb_resolve_name.md)
+[`col_check_name()`](https://paulesantos.github.io/rcolapi/reference/clb_resolve_name.md)
 or
-[`col_match()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md).
+[`col_match()`](https://paulesantos.github.io/rcolapi/reference/col_shortcuts.md).
 
 ## Usage
 
@@ -18,9 +18,9 @@ clb_classification(id, dataset = "3LXR", wide = FALSE, .raw = FALSE)
 - id:
 
   Taxon id (character), scientific name, or a data frame from
-  [`col_match()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md)
+  [`col_match()`](https://paulesantos.github.io/rcolapi/reference/col_shortcuts.md)
   or
-  [`col_check_name()`](https://paulesantos.github.io/rcol/reference/clb_resolve_name.md).
+  [`col_check_name()`](https://paulesantos.github.io/rcolapi/reference/clb_resolve_name.md).
 
 - dataset:
 
@@ -46,16 +46,16 @@ list of intact responses for multiple inputs.
 
 ## See also
 
-[`clb_usage()`](https://paulesantos.github.io/rcol/reference/clb_usage.md),
-[`clb_children()`](https://paulesantos.github.io/rcol/reference/clb_children.md),
-[`clb_extract_classification()`](https://paulesantos.github.io/rcol/reference/clb_extract_classification.md)
+[`clb_usage()`](https://paulesantos.github.io/rcolapi/reference/clb_usage.md),
+[`clb_children()`](https://paulesantos.github.io/rcolapi/reference/clb_children.md),
+[`clb_extract_classification()`](https://paulesantos.github.io/rcolapi/reference/clb_extract_classification.md)
 
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (interactive()) {
 clb_classification("4CGXP", dataset = "3LR")
 clb_classification("Schinus molle")
 clb_classification("Schinus molle", wide = TRUE)
-} # }
+}
 ```

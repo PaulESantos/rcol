@@ -34,12 +34,12 @@ suggestions with columns such as `suggestion`, `usageId`, `rank`,
 
 ## See also
 
-[`clb_usage_search()`](https://paulesantos.github.io/rcol/reference/clb_usage_search.md)
+[`clb_usage_search()`](https://paulesantos.github.io/rcolapi/reference/clb_usage_search.md)
 
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (interactive()) {
 clb_suggest("Panth")
-} # }
+}
 ```

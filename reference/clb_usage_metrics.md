@@ -14,7 +14,7 @@ clb_usage_metrics(id, dataset = "3LXR", .raw = FALSE)
 - id:
 
   Taxon id, scientific name, or a data frame from
-  [`col_match()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md).
+  [`col_match()`](https://paulesantos.github.io/rcolapi/reference/col_shortcuts.md).
 
 - dataset:
 
@@ -32,14 +32,14 @@ list-columns.
 
 ## See also
 
-[`clb_dataset_metrics()`](https://paulesantos.github.io/rcol/reference/clb_dataset_metrics.md),
-[`clb_children()`](https://paulesantos.github.io/rcol/reference/clb_children.md)
+[`clb_dataset_metrics()`](https://paulesantos.github.io/rcolapi/reference/clb_dataset_metrics.md),
+[`clb_children()`](https://paulesantos.github.io/rcolapi/reference/clb_children.md)
 
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (interactive()) {
 clb_usage_metrics("4CGXP", dataset = "3LR")
 clb_usage_metrics("Panthera leo")
-} # }
+}
 ```

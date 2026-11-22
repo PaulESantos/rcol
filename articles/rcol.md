@@ -1,13 +1,13 @@
-# Getting started with rcol
+# Getting started with rcolapi
 
-`rcol` wraps the [ChecklistBank](https://www.checklistbank.org) API to
-give R users idiomatic access to the [Catalogue of
+`rcolapi` wraps the [ChecklistBank](https://www.checklistbank.org) API
+to give R users idiomatic access to the [Catalogue of
 Life](https://www.catalogueoflife.org) (COL) and every other public
 dataset in ChecklistBank.
 
 ``` r
 
-library(rcol)
+library(rcolapi)
 ```
 
 The examples below that query ChecklistBank are displayed without being
@@ -22,10 +22,10 @@ Most functions come in two forms:
 - **`col_*()`** target the latest extended COL release without needing a
   `dataset` argument. The `"3LXR"` release alias is resolved once to its
   integer dataset key and cached for the session via
-  [`col_key()`](https://paulesantos.github.io/rcol/reference/col_key.md),
+  [`col_key()`](https://paulesantos.github.io/rcolapi/reference/col_key.md),
   so long-running work is not disrupted by a new release published
   midway. Use
-  [`col_refresh()`](https://paulesantos.github.io/rcol/reference/col_refresh.md)
+  [`col_refresh()`](https://paulesantos.github.io/rcolapi/reference/col_refresh.md)
   to deliberately re-pin to the newest release.
 - **`clb_*()`** take a `dataset =` argument and work against any dataset
   in ChecklistBank or historical COL releases.
@@ -59,7 +59,7 @@ clb_col_releases()
 
 ## Name verification and matching
 
-[`col_check_name()`](https://paulesantos.github.io/rcol/reference/clb_resolve_name.md)
+[`col_check_name()`](https://paulesantos.github.io/rcolapi/reference/clb_resolve_name.md)
 provides a clean, 9-column resolution summary showing the accepted name,
 authorship, status, and ID for single or multiple species:
 
@@ -80,7 +80,7 @@ col_match_checklist(c("Panthera leo", "Bufo bufo", "Abies alba"))
 
 To match against a specific dataset rather than the latest COL release,
 use
-[`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md)
+[`clb_match()`](https://paulesantos.github.io/rcolapi/reference/clb_match.md)
 with a `dataset =` key or alias:
 
 ``` r
@@ -141,9 +141,9 @@ col_suggest("Panth")
 
 ## Batch results and failures
 
-[`col_match_checklist()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md)
+[`col_match_checklist()`](https://paulesantos.github.io/rcolapi/reference/col_shortcuts.md)
 and
-[`clb_match_checklist()`](https://paulesantos.github.io/rcol/reference/clb_match_checklist.md)
+[`clb_match_checklist()`](https://paulesantos.github.io/rcolapi/reference/clb_match_checklist.md)
 keep one row per input and preserve input columns with a `verbatim_`
 prefix. Inspect `match` and `error` before interpreting the results:
 
@@ -164,18 +164,18 @@ failed[c("verbatim_name", "error")]
 
 These per-row diagnostics apply to batch requests. Failures before
 requests are submitted, such as resolving
-[`col_key()`](https://paulesantos.github.io/rcol/reference/col_key.md),
+[`col_key()`](https://paulesantos.github.io/rcolapi/reference/col_key.md),
 still raise an error. The simpler
-[`col_check_name()`](https://paulesantos.github.io/rcol/reference/clb_resolve_name.md)
+[`col_check_name()`](https://paulesantos.github.io/rcolapi/reference/clb_resolve_name.md)
 summary retains `match = NA` for failed rows but does not include the
 `error` column; use
-[`col_match_checklist()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md)
+[`col_match_checklist()`](https://paulesantos.github.io/rcolapi/reference/col_shortcuts.md)
 when diagnosing failures.
 
 ## Distribution provenance and raw responses
 
 For multiple inputs,
-[`col_distribution()`](https://paulesantos.github.io/rcol/reference/clb_distribution.md)
+[`col_distribution()`](https://paulesantos.github.io/rcolapi/reference/clb_distribution.md)
 includes `input_row` (the one-based position in the input),
 `scientific_name`, and `area`. A species can have several rows after
 splitting semicolon-separated areas. Species with no distribution

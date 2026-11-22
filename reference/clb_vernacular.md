@@ -24,7 +24,7 @@ clb_vernacular(
 - id:
 
   Optional taxon id, scientific name, or a data frame from
-  [`col_match()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md).
+  [`col_match()`](https://paulesantos.github.io/rcolapi/reference/col_shortcuts.md).
   When supplied, returns the vernacular names of that taxon; otherwise
   performs a dataset-wide search using `q`.
 
@@ -71,9 +71,9 @@ intact responses.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (interactive()) {
 clb_vernacular(id = "4CGXP", dataset = "3LR")
 clb_vernacular(id = "Panthera leo")
 clb_vernacular(q = "lion", lang = "eng")
-} # }
+}
 ```

@@ -13,9 +13,9 @@ clb_synonyms(id, dataset = "3LXR", full = FALSE, .raw = FALSE)
 - id:
 
   Taxon id (character), scientific name, or a data frame from
-  [`col_match()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md)
+  [`col_match()`](https://paulesantos.github.io/rcolapi/reference/col_shortcuts.md)
   or
-  [`col_check_name()`](https://paulesantos.github.io/rcol/reference/clb_resolve_name.md).
+  [`col_check_name()`](https://paulesantos.github.io/rcolapi/reference/clb_resolve_name.md).
 
 - dataset:
 
@@ -39,13 +39,13 @@ intact responses.
 
 ## See also
 
-[`clb_usage()`](https://paulesantos.github.io/rcol/reference/clb_usage.md)
+[`clb_usage()`](https://paulesantos.github.io/rcolapi/reference/clb_usage.md)
 
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (interactive()) {
 clb_synonyms("6DBT", dataset = "3LR")
 clb_synonyms("Werneria nubigena")
-} # }
+}
 ```

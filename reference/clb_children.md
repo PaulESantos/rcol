@@ -2,9 +2,9 @@
 
 Lists the immediate child taxa of a node in the taxonomic tree. Accepts
 a taxon ID, a scientific name, or a data frame from
-[`col_check_name()`](https://paulesantos.github.io/rcol/reference/clb_resolve_name.md)
+[`col_check_name()`](https://paulesantos.github.io/rcolapi/reference/clb_resolve_name.md)
 or
-[`col_match()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md).
+[`col_match()`](https://paulesantos.github.io/rcolapi/reference/col_shortcuts.md).
 
 ## Usage
 
@@ -25,9 +25,9 @@ clb_children(
 - id:
 
   Taxon id (character), scientific name, or a data frame from
-  [`col_match()`](https://paulesantos.github.io/rcol/reference/col_shortcuts.md)
+  [`col_match()`](https://paulesantos.github.io/rcolapi/reference/col_shortcuts.md)
   or
-  [`col_check_name()`](https://paulesantos.github.io/rcol/reference/clb_resolve_name.md).
+  [`col_check_name()`](https://paulesantos.github.io/rcolapi/reference/clb_resolve_name.md).
 
 - dataset:
 
@@ -60,15 +60,15 @@ tree nodes.
 
 ## See also
 
-[`clb_tree()`](https://paulesantos.github.io/rcol/reference/clb_tree.md),
-[`clb_classification()`](https://paulesantos.github.io/rcol/reference/clb_classification.md)
+[`clb_tree()`](https://paulesantos.github.io/rcolapi/reference/clb_tree.md),
+[`clb_classification()`](https://paulesantos.github.io/rcolapi/reference/clb_classification.md)
 
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (interactive()) {
 roots <- clb_tree(dataset = "3LR")
 clb_children(roots$id[1], dataset = "3LR")
 clb_children("Panthera")
-} # }
+}
 ```
