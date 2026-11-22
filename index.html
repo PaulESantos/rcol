@@ -109,22 +109,76 @@
 <span></span>
 <span><span class="co"># High-level clean verification (9 columns) for 1 or multiple species</span></span>
 <span><span class="fu"><a href="reference/clb_resolve_name.html">col_check_name</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Werneria nubigena"</span>, <span class="st">"Panthera leo"</span>, <span class="st">"Schinus molle"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 9</span></span>
+<span><span class="co">#&gt;   queried_name      matched_name      status   accepted_name accepted_authorship</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;             &lt;chr&gt;             &lt;chr&gt;    &lt;chr&gt;         &lt;chr&gt;              </span></span>
+<span><span class="co">#&gt; 1 Werneria nubigena Werneria nubigena synonym  Rockhausenia… (Kunth) D.J.N.Hind </span></span>
+<span><span class="co">#&gt; 2 Panthera leo      Panthera leo      accepted Panthera leo  (Linnaeus, 1758)   </span></span>
+<span><span class="co">#&gt; 3 Schinus molle     Schinus molle     accepted Schinus molle L.                 </span></span>
+<span><span class="co">#&gt; # ℹ 4 more variables: accepted_rank &lt;chr&gt;, accepted_id &lt;chr&gt;, match &lt;lgl&gt;,</span></span>
+<span><span class="co">#&gt; #   match_type &lt;chr&gt;</span></span>
 <span></span>
 <span><span class="co"># Detailed matching against the latest Catalogue of Life release</span></span>
 <span><span class="fu"><a href="reference/col_shortcuts.html">col_match</a></span><span class="op">(</span><span class="st">"Panthera leo"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 17</span></span>
+<span><span class="co">#&gt;   match match_type usage_id name         authorship     rank  status accepted_id</span></span>
+<span><span class="co">#&gt;   &lt;lgl&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;      </span></span>
+<span><span class="co">#&gt; 1 TRUE  variant    4CGXP    Panthera leo (Linnaeus, 17… spec… accep… 4CGXP      </span></span>
+<span><span class="co">#&gt; # ℹ 9 more variables: accepted_name &lt;chr&gt;, accepted_authorship &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   accepted_rank &lt;chr&gt;, code &lt;chr&gt;, label &lt;chr&gt;, parent_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   names_index_id &lt;int&gt;, names_index_match_type &lt;chr&gt;, classification &lt;list&gt;</span></span>
 <span></span>
 <span><span class="co"># Disambiguate with rank and nomenclatural code</span></span>
 <span><span class="fu"><a href="reference/col_shortcuts.html">col_match</a></span><span class="op">(</span><span class="st">"Abies alba"</span>, rank <span class="op">=</span> <span class="st">"species"</span>, code <span class="op">=</span> <span class="st">"botanical"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 17</span></span>
+<span><span class="co">#&gt;   match match_type usage_id name       authorship rank    status   accepted_id</span></span>
+<span><span class="co">#&gt;   &lt;lgl&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;      </span></span>
+<span><span class="co">#&gt; 1 TRUE  variant    8K9Y     Abies alba Mill.      species accepted 8K9Y       </span></span>
+<span><span class="co">#&gt; # ℹ 9 more variables: accepted_name &lt;chr&gt;, accepted_authorship &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   accepted_rank &lt;chr&gt;, code &lt;chr&gt;, label &lt;chr&gt;, parent_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   names_index_id &lt;int&gt;, names_index_match_type &lt;chr&gt;, classification &lt;list&gt;</span></span>
 <span></span>
 <span><span class="co"># See all candidate matches (homonyms), not just the best one</span></span>
 <span><span class="fu"><a href="reference/col_shortcuts.html">col_match_verbose</a></span><span class="op">(</span><span class="st">"Oenanthe"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 16</span></span>
+<span><span class="co">#&gt;   primary usage_id name     authorship    rank  status accepted_id accepted_name</span></span>
+<span><span class="co">#&gt;   &lt;lgl&gt;   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;        </span></span>
+<span><span class="co">#&gt; 1 FALSE   679P     Oenanthe Vieillot, 18… genus accep… 679P        Oenanthe     </span></span>
+<span><span class="co">#&gt; 2 FALSE   679Q     Oenanthe L.            genus accep… 679Q        Oenanthe     </span></span>
+<span><span class="co">#&gt; # ℹ 8 more variables: accepted_authorship &lt;chr&gt;, accepted_rank &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   code &lt;chr&gt;, label &lt;chr&gt;, parent_id &lt;chr&gt;, names_index_id &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   names_index_match_type &lt;chr&gt;, classification &lt;list&gt;</span></span>
 <span></span>
 <span><span class="co"># Match many names at once in parallel</span></span>
-<span><span class="fu"><a href="reference/col_shortcuts.html">col_match_checklist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Panthera leo"</span>, <span class="st">"Bufo bufo"</span>, <span class="st">"Abies alba"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/col_shortcuts.html">col_match_checklist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Panthera leo"</span>, <span class="st">"Bufo bufo"</span>, <span class="st">"Abies alba"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 19</span></span>
+<span><span class="co">#&gt;   verbatim_name match match_type usage_id name         authorship   rank  status</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;         &lt;lgl&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt; </span></span>
+<span><span class="co">#&gt; 1 Panthera leo  TRUE  variant    4CGXP    Panthera leo (Linnaeus, … spec… accep…</span></span>
+<span><span class="co">#&gt; 2 Bufo bufo     TRUE  variant    NP2D     Bufo bufo    (Linnaeus, … spec… accep…</span></span>
+<span><span class="co">#&gt; 3 Abies alba    TRUE  variant    8K9Y     Abies alba   Mill.        spec… accep…</span></span>
+<span><span class="co">#&gt; # ℹ 11 more variables: accepted_id &lt;chr&gt;, accepted_name &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   accepted_authorship &lt;chr&gt;, accepted_rank &lt;chr&gt;, code &lt;chr&gt;, label &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   parent_id &lt;chr&gt;, names_index_id &lt;int&gt;, names_index_match_type &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   classification &lt;list&gt;, error &lt;chr&gt;</span></span></code></pre></div>
 <p>To match against a specific dataset instead of the latest COL release, use the <code>clb_*()</code> form with a <code>dataset =</code> key or alias:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/clb_match.html">clb_match</a></span><span class="op">(</span><span class="st">"Felis catus"</span>, dataset <span class="op">=</span> <span class="st">"COL25"</span><span class="op">)</span>          <span class="co"># 2025 annual release</span></span>
-<span><span class="fu"><a href="reference/clb_match.html">clb_match</a></span><span class="op">(</span><span class="st">"Macrocystis pyrifera"</span>, dataset <span class="op">=</span> <span class="fl">2099</span><span class="op">)</span>    <span class="co"># public dataset by key</span></span></code></pre></div>
+<span><span class="co">#&gt; # A tibble: 1 × 17</span></span>
+<span><span class="co">#&gt;   match match_type usage_id name        authorship     rank   status accepted_id</span></span>
+<span><span class="co">#&gt;   &lt;lgl&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;          &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;      </span></span>
+<span><span class="co">#&gt; 1 TRUE  variant    3DXV3    Felis catus Linnaeus, 1758 speci… accep… 3DXV3      </span></span>
+<span><span class="co">#&gt; # ℹ 9 more variables: accepted_name &lt;chr&gt;, accepted_authorship &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   accepted_rank &lt;chr&gt;, code &lt;chr&gt;, label &lt;chr&gt;, parent_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   names_index_id &lt;int&gt;, names_index_match_type &lt;chr&gt;, classification &lt;list&gt;</span></span>
+<span><span class="fu"><a href="reference/clb_match.html">clb_match</a></span><span class="op">(</span><span class="st">"Macrocystis pyrifera"</span>, dataset <span class="op">=</span> <span class="fl">2099</span><span class="op">)</span>    <span class="co"># public dataset by key</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 17</span></span>
+<span><span class="co">#&gt;   match match_type usage_id name  authorship rank  status accepted_id</span></span>
+<span><span class="co">#&gt;   &lt;lgl&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;      </span></span>
+<span><span class="co">#&gt; 1 FALSE none       &lt;NA&gt;     &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt; # ℹ 9 more variables: accepted_name &lt;chr&gt;, accepted_authorship &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   accepted_rank &lt;chr&gt;, code &lt;chr&gt;, label &lt;chr&gt;, parent_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   names_index_id &lt;chr&gt;, names_index_match_type &lt;chr&gt;, classification &lt;list&gt;</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="id_2-classification-synonyms-vernaculars--distribution">2. Classification, Synonyms, Vernaculars &amp; Distribution<a class="anchor" aria-label="anchor" href="#id_2-classification-synonyms-vernaculars--distribution"></a>
@@ -133,18 +187,74 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Hierarchical classification in Wide or Long format</span></span>
 <span><span class="fu"><a href="reference/col_shortcuts.html">col_classification</a></span><span class="op">(</span><span class="st">"Schinus molle"</span>, wide <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 10</span></span>
+<span><span class="co">#&gt;   id    name          rank    kingdom phylum    class order family genus species</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  </span></span>
+<span><span class="co">#&gt; 1 4V8GC Schinus molle species Plantae Tracheop… Magn… Sapi… Anaca… Schi… Schinu…</span></span>
 <span></span>
 <span><span class="co"># Synonyms for 1 or multiple species</span></span>
 <span><span class="fu"><a href="reference/col_shortcuts.html">col_synonyms</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Werneria nubigena"</span>, <span class="st">"Panthera leo"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 16 × 6</span></span>
+<span><span class="co">#&gt;    accepted_name         scientific_name authorship synonym_type rank  full_name</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;                 &lt;chr&gt;           &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;    </span></span>
+<span><span class="co">#&gt;  1 Rockhausenia nubigena Werneria nubig… Kunth      homotypic    spec… Werneria…</span></span>
+<span><span class="co">#&gt;  2 Rockhausenia nubigena Oresigonia gra… Willd. ex… heterotypic  spec… Oresigon…</span></span>
+<span><span class="co">#&gt;  3 Rockhausenia nubigena Oresigonia lat… Willd. ex… heterotypic  spec… Oresigon…</span></span>
+<span><span class="co">#&gt;  4 Rockhausenia nubigena Oribasia acaul… DC.        heterotypic  spec… Oribasia…</span></span>
+<span><span class="co">#&gt;  5 Rockhausenia nubigena Werneria disti… Kunth      heterotypic  spec… Werneria…</span></span>
+<span><span class="co">#&gt;  6 Rockhausenia nubigena Werneria dombe… (Wedd.) H… heterotypic  spec… Werneria…</span></span>
+<span><span class="co">#&gt;  7 Rockhausenia nubigena Werneria mocin… DC.        heterotypic  spec… Werneria…</span></span>
+<span><span class="co">#&gt;  8 Rockhausenia nubigena Werneria nubig… Wedd.      heterotypic  subv… Werneria…</span></span>
+<span><span class="co">#&gt;  9 Rockhausenia nubigena Werneria nubig… Wedd.      heterotypic  subv… Werneria…</span></span>
+<span><span class="co">#&gt; 10 Rockhausenia nubigena Werneria nubig… Wedd.      heterotypic  vari… Werneria…</span></span>
+<span><span class="co">#&gt; 11 Rockhausenia nubigena Werneria nubig… Wedd.      heterotypic  vari… Werneria…</span></span>
+<span><span class="co">#&gt; 12 Rockhausenia nubigena Werneria nubig… &lt;NA&gt;       heterotypic  vari… Werneria…</span></span>
+<span><span class="co">#&gt; 13 Rockhausenia nubigena Werneria steub… Hieron.    heterotypic  spec… Werneria…</span></span>
+<span><span class="co">#&gt; 14 Rockhausenia nubigena Werneria stueb… Hieron.    heterotypic  spec… Werneria…</span></span>
+<span><span class="co">#&gt; 15 Panthera leo          Felis leo       Linnaeus,… homotypic    spec… Felis le…</span></span>
+<span><span class="co">#&gt; 16 Panthera leo          Panthera leo n… (de Blain… heterotypic  subs… Panthera…</span></span>
 <span></span>
 <span><span class="co"># Vernacular / common names with species association (scientific_name column)</span></span>
 <span><span class="fu"><a href="reference/col_shortcuts.html">col_vernacular</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Werneria nubigena"</span>, <span class="st">"Panthera leo"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 206 × 7</span></span>
+<span><span class="co">#&gt;    scientific_name       name               language latin country area  remarks</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;                 &lt;chr&gt;              &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  </span></span>
+<span><span class="co">#&gt;  1 Rockhausenia nubigena Chicoria blanca    spa      Chic… &lt;NA&gt;    &lt;NA&gt;  &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt;  2 Rockhausenia nubigena Cóndor cebolla     spa      Cond… &lt;NA&gt;    &lt;NA&gt;  &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt;  3 Panthera leo          African Lion       eng      Afri… &lt;NA&gt;    &lt;NA&gt;  &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt;  4 Panthera leo          Afrikaanse Leeuw   nld      Afri… &lt;NA&gt;    &lt;NA&gt;  Contri…</span></span>
+<span><span class="co">#&gt;  5 Panthera leo          Afrikanischer Löwe deu      Afri… DE      &lt;NA&gt;  &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt;  6 Panthera leo          Agrzam             shi      Agrz… &lt;NA&gt;    &lt;NA&gt;  Contri…</span></span>
+<span><span class="co">#&gt;  7 Panthera leo          Ambessa            amh      Ambe… &lt;NA&gt;    &lt;NA&gt;  &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt;  8 Panthera leo          Arslon             uzb      Arsl… &lt;NA&gt;    &lt;NA&gt;  Contri…</span></span>
+<span><span class="co">#&gt;  9 Panthera leo          Aslan              tur      Aslan &lt;NA&gt;    &lt;NA&gt;  Contri…</span></span>
+<span><span class="co">#&gt; 10 Panthera leo          Dzata              ewe      Dzata &lt;NA&gt;    &lt;NA&gt;  Contri…</span></span>
+<span><span class="co">#&gt; # ℹ 196 more rows</span></span>
 <span></span>
 <span><span class="co"># Geographic distribution in tidy format</span></span>
 <span><span class="fu"><a href="reference/clb_distribution.html">col_distribution</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Werneria nubigena"</span>, <span class="st">"Schinus molle"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 54 × 3</span></span>
+<span><span class="co">#&gt;    input_row scientific_name       area                                </span></span>
+<span><span class="co">#&gt;        &lt;int&gt; &lt;chr&gt;                 &lt;chr&gt;                               </span></span>
+<span><span class="co">#&gt;  1         1 Rockhausenia nubigena Mexico (Chiapas)                    </span></span>
+<span><span class="co">#&gt;  2         1 Rockhausenia nubigena Guatemala                           </span></span>
+<span><span class="co">#&gt;  3         1 Rockhausenia nubigena Costa Rica                          </span></span>
+<span><span class="co">#&gt;  4         1 Rockhausenia nubigena Panama                              </span></span>
+<span><span class="co">#&gt;  5         1 Rockhausenia nubigena Ecuador                             </span></span>
+<span><span class="co">#&gt;  6         1 Rockhausenia nubigena Peru                                </span></span>
+<span><span class="co">#&gt;  7         1 Rockhausenia nubigena Bolivia (Cochabamba, La Paz, Tarija)</span></span>
+<span><span class="co">#&gt;  8         2 Schinus molle         Portugal [I]                        </span></span>
+<span><span class="co">#&gt;  9         2 Schinus molle         Spain [I]                           </span></span>
+<span><span class="co">#&gt; 10         2 Schinus molle         Gibraltar [I]                       </span></span>
+<span><span class="co">#&gt; # ℹ 44 more rows</span></span>
 <span></span>
 <span><span class="co"># Details of a name usage</span></span>
-<span><span class="fu"><a href="reference/col_shortcuts.html">col_usage</a></span><span class="op">(</span><span class="st">"Panthera leo"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/col_shortcuts.html">col_usage</a></span><span class="op">(</span><span class="st">"Panthera leo"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 9</span></span>
+<span><span class="co">#&gt;   id    scientific_name authorship       rank    status  label parent_id extinct</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt;            &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;     &lt;lgl&gt;  </span></span>
+<span><span class="co">#&gt; 1 4CGXP Panthera leo    (Linnaeus, 1758) species accept… Pant… 6DBT      FALSE  </span></span>
+<span><span class="co">#&gt; # ℹ 1 more variable: name &lt;list&gt;</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="id_3-tree-navigation--search">3. Tree Navigation &amp; Search<a class="anchor" aria-label="anchor" href="#id_3-tree-navigation--search"></a>
@@ -155,16 +265,59 @@
 <span></span>
 <span><span class="co"># Get direct child species under a genus</span></span>
 <span><span class="fu"><a href="reference/col_shortcuts.html">col_children</a></span><span class="op">(</span><span class="st">"Panthera"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 17 × 10</span></span>
+<span><span class="co">#&gt;    datasetKey id    parentId rank    status    count childCount name  authorship</span></span>
+<span><span class="co">#&gt;         &lt;int&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;     &lt;int&gt;      &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt;  1     316691 TZBNY 6DBT     species provisio…     0          0 Leo … Brehm, 18…</span></span>
+<span><span class="co">#&gt;  2     316691 TZ9SL 6DBT     species provisio…     0          0 Leo … Brehm, 18…</span></span>
+<span><span class="co">#&gt;  3     316691 TZ8S4 6DBT     species provisio…     0          0 Leo … Gray, 1843</span></span>
+<span><span class="co">#&gt;  4     316691 V32ZM 6DBT     species provisio…     0          0 Leo … Kretzoi, …</span></span>
+<span><span class="co">#&gt;  5     316691 R9G88 6DBT     species provisio…     0          0 Pant… Fitzinger…</span></span>
+<span><span class="co">#&gt;  6     316691 R9G8X 6DBT     species provisio…     0          0 Pant… Stinnesbe…</span></span>
+<span><span class="co">#&gt;  7     316691 R9G95 6DBT     species provisio…     0          0 Pant… Tseng, Wa…</span></span>
+<span><span class="co">#&gt;  8     316691 R9GBB 6DBT     species accepted      0          0 Pant… Kretzoï, …</span></span>
+<span><span class="co">#&gt;  9     316691 4CGXP 6DBT     species accepted      0          3 Pant… (Linnaeus…</span></span>
+<span><span class="co">#&gt; 10     316691 4CGXQ 6DBT     species accepted      0          1 Pant… (Linnaeus…</span></span>
+<span><span class="co">#&gt; 11     316691 4CGXR 6DBT     species accepted      0         10 Pant… (Linnaeus…</span></span>
+<span><span class="co">#&gt; 12     316691 V2VKY 6DBT     species provisio…     0          0 Pant… Hemmer, 2…</span></span>
+<span><span class="co">#&gt; 13     316691 R9GXP 6DBT     species accepted      0          0 Pant… (Goldfuss…</span></span>
+<span><span class="co">#&gt; 14     316691 4CGXS 6DBT     species accepted      0          3 Pant… (Linnaeus…</span></span>
+<span><span class="co">#&gt; 15     316691 4CGXT 6DBT     species accepted      0          2 Pant… (Schreber…</span></span>
+<span><span class="co">#&gt; 16     316691 R9H5S 6DBT     species provisio…     0          0 Pant… Mazák, Ch…</span></span>
+<span><span class="co">#&gt; 17     316691 T673T 6DBT     species provisio…     0          0 Tigr… Fitzinger…</span></span>
+<span><span class="co">#&gt; # ℹ 1 more variable: full_name &lt;chr&gt;</span></span>
 <span></span>
 <span><span class="co"># Full-text search with rank and status filters</span></span>
-<span><span class="fu"><a href="reference/col_shortcuts.html">col_usage_search</a></span><span class="op">(</span><span class="st">"Panthera"</span>, rank <span class="op">=</span> <span class="st">"species"</span>, status <span class="op">=</span> <span class="st">"accepted"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/col_shortcuts.html">col_usage_search</a></span><span class="op">(</span><span class="st">"Panthera"</span>, rank <span class="op">=</span> <span class="st">"species"</span>, status <span class="op">=</span> <span class="st">"accepted"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;clb&gt; result: 47 rows (total: 47)</span></span>
+<span><span class="co">#&gt; # A tibble: 47 × 11</span></span>
+<span><span class="co">#&gt;    id    scientific_name         authorship rank  status label parent_id extinct</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;                   &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;     &lt;lgl&gt;  </span></span>
+<span><span class="co">#&gt;  1 VYR7  Clemensia panthera      Schaus, 1… spec… accep… Clem… 925L7     NA     </span></span>
+<span><span class="co">#&gt;  2 57GDM Torpedo panthera        Olfers, 1… spec… accep… Torp… KVVXY     NA     </span></span>
+<span><span class="co">#&gt;  3 R9GBB Panthera gombaszoegens… Kretzoï, … spec… accep… Pant… 6DBT      NA     </span></span>
+<span><span class="co">#&gt;  4 32TYW Cyclocephala panthera   Dechambre… spec… accep… Cycl… 3XVL      FALSE  </span></span>
+<span><span class="co">#&gt;  5 4P5TM Pseudopanthera flavaria (Leech, 1… spec… accep… Pseu… VJ7H5     FALSE  </span></span>
+<span><span class="co">#&gt;  6 4P5TT Pseudopanthera syriaca… (Guenée, … spec… accep… Pseu… VJ7H5     FALSE  </span></span>
+<span><span class="co">#&gt;  7 4P5TS Pseudopanthera oberthu… (Alphérak… spec… accep… Pseu… VJ7H5     FALSE  </span></span>
+<span><span class="co">#&gt;  8 8YPT6 Lissoclinum panthera    Monniot F… spec… accep… Liss… 7PBV2     NA     </span></span>
+<span><span class="co">#&gt;  9 4CGXS Panthera tigris         (Linnaeus… spec… accep… Pant… 6DBT      FALSE  </span></span>
+<span><span class="co">#&gt; 10 47JK7 Nitiocellus panthera    (Boucomon… spec… accep… Niti… 64GJ      FALSE  </span></span>
+<span><span class="co">#&gt; # ℹ 37 more rows</span></span>
+<span><span class="co">#&gt; # ℹ 3 more variables: name &lt;list&gt;, group &lt;chr&gt;, classification &lt;list&gt;</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="id_4-parsers">4. Parsers<a class="anchor" aria-label="anchor" href="#id_4-parsers"></a>
 </h3>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Parse a scientific name into its atomic components</span></span>
-<span><span class="fu"><a href="reference/clb_parse_name.html">clb_parse_name</a></span><span class="op">(</span><span class="st">"Abies alba Mill. var. alpina"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/clb_parse_name.html">clb_parse_name</a></span><span class="op">(</span><span class="st">"Abies alba Mill. var. alpina"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 12</span></span>
+<span><span class="co">#&gt;   scientificName  rank  genus specificEpithet infraspecificEpithet type  extinct</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt;                &lt;chr&gt; &lt;lgl&gt;  </span></span>
+<span><span class="co">#&gt; 1 Abies alba var… vari… Abies alba            alpina               scie… FALSE  </span></span>
+<span><span class="co">#&gt; # ℹ 5 more variables: issues &lt;list&gt;, label &lt;chr&gt;, labelHtml &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   parsed &lt;lgl&gt;, notho &lt;list&gt;</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -173,10 +326,19 @@
 <p>The Catalogue of Life is published in two cadences (monthly and annual) and two flavours (base and extended <code>XR</code>). Dataset-scoped <code>clb_*()</code> functions take a <code>dataset =</code> argument; helpful aliases resolve to the latest of each:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/clb_col_release.html">clb_col_release</a></span><span class="op">(</span><span class="st">"monthly"</span><span class="op">)</span>                  <span class="co"># "3LR"   latest monthly base</span></span>
+<span><span class="co">#&gt; [1] "3LR"</span></span>
 <span><span class="fu"><a href="reference/clb_col_release.html">clb_col_release</a></span><span class="op">(</span><span class="st">"monthly"</span>, extended <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># "3LXR"  latest monthly extended</span></span>
+<span><span class="co">#&gt; [1] "3LXR"</span></span>
 <span><span class="fu"><a href="reference/clb_col_release.html">clb_col_release</a></span><span class="op">(</span><span class="st">"annual"</span><span class="op">)</span>                   <span class="co"># e.g. "COL25"</span></span>
+<span><span class="co">#&gt; [1] "COL25"</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/clb_usage_search.html">clb_usage_search</a></span><span class="op">(</span><span class="st">"Felidae"</span>, dataset <span class="op">=</span> <span class="st">"COL25"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/clb_usage_search.html">clb_usage_search</a></span><span class="op">(</span><span class="st">"Felidae"</span>, dataset <span class="op">=</span> <span class="st">"COL25"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;clb&gt; result: 1 rows (total: 1)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 11</span></span>
+<span><span class="co">#&gt;   id    scientific_name authorship          rank  status label parent_id extinct</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt;               &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;     &lt;lgl&gt;  </span></span>
+<span><span class="co">#&gt; 1 623RM Felidae         Fischer de Waldhei… fami… accep… Feli… 4DL       FALSE  </span></span>
+<span><span class="co">#&gt; # ℹ 3 more variables: name &lt;list&gt;, group &lt;chr&gt;, classification &lt;list&gt;</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="batch-results-and-failures">Batch results and failures<a class="anchor" aria-label="anchor" href="#batch-results-and-failures"></a>
@@ -211,7 +373,9 @@
 <span><span class="va">failed</span> <span class="op">&lt;-</span> <span class="va">batch</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">batch</span><span class="op">$</span><span class="va">match</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="va">unmatched</span> <span class="op">&lt;-</span> <span class="va">batch</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">batch</span><span class="op">$</span><span class="va">match</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="va">batch</span><span class="op">$</span><span class="va">match</span>, <span class="op">]</span></span>
 <span><span class="va">matched</span> <span class="op">&lt;-</span> <span class="va">batch</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">batch</span><span class="op">$</span><span class="va">match</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">batch</span><span class="op">$</span><span class="va">match</span>, <span class="op">]</span></span>
-<span><span class="va">failed</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"verbatim_name"</span>, <span class="st">"error"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<span><span class="va">failed</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"verbatim_name"</span>, <span class="st">"error"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; # A tibble: 0 × 2</span></span>
+<span><span class="co">#&gt; # ℹ 2 variables: verbatim_name &lt;chr&gt;, error &lt;chr&gt;</span></span></code></pre></div>
 <p>These per-row diagnostics apply to batch requests. Failures before requests are submitted, such as resolving <code><a href="reference/col_key.html">col_key()</a></code>, still raise an error. The simpler <code><a href="reference/clb_resolve_name.html">col_check_name()</a></code> summary retains <code>match = NA</code> for failed rows but does not include the <code>error</code> column; use <code><a href="reference/col_shortcuts.html">col_match_checklist()</a></code> when diagnosing failures.</p>
 </div>
 <div class="section level2">
@@ -225,15 +389,196 @@
 <span></span>
 <span><span class="co"># Add status, gazetteer, remarks and reference metadata</span></span>
 <span><span class="fu"><a href="reference/clb_distribution.html">col_distribution</a></span><span class="op">(</span><span class="va">species</span>, full <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 49 × 7</span></span>
+<span><span class="co">#&gt;    input_row scientific_name area          gazetteer status remarks reference_id</span></span>
+<span><span class="co">#&gt;        &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;         &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;       </span></span>
+<span><span class="co">#&gt;  1         1 Panthera leo    Africa        text      &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;        </span></span>
+<span><span class="co">#&gt;  2         1 Panthera leo    Southern Asia text      &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;        </span></span>
+<span><span class="co">#&gt;  3         2 Schinus molle   Portugal [I]  text      &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;        </span></span>
+<span><span class="co">#&gt;  4         2 Schinus molle   Spain [I]     text      &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;        </span></span>
+<span><span class="co">#&gt;  5         2 Schinus molle   Gibraltar [I] text      &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;        </span></span>
+<span><span class="co">#&gt;  6         2 Schinus molle   Baleares [I]  text      &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;        </span></span>
+<span><span class="co">#&gt;  7         2 Schinus molle   Italy [I]     text      &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;        </span></span>
+<span><span class="co">#&gt;  8         2 Schinus molle   Sicily [I]    text      &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;        </span></span>
+<span><span class="co">#&gt;  9         2 Schinus molle   Croatia [I]   text      &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;        </span></span>
+<span><span class="co">#&gt; 10         2 Schinus molle   Morocco [I]   text      &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;        </span></span>
+<span><span class="co">#&gt; # ℹ 39 more rows</span></span>
 <span></span>
 <span><span class="co"># Resolve an ID or a verification result before formatting the classification</span></span>
 <span><span class="fu"><a href="reference/col_shortcuts.html">col_classification</a></span><span class="op">(</span><span class="st">"4CGXP"</span>, wide <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 10</span></span>
+<span><span class="co">#&gt;   id    name         rank    kingdom  phylum   class  order family genus species</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  </span></span>
+<span><span class="co">#&gt; 1 4CGXP Panthera leo species Animalia Chordata Mamma… Carn… Felid… Pant… Panthe…</span></span>
 <span><span class="va">verified</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/clb_resolve_name.html">col_check_name</a></span><span class="op">(</span><span class="st">"Schinus molle"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/col_shortcuts.html">col_classification</a></span><span class="op">(</span><span class="va">verified</span>, wide <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 10</span></span>
+<span><span class="co">#&gt;   id    name          rank    kingdom phylum    class order family genus species</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  </span></span>
+<span><span class="co">#&gt; 1 4V8GC Schinus molle species Plantae Tracheop… Magn… Sapi… Anaca… Schi… Schinu…</span></span>
 <span></span>
 <span><span class="co"># Keep nested API responses intact and aligned with each input</span></span>
 <span><span class="va">responses</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/col_shortcuts.html">col_usage</a></span><span class="op">(</span><span class="va">species</span>, .raw <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">responses</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<span><span class="va">responses</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; $created</span></span>
+<span><span class="co">#&gt; [1] "2026-10-07T19:40:07.596881"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $createdBy</span></span>
+<span><span class="co">#&gt; [1] 102</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $modified</span></span>
+<span><span class="co">#&gt; [1] "2026-10-07T19:40:07.596881"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $modifiedBy</span></span>
+<span><span class="co">#&gt; [1] 102</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $datasetKey</span></span>
+<span><span class="co">#&gt; [1] 316691</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $id</span></span>
+<span><span class="co">#&gt; [1] "4CGXP"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $sectorKey</span></span>
+<span><span class="co">#&gt; [1] 1508</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $verbatimSourceKey</span></span>
+<span><span class="co">#&gt; [1] 362093236</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name</span></span>
+<span><span class="co">#&gt; $name$created</span></span>
+<span><span class="co">#&gt; [1] "2026-10-17T03:24:32.206233"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$createdBy</span></span>
+<span><span class="co">#&gt; [1] 102</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$modified</span></span>
+<span><span class="co">#&gt; [1] "2026-10-17T03:24:32.206233"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$modifiedBy</span></span>
+<span><span class="co">#&gt; [1] 102</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$datasetKey</span></span>
+<span><span class="co">#&gt; [1] 316691</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$id</span></span>
+<span><span class="co">#&gt; [1] "v2QQZGBB_H8c94-cNZtNW0"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$sectorKey</span></span>
+<span><span class="co">#&gt; [1] 1508</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$verbatimSourceKey</span></span>
+<span><span class="co">#&gt; [1] 362093236</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$namesIndexId</span></span>
+<span><span class="co">#&gt; [1] 6525746</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$scientificName</span></span>
+<span><span class="co">#&gt; [1] "Panthera leo"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$authorship</span></span>
+<span><span class="co">#&gt; [1] "(Linnaeus, 1758)"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$rank</span></span>
+<span><span class="co">#&gt; [1] "species"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$genus</span></span>
+<span><span class="co">#&gt; [1] "Panthera"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$specificEpithet</span></span>
+<span><span class="co">#&gt; [1] "leo"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$basionymAuthorship</span></span>
+<span><span class="co">#&gt; $name$basionymAuthorship$authors</span></span>
+<span><span class="co">#&gt; $name$basionymAuthorship$authors[[1]]</span></span>
+<span><span class="co">#&gt; [1] "Linnaeus"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$basionymAuthorship$year</span></span>
+<span><span class="co">#&gt; [1] "1758"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$code</span></span>
+<span><span class="co">#&gt; [1] "zoological"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$nomStatus</span></span>
+<span><span class="co">#&gt; [1] "acceptable"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$publishedInId</span></span>
+<span><span class="co">#&gt; [1] "69532ae1-a582-4c70-87b7-0bbfbf8eb10a"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$origin</span></span>
+<span><span class="co">#&gt; [1] "source"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$type</span></span>
+<span><span class="co">#&gt; [1] "scientific"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$link</span></span>
+<span><span class="co">#&gt; [1] "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&amp;search_value=183803"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$remarks</span></span>
+<span><span class="co">#&gt; [1] "http://purl.obolibrary.org/obo/NOMEN_0000224"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$parsed</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $name$notho</span></span>
+<span><span class="co">#&gt; list()</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $status</span></span>
+<span><span class="co">#&gt; [1] "accepted"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $origin</span></span>
+<span><span class="co">#&gt; [1] "source"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $parentId</span></span>
+<span><span class="co">#&gt; [1] "6DBT"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $identifier</span></span>
+<span><span class="co">#&gt; $identifier[[1]]</span></span>
+<span><span class="co">#&gt; [1] "taxref:644245"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $identifier[[2]]</span></span>
+<span><span class="co">#&gt; [1] "inat:41964"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $link</span></span>
+<span><span class="co">#&gt; [1] "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&amp;search_value=183803"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $referenceIds</span></span>
+<span><span class="co">#&gt; $referenceIds[[1]]</span></span>
+<span><span class="co">#&gt; [1] "db07644c-53fa-4cfe-9306-760c08c39b61"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $referenceIds[[2]]</span></span>
+<span><span class="co">#&gt; [1] "f167ab3e-4852-4af8-9154-dba859ffd8e0"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $referenceIds[[3]]</span></span>
+<span><span class="co">#&gt; [1] "955f35f3-b560-4f56-bb7b-6de2c0154153"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $referenceIds[[4]]</span></span>
+<span><span class="co">#&gt; [1] "2f2283ae-4abb-49bc-8840-c3af8bd6236e"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $referenceIds[[5]]</span></span>
+<span><span class="co">#&gt; [1] "80052a63-d318-41d8-b039-559debeebbb2"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $referenceIds[[6]]</span></span>
+<span><span class="co">#&gt; [1] "93f9dbd1-0527-4207-9d23-b3ff7e2067ed"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $scrutinizer</span></span>
+<span><span class="co">#&gt; [1] "W. Christopher Wozencraft,Alfred L. Gardner"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $scrutinizerDate</span></span>
+<span><span class="co">#&gt; [1] "2024-06-25"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $extinct</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $label</span></span>
+<span><span class="co">#&gt; [1] "Panthera leo (Linnaeus, 1758)"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $labelHtml</span></span>
+<span><span class="co">#&gt; [1] "&lt;i&gt;Panthera leo&lt;/i&gt; (Linnaeus, 1758)"</span></span></code></pre></div>
 <p>For a single input, distribution output defaults to <code>area</code>; <code>full = TRUE</code> also includes <code>scientific_name</code> and metadata. Usage, classification, synonym, vernacular and distribution lookups with multiple inputs and <code>.raw = TRUE</code> return a list of complete parsed responses, including empty responses, instead of combining them into a tibble. With one input, <code>.raw = TRUE</code> returns the single parsed response. For classification, <code>.raw = TRUE</code> takes precedence over <code>wide</code>.</p>
 <p>When passing a result table to a taxon lookup, valid IDs are selected in order from <code>accepted_id</code>, <code>usage_id</code>, and <code>id</code>, skipping missing or empty values. Unresolved rows raise an error. Filter failed and unmatched rows before passing a batch result to a downstream lookup.</p>
 </div>
@@ -263,7 +608,25 @@
 </h2>
 <p>To cite <code>rcolapi</code> in publications, please use:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"rcolapi"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"rcolapi"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; To cite rcolapi in publications, please use:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; To cite the rcolapi package in publications, please use:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   Santos Andrade, P. E., &amp; Döring, M. (2026). rcolapi: Client for the</span></span>
+<span><span class="co">#&gt;   Catalogue of Life and ChecklistBank. R package version 0.0.2.</span></span>
+<span><span class="co">#&gt;   https://paulesantos.github.io/rcolapi/</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; The taxonomic data and API services accessed by this package are</span></span>
+<span><span class="co">#&gt; provided by:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   Bánki, O., Döring, M., &amp; Ower, G. (2026). Catalogue of Life /</span></span>
+<span><span class="co">#&gt;   ChecklistBank API. ChecklistBank Infrastructure.</span></span>
+<span><span class="co">#&gt;   https://doi.org/10.48580/d4tm</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; To see these entries in BibTeX format, use 'print(&lt;citation&gt;,</span></span>
+<span><span class="co">#&gt; bibtex=TRUE)', 'toBibtex(.)', or set</span></span>
+<span><span class="co">#&gt; 'options(citation.bibtex.max=999)'.</span></span></code></pre></div>
 <ul>
 <li>
 <strong>Package Citation</strong>: Santos Andrade, P. E. &amp; Döring, M. (2026). <em>rcolapi: Client for the Catalogue of Life and ChecklistBank</em>. R package version 0.0.2. URL: <a href="https://github.com/PaulESantos/rcolapi" class="external-link uri">https://github.com/PaulESantos/rcolapi</a>
