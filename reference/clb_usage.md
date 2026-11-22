@@ -24,10 +24,11 @@ clb_usage(id, dataset = "3LXR", .raw = FALSE)
 
 ## Value
 
-A one-row [tibble](https://tibble.tidyverse.org/reference/tibble.html)
-with the usage's `id`, `scientific_name`, `authorship`, `rank`,
-`status`, `label`, `parent_id` and the full nested `name` as a
-list-column.
+With `.raw = TRUE`, multiple inputs return a list of intact responses.
+Otherwise, a
+[tibble](https://tibble.tidyverse.org/reference/tibble.html) with the
+usage's `id`, `scientific_name`, `authorship`, `rank`, `status`,
+`label`, `parent_id` and the full nested `name` as a list-column.
 
 ## See also
 

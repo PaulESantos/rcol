@@ -34,7 +34,8 @@ clb_synonyms(id, dataset = "3LXR", full = FALSE, .raw = FALSE)
 ## Value
 
 A [tibble](https://tibble.tidyverse.org/reference/tibble.html) of
-synonym usages.
+synonym usages. With `.raw = TRUE`, multiple inputs return a list of
+intact responses.
 
 ## See also
 

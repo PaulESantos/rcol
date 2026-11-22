@@ -51,6 +51,9 @@ A [tibble](https://tibble.tidyverse.org/reference/tibble.html) with one
 row per input, the `verbatim_*` input columns first followed by the
 match result columns of
 [`clb_match()`](https://paulesantos.github.io/rcol/reference/clb_match.md).
+Failed requests or invalid JSON have `match = NA` and an `error`
+message; successful requests have `error = NA`. A genuine non-match has
+`match = FALSE`.
 
 ## See also
 

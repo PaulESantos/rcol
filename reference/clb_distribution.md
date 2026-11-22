@@ -42,7 +42,10 @@ col_distribution(id, tidy = TRUE, full = FALSE, .raw = FALSE)
 ## Value
 
 A [tibble](https://tibble.tidyverse.org/reference/tibble.html) of
-distribution records.
+distribution records. Multiple inputs include `input_row` (the one-based
+input position) and `scientific_name`. `full = TRUE` also retains
+`scientific_name` for a single input. With `.raw = TRUE`, multiple
+inputs return a list of intact responses.
 
 ## Examples
 

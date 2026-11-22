@@ -65,7 +65,8 @@ clb_vernacular(
 ## Value
 
 A [tibble](https://tibble.tidyverse.org/reference/tibble.html) of
-vernacular names.
+vernacular names. With `.raw = TRUE`, multiple inputs return a list of
+intact responses.
 
 ## Examples
 
