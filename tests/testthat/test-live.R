@@ -3,6 +3,7 @@
 
 test_that("name matching works against a fixed COL release", {
   skip_on_cran()
+  skip_if(Sys.getenv("RCOL_LIVE_TESTS") != "true", "Live tests require opt-in")
   skip_if_offline("api.checklistbank.org")
 
   res <- clb_match("Panthera leo", dataset = "3LR")
@@ -15,6 +16,7 @@ test_that("name matching works against a fixed COL release", {
 
 test_that("col_match resolves the latest release and matches", {
   skip_on_cran()
+  skip_if(Sys.getenv("RCOL_LIVE_TESTS") != "true", "Live tests require opt-in")
   skip_if_offline("api.checklistbank.org")
   withr::defer(col_cache_clear())
 
@@ -28,6 +30,7 @@ test_that("col_match resolves the latest release and matches", {
 
 test_that("name parsing atomises a name", {
   skip_on_cran()
+  skip_if(Sys.getenv("RCOL_LIVE_TESTS") != "true", "Live tests require opt-in")
   skip_if_offline("api.checklistbank.org")
 
   res <- clb_parse_name("Abies alba Mill.")
@@ -38,6 +41,7 @@ test_that("name parsing atomises a name", {
 
 test_that("dataset search returns a clb object with data", {
   skip_on_cran()
+  skip_if(Sys.getenv("RCOL_LIVE_TESTS") != "true", "Live tests require opt-in")
   skip_if_offline("api.checklistbank.org")
 
   res <- clb_dataset_search("mammal", max = 5)
@@ -48,6 +52,7 @@ test_that("dataset search returns a clb object with data", {
 
 test_that("tree roots and children resolve", {
   skip_on_cran()
+  skip_if(Sys.getenv("RCOL_LIVE_TESTS") != "true", "Live tests require opt-in")
   skip_if_offline("api.checklistbank.org")
 
   roots <- clb_tree(dataset = "3LR")

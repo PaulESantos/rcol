@@ -1,5 +1,7 @@
 test_that("col_synonyms and col_vernacular return full row counts for vector inputs", {
   skip_on_cran()
+  skip_if(Sys.getenv("RCOL_LIVE_TESTS") != "true", "Live tests require opt-in")
+  skip_if_offline("api.checklistbank.org")
 
   syns <- col_synonyms(c("Werneria nubigena", "Panthera leo"))
   expect_true(nrow(syns) >= 16)

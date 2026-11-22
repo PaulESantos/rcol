@@ -31,7 +31,8 @@ clb_as_usage_list <- function(x) {
 #' @param dataset Dataset key or alias. Defaults to `"3LXR"`.
 #' @param .raw Return the raw parsed JSON instead of a tibble?
 #'
-#' @return A one-row [tibble][tibble::tibble] with the usage's `id`,
+#' @return With `.raw = TRUE`, multiple inputs return a list of intact responses.
+#'   Otherwise, a [tibble][tibble::tibble] with the usage's `id`,
 #'   `scientific_name`, `authorship`, `rank`, `status`, `label`, `parent_id`
 #'   and the full nested `name` as a list-column.
 #' @seealso [clb_usage_search()], [clb_classification()], [clb_synonyms()]
@@ -43,10 +44,12 @@ clb_as_usage_list <- function(x) {
 clb_usage <- function(id, dataset = "3LXR", .raw = FALSE) {
   if (is.data.frame(id) && nrow(id) > 1L) {
     rows <- lapply(seq_len(nrow(id)), function(i) clb_usage(id[i, ], dataset = dataset, .raw = .raw))
+    if (isTRUE(.raw)) return(rows)
     return(clb_bind_rows(rows))
   }
   if (is.character(id) && length(id) > 1L) {
     rows <- lapply(id, function(item) clb_usage(item, dataset = dataset, .raw = .raw))
+    if (isTRUE(.raw)) return(rows)
     return(clb_bind_rows(rows))
   }
   resolved_id <- clb_resolve_taxon_id(id, dataset = dataset)
@@ -145,13 +148,29 @@ clb_suggest <- function(q, dataset = "3LXR", ..., .raw = FALSE) {
 #' clb_classification("Schinus molle", wide = TRUE)
 #' }
 clb_classification <- function(id, dataset = "3LXR", wide = FALSE, .raw = FALSE) {
-  if (isTRUE(wide)) {
-    return(clb_extract_classification(data = id, wide = TRUE, dataset = dataset))
+  if ((is.data.frame(id) && nrow(id) > 1L) || (is.character(id) && length(id) > 1L)) {
+    n <- if (is.data.frame(id)) nrow(id) else length(id)
+    rows <- lapply(seq_len(n), function(i) {
+      item <- if (is.data.frame(id)) id[i, , drop = FALSE] else id[[i]]
+      clb_classification(item, dataset = dataset, wide = wide, .raw = .raw)
+    })
+    if (isTRUE(.raw)) return(rows)
+    return(clb_bind_rows(rows))
   }
-
   resolved_id <- clb_resolve_taxon_id(id, dataset = dataset)
   resp <- clb_get("dataset", as.character(dataset), "taxon", as.character(resolved_id), "classification")
   if (isTRUE(.raw)) return(resp)
+
+  if (isTRUE(wide)) {
+    usage <- clb_get("dataset", as.character(dataset), "nameusage", resolved_id)
+    data <- tibble::tibble(
+      id = resolved_id,
+      name = usage$name$scientificName %||% NA_character_,
+      rank = usage$name$rank %||% NA_character_,
+      classification = list(resp)
+    )
+    return(clb_extract_classification(data, wide = TRUE, dataset = dataset))
+  }
 
   out <- clb_records_to_tibble(resp)
   if (!is.data.frame(out) || !nrow(out)) return(out)
@@ -183,7 +202,8 @@ clb_classification <- function(id, dataset = "3LXR", wide = FALSE, .raw = FALSE)
 #' @param full Logical. If `FALSE` (default), returns the 6 essential columns: `accepted_name`, `scientific_name`, `authorship`, `synonym_type`, `rank`, `full_name`. If `TRUE`, includes secondary metadata.
 #' @param .raw Return the raw parsed JSON instead of a tibble?
 #'
-#' @return A [tibble][tibble::tibble] of synonym usages.
+#' @return A [tibble][tibble::tibble] of synonym usages. With `.raw = TRUE`,
+#'   multiple inputs return a list of intact responses.
 #' @seealso [clb_usage()]
 #' @export
 #' @examples
@@ -194,10 +214,12 @@ clb_classification <- function(id, dataset = "3LXR", wide = FALSE, .raw = FALSE)
 clb_synonyms <- function(id, dataset = "3LXR", full = FALSE, .raw = FALSE) {
   if (is.data.frame(id) && nrow(id) > 1L) {
     rows <- lapply(seq_len(nrow(id)), function(i) clb_synonyms(id[i, ], dataset = dataset, full = full, .raw = .raw))
+    if (isTRUE(.raw)) return(rows)
     return(clb_bind_rows(rows))
   }
   if (is.character(id) && length(id) > 1L) {
     rows <- lapply(id, function(item) clb_synonyms(item, dataset = dataset, full = full, .raw = .raw))
+    if (isTRUE(.raw)) return(rows)
     return(clb_bind_rows(rows))
   }
   acc_id <- clb_resolve_taxon_id(id, dataset = dataset)
@@ -290,7 +312,8 @@ clb_synonyms <- function(id, dataset = "3LXR", full = FALSE, .raw = FALSE) {
 #' @param full Logical; if `FALSE` (default), returns clean essential columns. If `TRUE`, includes full metadata.
 #' @param .raw Return the raw parsed JSON instead of a tibble?
 #'
-#' @return A [tibble][tibble::tibble] of vernacular names.
+#' @return A [tibble][tibble::tibble] of vernacular names. With `.raw = TRUE`,
+#'   multiple inputs return a list of intact responses.
 #' @export
 #' @examples
 #' \dontrun{
@@ -304,12 +327,14 @@ clb_vernacular <- function(id = NULL, dataset = "3LXR", q = NULL, lang = NULL,
     rows <- lapply(seq_len(nrow(id)), function(i) {
       clb_vernacular(id = id[i, ], dataset = dataset, q = q, lang = lang, ..., limit = limit, max = max, full = full, .raw = .raw)
     })
+    if (isTRUE(.raw)) return(rows)
     return(clb_bind_rows(rows))
   }
   if (!is.null(id) && is.character(id) && length(id) > 1L) {
     rows <- lapply(id, function(item) {
       clb_vernacular(id = item, dataset = dataset, q = q, lang = lang, ..., limit = limit, max = max, full = full, .raw = .raw)
     })
+    if (isTRUE(.raw)) return(rows)
     return(clb_bind_rows(rows))
   }
 
@@ -399,7 +424,10 @@ clb_usage_metrics <- function(id, dataset = "3LXR", .raw = FALSE) {
 #' @param full Logical. If `FALSE` (default), returns only the essential `area` column. If `TRUE`, includes secondary metadata (`gazetteer`, `status`, `remarks`, `reference_id`).
 #' @param .raw Return the raw parsed JSON instead of a tibble?
 #'
-#' @return A [tibble][tibble::tibble] of distribution records.
+#' @return A [tibble][tibble::tibble] of distribution records. Multiple inputs
+#'   include `input_row` (the one-based input position) and `scientific_name`.
+#'   `full = TRUE` also retains `scientific_name` for a single input.
+#'   With `.raw = TRUE`, multiple inputs return a list of intact responses.
 #' @export
 #' @examples
 #' \dontrun{
@@ -412,16 +440,18 @@ clb_usage_metrics <- function(id, dataset = "3LXR", .raw = FALSE) {
 #' col_distribution(sp_info)
 #' }
 clb_distribution <- function(id, dataset = "3LXR", tidy = TRUE, full = FALSE, .raw = FALSE) {
-  if (is.data.frame(id) && nrow(id) > 1L) {
-    rows <- lapply(seq_len(nrow(id)), function(i) {
-      clb_distribution(id = id[i, ], dataset = dataset, tidy = tidy, full = full, .raw = .raw)
+  if ((is.data.frame(id) && nrow(id) > 1L) || (is.character(id) && length(id) > 1L)) {
+    n <- if (is.data.frame(id)) nrow(id) else length(id)
+    rows <- lapply(seq_len(n), function(i) {
+      item <- if (is.data.frame(id)) id[i, , drop = FALSE] else id[[i]]
+      out <- clb_distribution(item, dataset = dataset, tidy = tidy, full = TRUE, .raw = .raw)
+      if (isTRUE(.raw)) return(out)
+      out$input_row <- rep.int(i, nrow(out))
+      cols <- c("input_row", "scientific_name", "area")
+      if (isTRUE(full)) cols <- c(cols, "gazetteer", "status", "remarks", "reference_id")
+      out[intersect(cols, names(out))]
     })
-    return(clb_bind_rows(rows))
-  }
-  if (is.character(id) && length(id) > 1L) {
-    rows <- lapply(id, function(item) {
-      clb_distribution(id = item, dataset = dataset, tidy = tidy, full = full, .raw = .raw)
-    })
+    if (isTRUE(.raw)) return(rows)
     return(clb_bind_rows(rows))
   }
 
@@ -445,7 +475,12 @@ clb_distribution <- function(id, dataset = "3LXR", tidy = TRUE, full = FALSE, .r
 
   resp <- clb_get("dataset", as.character(dataset), "taxon", as.character(resolved_id), "distribution")
   if (isTRUE(.raw)) return(resp)
-  if (!length(resp)) return(tibble::tibble(area = character()))
+  if (!length(resp)) {
+    if (!isTRUE(full)) return(tibble::tibble(area = character()))
+    return(tibble::tibble(scientific_name = character(), area = character(),
+                          gazetteer = character(), status = character(),
+                          remarks = character(), reference_id = character()))
+  }
 
   rows <- lapply(resp, function(item) {
     area_name <- if (!is.null(item$area)) item$area$name %||% NA_character_ else NA_character_
@@ -483,17 +518,8 @@ clb_distribution <- function(id, dataset = "3LXR", tidy = TRUE, full = FALSE, .r
     out <- clb_bind_rows(split_rows)
   }
 
-  preferred_cols <- if (!is.na(sciname) && (is.data.frame(id) && nrow(id) > 1L || is.character(id) && length(id) > 1L)) c("scientific_name", "area") else "area"
-  if (!isTRUE(full)) {
-    present_cols <- intersect(preferred_cols, names(out))
-    if (length(present_cols) > 0) return(out[present_cols])
-  }
-
-  full_cols <- if (!is.na(sciname) && (is.data.frame(id) && nrow(id) > 1L || is.character(id) && length(id) > 1L)) {
-    c("scientific_name", "area", "gazetteer", "status", "remarks", "reference_id")
-  } else {
-    c("area", "gazetteer", "status", "remarks", "reference_id")
-  }
+  if (!isTRUE(full)) return(out["area"])
+  full_cols <- c("scientific_name", "area", "gazetteer", "status", "remarks", "reference_id")
   out[intersect(full_cols, names(out))]
 }
 

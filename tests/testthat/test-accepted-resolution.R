@@ -39,6 +39,11 @@ test_that("clb_synonyms accepts match data frames and attaches accepted info", {
   )
 
   local_mocked_bindings(
+    col_key = function(...) 999L,
+    clb_match = function(...) stop("Unexpected name lookup in this test"),
+    clb_resolve_taxon_id = function(id, ...) {
+      if (is.data.frame(id)) id$accepted_id[[1]] else id
+    },
     clb_get = function(...) {
       list(
         homotypic = list(list(id = "555", name = list(scientificName = "Werneria nubigena"))),

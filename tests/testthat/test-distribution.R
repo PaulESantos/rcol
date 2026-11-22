@@ -1,5 +1,10 @@
 test_that("clb_distribution and col_distribution parse distribution records into clean tibble", {
   local_mocked_bindings(
+    col_key = function(...) 999L,
+    clb_match = function(...) stop("Unexpected name lookup in this test"),
+    clb_resolve_taxon_id = function(id, ...) {
+      if (is.data.frame(id)) id$accepted_id[[1]] else id
+    },
     clb_get = function(...) {
       list(
         list(
@@ -20,7 +25,7 @@ test_that("clb_distribution and col_distribution parse distribution records into
 
   # full = TRUE: returns area + metadata columns
   res_full <- col_distribution("B87CR", tidy = TRUE, full = TRUE)
-  expect_equal(ncol(res_full), 5L)
+  expect_equal(ncol(res_full), 6L)
   expect_equal(res_full$gazetteer, c("text", "text", "text"))
 
   # tidy = FALSE: keeps original 1-row string
@@ -36,6 +41,11 @@ test_that("col_distribution accepts match dataframe input directly", {
   )
 
   local_mocked_bindings(
+    col_key = function(...) 999L,
+    clb_match = function(...) stop("Unexpected name lookup in this test"),
+    clb_resolve_taxon_id = function(id, ...) {
+      if (is.data.frame(id)) id$accepted_id[[1]] else id
+    },
     clb_get = function(...) {
       list(
         list(

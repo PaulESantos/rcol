@@ -14,7 +14,8 @@ clb_usage(id, dataset = "3LXR", .raw = FALSE)
 \item{.raw}{Return the raw parsed JSON instead of a tibble?}
 }
 \value{
-A one-row \link[tibble:tibble]{tibble} with the usage's \code{id},
+With \code{.raw = TRUE}, multiple inputs return a list of intact responses.
+Otherwise, a \link[tibble:tibble]{tibble} with the usage's \code{id},
 \code{scientific_name}, \code{authorship}, \code{rank}, \code{status}, \code{label}, \code{parent_id}
 and the full nested \code{name} as a list-column.
 }

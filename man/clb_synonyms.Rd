@@ -16,7 +16,8 @@ clb_synonyms(id, dataset = "3LXR", full = FALSE, .raw = FALSE)
 \item{.raw}{Return the raw parsed JSON instead of a tibble?}
 }
 \value{
-A \link[tibble:tibble]{tibble} of synonym usages.
+A \link[tibble:tibble]{tibble} of synonym usages. With \code{.raw = TRUE},
+multiple inputs return a list of intact responses.
 }
 \description{
 Synonyms of a taxon

@@ -21,7 +21,10 @@ col_distribution(id, tidy = TRUE, full = FALSE, .raw = FALSE)
 \item{.raw}{Return the raw parsed JSON instead of a tibble?}
 }
 \value{
-A \link[tibble:tibble]{tibble} of distribution records.
+A \link[tibble:tibble]{tibble} of distribution records. Multiple inputs
+include \code{input_row} (the one-based input position) and \code{scientific_name}.
+\code{full = TRUE} also retains \code{scientific_name} for a single input.
+With \code{.raw = TRUE}, multiple inputs return a list of intact responses.
 }
 \description{
 Retrieves geographic distribution records (regions, countries) for a taxon.

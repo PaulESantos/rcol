@@ -173,6 +173,8 @@ clb_match_verbose <- function(name, authorship = NULL, rank = NULL, code = NULL,
 #'
 #' @return A [tibble][tibble::tibble] with one row per input, the `verbatim_*`
 #'   input columns first followed by the match result columns of [clb_match()].
+#'   Failed requests or invalid JSON have `match = NA` and an `error` message;
+#'   successful requests have `error = NA`. A genuine non-match has `match = FALSE`.
 #' @seealso [clb_match()]
 #' @export
 #' @examples
@@ -218,10 +220,17 @@ clb_match_checklist <- function(data, name = "name", authorship = "authorship",
 
   resps <- httr2::req_perform_parallel(reqs, max_active = max_active, on_error = "continue")
   rows <- lapply(resps, function(resp) {
-    if (inherits(resp, "error") || inherits(resp, "condition")) {
-      return(clb_match_row(list()))
-    }
-    clb_match_row(httr2::resp_body_json(resp, simplifyVector = FALSE))
+    tryCatch({
+      if (inherits(resp, "condition")) stop(resp)
+      row <- clb_match_row(httr2::resp_body_json(resp, simplifyVector = FALSE))
+      row$error <- NA_character_
+      row
+    }, error = function(e) {
+      row <- clb_match_row(list())
+      row$match <- NA
+      row$error <- conditionMessage(e)
+      row
+    })
   })
   result <- clb_bind_rows(rows)
 

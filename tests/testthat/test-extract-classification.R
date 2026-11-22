@@ -52,6 +52,11 @@ test_that("col_extract_classification is identical to clb_extract_classification
 })
 
 test_that("clb_extract_classification accepts character vectors directly", {
+  local_mocked_bindings(clb_match = function(name, ...) {
+    tibble::tibble(name = name, rank = "species", classification = list(list(
+      list(name = "Panthera", rank = "genus")
+    )))
+  })
   res <- clb_extract_classification("Panthera leo", wide = TRUE)
   expect_s3_class(res, "tbl_df")
   expect_equal(nrow(res), 1)

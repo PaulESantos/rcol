@@ -1,5 +1,10 @@
 test_that("clb_vernacular filters out internal database metadata columns", {
   local_mocked_bindings(
+    col_key = function(...) 999L,
+    clb_match = function(...) stop("Unexpected name lookup in this test"),
+    clb_resolve_taxon_id = function(id, ...) {
+      if (is.data.frame(id)) id$accepted_id[[1]] else id
+    },
     clb_get = function(...) {
       list(
         list(

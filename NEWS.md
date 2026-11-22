@@ -1,5 +1,18 @@
 # rcol 0.0.1
 
+* Both getting-started vignettes build without API access; online examples are
+  displayed without execution.
+
+* Batch matching now distinguishes failed requests (`match = NA`, with an
+  `error` message) from genuine non-matches (`match = FALSE`).
+* Taxon resolution skips missing IDs, rejects unresolved inputs and propagates
+  service failures instead of interpreting them as missing names.
+* Distribution batches retain `input_row` and `scientific_name`; single-input
+  distributions also retain `scientific_name` when `full = TRUE`.
+* Wide classifications resolve IDs and match-result tables before formatting.
+* Raw batch lookups return lists of intact responses, including empty responses.
+* Unit tests no longer require the API. Live integration tests require
+  `RCOL_LIVE_TESTS=true` and remain skipped on CRAN.
 * Initial release.
 * `col_*()` shortcut functions (`col_match()`, `col_usage()`, `col_tree()`, ...)
   that always target the latest extended COL release without a `dataset`

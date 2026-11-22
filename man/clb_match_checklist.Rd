@@ -33,6 +33,8 @@ data frame) holding the respective fields.}
 \value{
 A \link[tibble:tibble]{tibble} with one row per input, the \verb{verbatim_*}
 input columns first followed by the match result columns of \code{\link[=clb_match]{clb_match()}}.
+Failed requests or invalid JSON have \code{match = NA} and an \code{error} message;
+successful requests have \code{error = NA}. A genuine non-match has \code{match = FALSE}.
 }
 \description{
 Matches many names at once, issuing requests in parallel. Input columns are

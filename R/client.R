@@ -197,43 +197,40 @@ print.clb <- function(x, ...) {
 # Helper to resolve a taxon ID from an ID string, a scientific name, or a match data frame
 clb_resolve_taxon_id <- function(id, dataset = "3LXR") {
   if (is.data.frame(id)) {
-    df <- id
-    res <- df$accepted_id[[1]] %||% df$usage_id[[1]] %||% df$id[[1]]
-    if (!is.null(res) && !is.na(res)) return(as.character(res))
+    if (nrow(id) == 1L && (!"match" %in% names(id) || isTRUE(id$match[[1]]))) {
+      for (field in c("accepted_id", "usage_id", "id")) {
+        res <- id[[field]]
+        if (length(res) == 1L && !is.na(res) && nzchar(trimws(as.character(res)))) {
+          return(as.character(res))
+        }
+      }
+    }
+    cli::cli_abort("Could not resolve a valid taxon ID from {.arg id}.")
   }
 
-  if (is.character(id) && length(id) == 1L && nchar(trimws(id)) > 0L) {
+  if (is.character(id) && length(id) == 1L && !is.na(id) && nchar(trimws(id)) > 0L) {
     id_str <- trimws(id)
 
     # 1. If string contains spaces (e.g. "Werneria nubigena"), resolve via clb_match
     if (grepl("\\s", id_str)) {
-      matched <- tryCatch(clb_match(name = id_str, dataset = dataset), error = function(e) NULL)
-      if (!is.null(matched) && nrow(matched) > 0) {
-        res <- matched$accepted_id[[1]] %||% matched$usage_id[[1]]
-        if (!is.null(res) && !is.na(res)) return(as.character(res))
-      }
+      matched <- clb_match(name = id_str, dataset = dataset)
+      return(clb_resolve_taxon_id(matched, dataset = dataset))
     }
 
     # 2. Try direct usage lookup to see if id_str is a valid ID in dataset
     usage_check <- tryCatch(
       clb_get("dataset", as.character(dataset), "taxon", as.character(id_str)),
-      error = function(e) NULL
+      httr2_http_404 = function(e) NULL
     )
     if (!is.null(usage_check) && !is.null(usage_check$id)) {
       return(id_str)
     }
 
     # 3. If direct ID lookup failed (e.g. single-word scientific name like "Panthera"), match it
-    matched <- tryCatch(
-      clb_match(name = id_str, dataset = dataset),
-      error = function(e) NULL
-    )
-    if (!is.null(matched) && isTRUE(matched$match[[1]])) {
-      res <- matched$accepted_id[[1]] %||% matched$usage_id[[1]]
-      if (!is.null(res) && !is.na(res)) return(as.character(res))
-    }
+    matched <- clb_match(name = id_str, dataset = dataset)
+    return(clb_resolve_taxon_id(matched, dataset = dataset))
   }
 
-  as.character(id[[1]])
+  cli::cli_abort("Could not resolve a valid taxon ID from {.arg id}.")
 }
 

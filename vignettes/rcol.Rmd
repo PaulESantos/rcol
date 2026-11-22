@@ -21,6 +21,10 @@ users idiomatic access to the [Catalogue of Life](https://www.catalogueoflife.or
 library(rcol)
 ```
 
+The examples below that query ChecklistBank are displayed without being run
+when this vignette is built, so package installation and checks do not require
+access to the API. Run them in an interactive R session with Internet access.
+
 ## Two function families
 
 Most functions come in two forms:
@@ -28,7 +32,7 @@ Most functions come in two forms:
 * **`col_*()`** target the latest extended COL release without needing a `dataset` argument. The `"3LXR"` release alias is resolved once to its integer dataset key and cached for the session via `col_key()`, so long-running work is not disrupted by a new release published midway. Use `col_refresh()` to deliberately re-pin to the newest release.
 * **`clb_*()`** take a `dataset =` argument and work against any dataset in ChecklistBank or historical COL releases.
 
-```{r}
+```{r, eval = FALSE}
 col_key()      # Pinned integer dataset key of the latest extended release
 col_refresh()  # Re-resolve to the newest release
 ```
@@ -42,7 +46,7 @@ to work against. You can pass:
 * a dataset alias such as `"COL25"` (the 2025 annual release), or
 * one of the *magic* COL release aliases that always resolve to the most recent release (`"3LR"` for monthly base, `"3LXR"` for monthly extended).
 
-```{r}
+```{r, eval = FALSE}
 clb_col_release("monthly")                  # "3LR"   latest monthly base release
 clb_col_release("monthly", extended = TRUE) # "3LXR"  latest monthly extended release
 clb_col_release("annual")                   # e.g. "COL25"
@@ -55,7 +59,7 @@ clb_col_releases()
 
 `col_check_name()` provides a clean, 9-column resolution summary showing the accepted name, authorship, status, and ID for single or multiple species:
 
-```{r}
+```{r, eval = FALSE}
 # Clean 9-column verification
 col_check_name(c("Werneria nubigena", "Panthera leo", "Schinus molle"))
 
@@ -71,7 +75,7 @@ col_match_checklist(c("Panthera leo", "Bufo bufo", "Abies alba"))
 
 To match against a specific dataset rather than the latest COL release, use `clb_match()` with a `dataset =` key or alias:
 
-```{r}
+```{r, eval = FALSE}
 clb_match("Felis catus", dataset = "COL25")
 clb_match("Bellis perennis", dataset = 2099)
 ```
@@ -80,7 +84,7 @@ clb_match("Bellis perennis", dataset = 2099)
 
 All relationship functions accept **direct scientific names**, **character vectors of species**, **taxon IDs**, or **match data frames**:
 
-```{r}
+```{r, eval = FALSE}
 # Hierarchical classification in Wide or Long format
 col_classification("Schinus molle", wide = TRUE)
 
@@ -98,7 +102,7 @@ col_distribution(c("Werneria nubigena", "Schinus molle"))
 
 The ChecklistBank parsers parse scientific names and controlled values:
 
-```{r}
+```{r, eval = FALSE}
 clb_parse_name("Abies alba Mill. var. alpina")
 
 clb_parsers()
@@ -107,7 +111,7 @@ clb_parse("rank", c("spec", "fam.", "ssp"))
 
 ## Datasets and Tree Navigation
 
-```{r}
+```{r, eval = FALSE}
 # Dataset search & metadata
 clb_dataset_search("mammal")
 col_dataset_metrics()

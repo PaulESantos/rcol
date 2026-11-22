@@ -37,7 +37,8 @@ returns the vernacular names of that taxon; otherwise performs a dataset-wide se
 \item{.raw}{Return the raw parsed JSON instead of a tibble?}
 }
 \value{
-A \link[tibble:tibble]{tibble} of vernacular names.
+A \link[tibble:tibble]{tibble} of vernacular names. With \code{.raw = TRUE},
+multiple inputs return a list of intact responses.
 }
 \description{
 Looks up vernacular names either for a single taxon (when \code{id} or scientific name is given) or

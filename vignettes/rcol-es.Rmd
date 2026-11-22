@@ -20,6 +20,11 @@ knitr::opts_chunk$set(
 library(rcol)
 ```
 
+Los ejemplos siguientes que consultan ChecklistBank se muestran sin ejecutarse
+durante la construcción de esta viñeta, para que la instalación y las
+comprobaciones del paquete no requieran acceso a la API. Puedes ejecutarlos
+en una sesión interactiva de R con conexión a Internet.
+
 ## Familias de funciones
 
 El paquete organiza sus 46 funciones públicas en dos familias:
@@ -36,7 +41,7 @@ col_refresh()  # Fuerza la actualización a una versión más reciente
 
 Para verificar nombres científicos y obtener un resumen depurado de 9 columnas con el nombre aceptado válido y su estado taxonómico:
 
-```{r}
+```{r, eval = FALSE}
 # Verificación depurada de 1 o más especies (9 columnas)
 col_check_name(c("Werneria nubigena", "Panthera leo", "Schinus molle"))
 
@@ -54,7 +59,7 @@ col_match_checklist(c("Panthera leo", "Bufo bufo", "Abies alba"))
 
 Todas las funciones de relación aceptan indistintamente **nombres científicos directos**, **vectores de especies**, **IDs alfanuméricos** o **tablas de resultados**:
 
-```{r}
+```{r, eval = FALSE}
 # Jerarquía taxonómica en formato Ancho o Largo
 col_classification("Schinus molle", wide = TRUE)
 
@@ -70,7 +75,7 @@ col_distribution(c("Werneria nubigena", "Schinus molle"))
 
 ## Navegación del árbol y búsqueda
 
-```{r}
+```{r, eval = FALSE}
 # Nodos raíz del árbol (Reinos / Dominios)
 raices <- col_tree()
 
@@ -83,6 +88,6 @@ col_usage_search("Felidae", rank = "species")
 
 ## Parsers
 
-```{r}
+```{r, eval = FALSE}
 clb_parse_name("Abies alba Mill. var. alpina")
 ```
