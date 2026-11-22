@@ -8,10 +8,6 @@ Authors@R: c(
            comment = c(ORCID = "0000-0001-7757-1889")),
     person("Catalogue of Life", role = c("cph", "fnd"))
   )
-Author: Paul Efren Santos Andrade [aut, cre, cph],
-    Markus Döring [aut],
-    Catalogue of Life [cph, fnd]
-Maintainer: Paul Efren Santos Andrade <paulefrens@gmail.com>
 Description: Access the Catalogue of Life (COL) through the 'ChecklistBank'
     application programming interface (API) <https://api.checklistbank.org>.
     Match scientific names against public datasets or COL releases and retrieve
