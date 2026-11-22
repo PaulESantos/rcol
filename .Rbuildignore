@@ -12,3 +12,4 @@
 ^CONTRIBUTING\.md$
 ^\.agents
 ^flujo_funciones_rcol.*$
+^cran-check$

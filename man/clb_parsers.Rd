@@ -17,7 +17,7 @@ usable with \code{\link[=clb_parse]{clb_parse()}}. The scientific-name parser is
 by \code{\link[=clb_parse_name]{clb_parse_name()}}.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 clb_parsers()
 }
 }

@@ -26,7 +26,7 @@ and the full nested \code{name} as a list-column.
 Get a name usage (taxon or synonym) by id
 }
 \examples{
-\dontrun{
+if (interactive()) {
 clb_usage("4CGXP", dataset = "3LR")
 }
 }

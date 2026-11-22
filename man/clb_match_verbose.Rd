@@ -43,7 +43,7 @@ Like \code{\link[=clb_match]{clb_match()}} but requests verbose output and retur
 together with all alternative candidates, one per row.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 clb_match_verbose("Oenanthe")
 }
 }

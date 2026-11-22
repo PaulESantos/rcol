@@ -34,14 +34,15 @@ test_that("batch matching distinguishes failure from non-match without losing or
                          body = charToRaw('{"match":false,"type":"none"}'))
   bad <- httr2::response(200, headers = list(`content-type` = "application/json"),
                         body = charToRaw('invalid json'))
-  local_mocked_bindings(
-    req_perform_parallel = function(...) list(ok, simpleError("HTTP 503"), none, bad),
-    .package = "httr2"
-  )
+  httr2::local_mocked_responses(list(
+    ok, httr2::response(404, body = charToRaw("Not found")), none, bad
+  ))
   out <- clb_match_checklist(c("Aus bus", "Failed name", "Absent name", "Bad JSON"))
   expect_identical(out$verbatim_name, c("Aus bus", "Failed name", "Absent name", "Bad JSON"))
   expect_identical(out$match, c(TRUE, NA, FALSE, NA))
-  expect_identical(out$error[1:3], c(NA_character_, "HTTP 503", NA_character_))
+  expect_true(is.na(out$error[[1]]))
+  expect_match(out$error[[2]], "404")
+  expect_true(is.na(out$error[[3]]))
   expect_true(nzchar(out$error[[4]]))
 })
 

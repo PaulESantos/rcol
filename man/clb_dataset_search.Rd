@@ -37,7 +37,7 @@ Full-text and faceted search across all public datasets in ChecklistBank.
 Uses the light dataset representation (\code{full = FALSE}) for speed.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 clb_dataset_search("mammal")
 clb_dataset_search(origin = "release", max = 1000)
 }

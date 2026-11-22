@@ -17,8 +17,8 @@ clb_base_url <- function() {
 }
 
 clb_user_agent <- function() {
-  v <- tryCatch(as.character(utils::packageVersion("rcol")), error = function(e) "dev")
-  paste0("rcol/", v, " (https://github.com/CatalogueOfLife/rcol)")
+  v <- tryCatch(as.character(utils::packageVersion("rcolapi")), error = function(e) "dev")
+  paste0("rcolapi/", v, " (https://github.com/PaulESantos/rcolapi)")
 }
 
 clb_is_transient <- function(resp) {

@@ -23,7 +23,7 @@ vernacular names, distributions, references and so on, including by-rank and
 by-gazetteer breakdowns.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 clb_dataset_metrics()         # latest extended COL release
 clb_dataset_metrics("COL25")
 }

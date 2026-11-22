@@ -1,5 +1,7 @@
-# rcol 0.0.1
+# rcolapi 0.0.2
 
+* Renamed the package to `rcolapi` to avoid the archived CRAN package name
+  `rcol`. Existing `col_*()` and `clb_*()` function names are unchanged.
 * Both getting-started vignettes build without API access; online examples are
   displayed without execution.
 
@@ -13,6 +15,8 @@
 * Raw batch lookups return lists of intact responses, including empty responses.
 * Unit tests no longer require the API. Live integration tests require
   `RCOL_LIVE_TESTS=true` and remain skipped on CRAN.
+# rcol 0.0.1
+
 * Initial release.
 * `col_*()` shortcut functions (`col_match()`, `col_usage()`, `col_tree()`, ...)
   that always target the latest extended COL release without a `dataset`

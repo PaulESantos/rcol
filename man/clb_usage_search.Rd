@@ -51,7 +51,7 @@ release). The accepted/synonym usage fields are hoisted to top-level columns;
 the taxonomic classification and full name object are kept as list-columns.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 clb_usage_search("Felidae")
 clb_usage_search("Panthera", rank = "species", status = "accepted")
 }

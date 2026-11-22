@@ -1,4 +1,4 @@
-url: https://paulesantos.github.io/rcol/
+url: https://paulesantos.github.io/rcolapi/
 development:
   mode: release
 template:
@@ -18,13 +18,13 @@ navbar:
     articles:
       text: Articles
       menu:
-      - text: Getting Started with rcol (English)
+      - text: Getting Started with rcolapi (English)
         href: articles/rcol.html
-      - text: Guía de inicio para rcol (Español)
+      - text: Guía de inicio para rcolapi (Español)
         href: articles/rcol-es.html
     github:
       icon: fa-github
-      href: https://github.com/PaulESantos/rcol
+      href: https://github.com/PaulESantos/rcolapi
       aria-label: GitHub repository
 articles:
 - title: Package Guides / Guías de Uso

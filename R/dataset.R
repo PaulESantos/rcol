@@ -19,7 +19,7 @@
 #' @seealso [clb_dataset()], [clb_dataset_metrics()]
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' clb_dataset_search("mammal")
 #' clb_dataset_search(origin = "release", max = 1000)
 #' }
@@ -49,7 +49,7 @@ clb_dataset_search <- function(q = NULL, type = NULL, origin = NULL, ...,
 #' @seealso [clb_dataset_search()], [clb_dataset_metrics()]
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' clb_dataset("3LXR")
 #' clb_dataset(3)
 #' }
@@ -75,7 +75,7 @@ clb_dataset <- function(key, .raw = FALSE) {
 #' @seealso [clb_dataset()], [clb_usage_metrics()]
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' clb_dataset_metrics()         # latest extended COL release
 #' clb_dataset_metrics("COL25")
 #' }

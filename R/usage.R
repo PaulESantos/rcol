@@ -41,7 +41,7 @@ clb_as_usage_list <- function(x) {
 #' @seealso [clb_usage_search()], [clb_classification()], [clb_synonyms()]
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' clb_usage("4CGXP", dataset = "3LR")
 #' }
 clb_usage <- function(id, dataset = "3LXR", .raw = FALSE) {
@@ -81,7 +81,7 @@ clb_usage <- function(id, dataset = "3LXR", .raw = FALSE) {
 #' @seealso [clb_match()], [clb_suggest()], [clb_usage()]
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' clb_usage_search("Felidae")
 #' clb_usage_search("Panthera", rank = "species", status = "accepted")
 #' }
@@ -119,7 +119,7 @@ clb_search <- clb_usage_search
 #' @seealso [clb_usage_search()]
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' clb_suggest("Panth")
 #' }
 clb_suggest <- function(q, dataset = "3LXR", ..., .raw = FALSE) {
@@ -149,7 +149,7 @@ clb_suggest <- function(q, dataset = "3LXR", ..., .raw = FALSE) {
 #' @seealso [clb_usage()], [clb_children()], [clb_extract_classification()]
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' clb_classification("4CGXP", dataset = "3LR")
 #' clb_classification("Schinus molle")
 #' clb_classification("Schinus molle", wide = TRUE)
@@ -214,7 +214,7 @@ clb_classification <- function(id, dataset = "3LXR", wide = FALSE, .raw = FALSE)
 #' @seealso [clb_usage()]
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' clb_synonyms("6DBT", dataset = "3LR")
 #' clb_synonyms("Werneria nubigena")
 #' }
@@ -323,7 +323,7 @@ clb_synonyms <- function(id, dataset = "3LXR", full = FALSE, .raw = FALSE) {
 #'   multiple inputs return a list of intact responses.
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' clb_vernacular(id = "4CGXP", dataset = "3LR")
 #' clb_vernacular(id = "Panthera leo")
 #' clb_vernacular(q = "lion", lang = "eng")
@@ -408,7 +408,7 @@ clb_vernacular <- function(id = NULL, dataset = "3LXR", q = NULL, lang = NULL,
 #' @seealso [clb_dataset_metrics()], [clb_children()]
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' clb_usage_metrics("4CGXP", dataset = "3LR")
 #' clb_usage_metrics("Panthera leo")
 #' }
@@ -442,7 +442,7 @@ clb_usage_metrics <- function(id, dataset = "3LXR", .raw = FALSE) {
 #'   `input_row` preserves the original position of inputs that have records.
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' # Distribution for Panthera leo (by ID or Scientific Name)
 #' clb_distribution("4CGXP")
 #' clb_distribution("Panthera leo")

@@ -37,7 +37,7 @@ Lists the immediate child taxa of a node in the taxonomic tree.
 Accepts a taxon ID, a scientific name, or a data frame from \code{\link[=col_check_name]{col_check_name()}} or \code{\link[=col_match]{col_match()}}.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 roots <- clb_tree(dataset = "3LR")
 clb_children(roots$id[1], dataset = "3LR")
 clb_children("Panthera")

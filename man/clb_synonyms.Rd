@@ -23,7 +23,7 @@ multiple inputs return a list of intact responses.
 Synonyms of a taxon
 }
 \examples{
-\dontrun{
+if (interactive()) {
 clb_synonyms("6DBT", dataset = "3LR")
 clb_synonyms("Werneria nubigena")
 }

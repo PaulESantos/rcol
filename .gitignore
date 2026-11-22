@@ -13,4 +13,5 @@ docs/
 .agents
 .httr-oauth
 .quarto
+/cran-check/
 docs

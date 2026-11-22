@@ -39,7 +39,7 @@ returns the path (lineage) from the root down to that taxon. Use
 \code{\link[=clb_children]{clb_children()}} to descend one level.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 clb_tree(dataset = "3LR")            # kingdoms / roots
 clb_tree(dataset = "3LR", id = "4CGXP")  # lineage of a taxon
 }

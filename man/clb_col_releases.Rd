@@ -21,7 +21,7 @@ project (dataset key \code{3}), most useful for discovering historical annual
 releases such as \code{COL23}, \code{COL24}, \code{COL25}.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 clb_col_releases()
 }
 }

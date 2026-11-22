@@ -30,7 +30,7 @@ Atomises one or more scientific names into their nomenclatural components
 by ChecklistBank.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 clb_parse_name("Abies alba Mill.")
 clb_parse_name(c("Panthera leo (Linnaeus, 1758)", "Bellis perennis L."))
 }

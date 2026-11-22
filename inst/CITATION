@@ -1,8 +1,8 @@
-citHeader("To cite rcol in publications, please use:")
+citHeader("To cite rcolapi in publications, please use:")
 
 bibentry(
   bibtype = "Manual",
-  title = "rcol: R Client for the Catalogue of Life / ChecklistBank API",
+  title = "rcolapi: Client for the Catalogue of Life and ChecklistBank",
   author = c(
     person("Paul E.", "Santos Andrade",
            email = "paulefrens@gmail.com",
@@ -12,15 +12,15 @@ bibentry(
            comment = c(ORCID = "0000-0001-7757-1889"))
   ),
   year = "2026",
-  note = "R package version 0.0.1",
-  url = "https://paulesantos.github.io/rcol/",
+  note = "R package version 0.0.2",
+  url = "https://paulesantos.github.io/rcolapi/",
   textVersion = paste(
     "Santos Andrade, P. E., & Döring, M. (2026).",
-    "rcol: R Client for the Catalogue of Life / ChecklistBank API.",
-    "R package version 0.0.1.",
-    "https://paulesantos.github.io/rcol/"
+    "rcolapi: Client for the Catalogue of Life and ChecklistBank.",
+    "R package version 0.0.2.",
+    "https://paulesantos.github.io/rcolapi/"
   ),
-  header = "To cite the rcol package in publications, please use:",
+  header = "To cite the rcolapi package in publications, please use:",
   footer = "The taxonomic data and API services accessed by this package are provided by:"
 )
 

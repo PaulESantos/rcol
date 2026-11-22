@@ -1,8 +1,8 @@
 ---
-title: "Getting started with rcol"
+title: "Getting started with rcolapi"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Getting started with rcol}
+  %\VignetteIndexEntry{Getting started with rcolapi}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,11 +14,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-`rcol` wraps the [ChecklistBank](https://www.checklistbank.org) API to give R
+`rcolapi` wraps the [ChecklistBank](https://www.checklistbank.org) API to give R
 users idiomatic access to the [Catalogue of Life](https://www.catalogueoflife.org) (COL) and every other public dataset in ChecklistBank.
 
 ```{r setup}
-library(rcol)
+library(rcolapi)
 ```
 
 The examples below that query ChecklistBank are displayed without being run

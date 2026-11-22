@@ -21,7 +21,7 @@ published mid-session will not silently change the data you are working
 against during a long-running job. Call \code{\link[=col_refresh]{col_refresh()}} to re-resolve.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 col_key()
 }
 }

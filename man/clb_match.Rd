@@ -47,7 +47,7 @@ dataset, defaulting to the latest monthly extended Catalogue of Life release
 matching.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 clb_match("Panthera leo")
 clb_match("Abies alba", rank = "species", code = "botanical")
 clb_match("Felis catus", dataset = "COL25")

@@ -134,7 +134,7 @@ parameter; the release is resolved once to its integer key via \code{\link[=col_
 and reused for the rest of the session (see \code{\link[=col_refresh]{col_refresh()}} to re-pin).
 }
 \examples{
-\dontrun{
+if (interactive()) {
 col_match("Panthera leo")
 col_usage_search("Felidae")
 roots <- col_tree()

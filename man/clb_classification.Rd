@@ -27,7 +27,7 @@ Retrieves the ordered classification hierarchy (ancestors) for a taxon in a data
 Accepts a taxon ID, a scientific name, or a data frame from \code{\link[=col_check_name]{col_check_name()}} or \code{\link[=col_match]{col_match()}}.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 clb_classification("4CGXP", dataset = "3LR")
 clb_classification("Schinus molle")
 clb_classification("Schinus molle", wide = TRUE)

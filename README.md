@@ -1,16 +1,16 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# rcol
+# rcolapi
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/PaulESantos/rcol/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/PaulESantos/rcol/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/PaulESantos/rcolapi/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/PaulESantos/rcolapi/actions/workflows/R-CMD-check.yaml)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-`rcol` is an R client for the [Catalogue of
+`rcolapi` is an R client for the [Catalogue of
 Life](https://www.catalogueoflife.org) via the
 [ChecklistBank](https://www.checklistbank.org) API
 (<https://api.checklistbank.org>). It allows you to verify and match
@@ -57,25 +57,37 @@ There are two parallel families of functions:
 
 ## Installation
 
-Install the package from GitHub:
+The package is now named `rcolapi`; load it with `library(rcolapi)`. The
+`col_*()` and `clb_*()` function names are unchanged. This package is
+not the archived CRAN package `rcol`. The GitHub repository is
+`PaulESantos/rcolapi`.
+
+Version 0.0.2 is being prepared for CRAN submission. Until it is
+accepted, install this version from GitHub:
 
 ``` r
 # install.packages("pak")
-pak::pak("PaulESantos/rcol")
+pak::pak("PaulESantos/rcolapi")
 
 # or
 # install.packages("remotes")
-remotes::install_github("PaulESantos/rcol")
+remotes::install_github("PaulESantos/rcolapi")
 ```
 
-Documentation is published at <https://paulesantos.github.io/rcol/>.
+Documentation is published at <https://paulesantos.github.io/rcolapi/>.
+
+After CRAN accepts `rcolapi`, the CRAN installation command will be:
+
+``` r
+install.packages("rcolapi")
+```
 
 ## Quick start
 
 ### 1. Name Verification & Matching
 
 ``` r
-library(rcol)
+library(rcolapi)
 
 # High-level clean verification (9 columns) for 1 or multiple species
 col_check_name(c("Werneria nubigena", "Panthera leo", "Schinus molle"))
@@ -256,15 +268,15 @@ Sys.setenv(CLB_BASE_URL = "https://api.dev.checklistbank.org")
 
 ## Citation
 
-To cite `rcol` in publications, please use:
+To cite `rcolapi` in publications, please use:
 
 ``` r
-citation("rcol")
+citation("rcolapi")
 ```
 
 - **Package Citation**: Santos Andrade, P. E. & Döring, M. (2026).
-  *rcol: R Client for the Catalogue of Life / ChecklistBank API*. R
-  package version 0.0.1. URL: <https://github.com/PaulESantos/rcol>
+  *rcolapi: Client for the Catalogue of Life and ChecklistBank*. R
+  package version 0.0.2. URL: <https://github.com/PaulESantos/rcolapi>
 - **Catalogue of Life Data Citation**: Bánki, O., Döring, M., Ower, G.,
   et al. (2026). *Catalogue of Life ChecklistBank API*.
   <https://doi.org/10.48580/d4tm>

@@ -19,7 +19,7 @@
 #' @seealso [clb_children()], [clb_classification()]
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' clb_tree(dataset = "3LR")            # kingdoms / roots
 #' clb_tree(dataset = "3LR", id = "4CGXP")  # lineage of a taxon
 #' }
@@ -63,7 +63,7 @@ clb_tree <- function(dataset = "3LXR", id = NULL, extinct = TRUE, ...,
 #' @seealso [clb_tree()], [clb_classification()]
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' roots <- clb_tree(dataset = "3LR")
 #' clb_children(roots$id[1], dataset = "3LR")
 #' clb_children("Panthera")

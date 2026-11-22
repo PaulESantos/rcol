@@ -20,7 +20,7 @@ such as \code{contact} or \code{creator} are list-columns), or the raw list when
 Retrieves the full metadata record for a single dataset.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 clb_dataset("3LXR")
 clb_dataset(3)
 }

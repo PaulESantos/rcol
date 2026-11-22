@@ -1,8 +1,8 @@
 ---
-title: "Guía de inicio en español para rcol"
+title: "Guía de inicio en español para rcolapi"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Guía de inicio en español para rcol}
+  %\VignetteIndexEntry{Guía de inicio en español para rcolapi}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,10 +14,10 @@ knitr::opts_chunk$set(
 )
 ```
 
-`rcol` proporciona un acceso idiomático desde R a la API de [ChecklistBank](https://www.checklistbank.org) y a las publicaciones mensuales y anuales del [Catalogue of Life](https://www.catalogueoflife.org) (COL).
+`rcolapi` proporciona un acceso idiomático desde R a la API de [ChecklistBank](https://www.checklistbank.org) y a las publicaciones mensuales y anuales del [Catalogue of Life](https://www.catalogueoflife.org) (COL).
 
 ```{r setup}
-library(rcol)
+library(rcolapi)
 ```
 
 Los ejemplos siguientes que consultan ChecklistBank se muestran sin ejecutarse

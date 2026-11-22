@@ -18,7 +18,7 @@
 #' @seealso [col_refresh()], [clb_col_release()]
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' col_key()
 #' }
 col_key <- function(refresh = FALSE) {
@@ -44,7 +44,7 @@ col_key <- function(refresh = FALSE) {
 #' @seealso [col_key()]
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' col_refresh()
 #' }
 col_refresh <- function() {
@@ -93,9 +93,9 @@ col_cache_clear <- function() {
 #' @seealso [clb_col_releases()] for the full list of releases.
 #' @export
 #' @examples
-#' \dontrun{
 #' clb_col_release("monthly")                  # "3LR"
 #' clb_col_release("monthly", extended = TRUE) # "3LXR"
+#' if (interactive()) {
 #' clb_col_release("annual")                   # e.g. "COL25"
 #' }
 clb_col_release <- function(cadence = c("monthly", "annual"), extended = FALSE) {
@@ -133,7 +133,7 @@ clb_col_release <- function(cadence = c("monthly", "annual"), extended = FALSE) 
 #'   `alias`, `title`, `origin`, `issued` and `version`.
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' clb_col_releases()
 #' }
 clb_col_releases <- function(project = 3L, ...) {

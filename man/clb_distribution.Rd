@@ -36,7 +36,7 @@ Retrieves geographic distribution records (regions, countries) for a taxon.
 By default, returns only the clean \code{area} column in tidy format.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 # Distribution for Panthera leo (by ID or Scientific Name)
 clb_distribution("4CGXP")
 clb_distribution("Panthera leo")

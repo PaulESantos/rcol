@@ -38,9 +38,9 @@ the extended variant). The latest one is discovered from the list of all
 releases of project \code{3}.
 }
 \examples{
-\dontrun{
 clb_col_release("monthly")                  # "3LR"
 clb_col_release("monthly", extended = TRUE) # "3LXR"
+if (interactive()) {
 clb_col_release("annual")                   # e.g. "COL25"
 }
 }

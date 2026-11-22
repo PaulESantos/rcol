@@ -12,7 +12,7 @@
 #' @seealso [clb_parse()], [clb_parse_name()]
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' clb_parsers()
 #' }
 clb_parsers <- function() {
@@ -40,7 +40,7 @@ clb_parsers <- function() {
 #' @seealso [clb_parse()], [clb_match()]
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' clb_parse_name("Abies alba Mill.")
 #' clb_parse_name(c("Panthera leo (Linnaeus, 1758)", "Bellis perennis L."))
 #' }
@@ -72,7 +72,7 @@ clb_parse_name <- function(name, authorship = NULL, rank = NULL, code = NULL,
 #' @seealso [clb_parsers()]
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' clb_parse("rank", c("spec", "fam.", "ssp"))
 #' clb_parse("country", c("Deutschland", "The Netherlands"))
 #' }

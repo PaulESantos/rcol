@@ -34,7 +34,7 @@
 #' @seealso [col_key()], [clb_match()], [clb_usage_search()], [clb_tree()]
 #' @name col_shortcuts
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' col_match("Panthera leo")
 #' col_usage_search("Felidae")
 #' roots <- col_tree()

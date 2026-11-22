@@ -1,4 +1,4 @@
 library(testthat)
-library(rcol)
+library(rcolapi)
 
-test_check("rcol")
+test_check("rcolapi")

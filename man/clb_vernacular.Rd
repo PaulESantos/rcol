@@ -45,7 +45,7 @@ Looks up vernacular names either for a single taxon (when \code{id} or scientifi
 across a dataset by free-text query.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 clb_vernacular(id = "4CGXP", dataset = "3LR")
 clb_vernacular(id = "Panthera leo")
 clb_vernacular(q = "lion", lang = "eng")

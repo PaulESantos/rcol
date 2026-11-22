@@ -1,6 +1,6 @@
-Package: rcol
-Title: R Client for the Catalogue of Life / ChecklistBank API
-Version: 0.0.1
+Package: rcolapi
+Title: Client for the 'Catalogue of Life' and 'ChecklistBank'
+Version: 0.0.2
 Authors@R: c(
     person("Paul Efren", "Santos Andrade", email = "paulefrens@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-6635-0375")),
@@ -8,17 +8,21 @@ Authors@R: c(
            comment = c(ORCID = "0000-0001-7757-1889")),
     person("Catalogue of Life", role = c("cph", "fnd"))
   )
-Description: Access the Catalogue of Life (COL) through the ChecklistBank
-    (CLB) web API <https://api.checklistbank.org>. Match scientific names
-    against any public dataset or the latest COL release, look up
-    datasets, taxa and name usages, navigate the taxonomic tree, run the
-    ChecklistBank name and value parsers, and discover the latest annual
-    and monthly COL base and extended releases. Modelled on the
-    conventions of 'rgbif' and 'taxadb'.
+Author: Paul Efren Santos Andrade [aut, cre, cph],
+    Markus Döring [aut],
+    Catalogue of Life [cph, fnd]
+Maintainer: Paul Efren Santos Andrade <paulefrens@gmail.com>
+Description: Access the Catalogue of Life (COL) through the 'ChecklistBank'
+    application programming interface (API) <https://api.checklistbank.org>.
+    Match scientific names against public datasets or COL releases and retrieve
+    accepted names, synonyms, classifications and geographic distributions.
+    Discover datasets and releases, navigate taxonomic trees and parse names
+    and controlled values. Return tabular results with input provenance and
+    per-row diagnostics for batch matching failures.
 License: MIT + file LICENSE
-URL: https://github.com/PaulESantos/rcol,
-    https://paulesantos.github.io/rcol/
-BugReports: https://github.com/PaulESantos/rcol/issues
+URL: https://github.com/PaulESantos/rcolapi,
+    https://paulesantos.github.io/rcolapi/
+BugReports: https://github.com/PaulESantos/rcolapi/issues
 Depends:
     R (>= 4.1)
 Imports:
@@ -32,7 +36,7 @@ Suggests:
     httptest2,
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0),
+    testthat (>= 3.1.7),
     withr
 VignetteBuilder:
     knitr

@@ -25,7 +25,7 @@ of strings, e.g. to normalise rank abbreviations, country names, dates or
 license strings.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 clb_parse("rank", c("spec", "fam.", "ssp"))
 clb_parse("country", c("Deutschland", "The Netherlands"))
 }

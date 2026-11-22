@@ -92,7 +92,7 @@ clb_match_row <- function(resp) {
 #' @seealso [clb_match_verbose()], [clb_match_checklist()]
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' clb_match("Panthera leo")
 #' clb_match("Abies alba", rank = "species", code = "botanical")
 #' clb_match("Felis catus", dataset = "COL25")
@@ -121,7 +121,7 @@ clb_match <- function(name, authorship = NULL, rank = NULL, code = NULL,
 #' @seealso [clb_match()]
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' clb_match_verbose("Oenanthe")
 #' }
 clb_match_verbose <- function(name, authorship = NULL, rank = NULL, code = NULL,
@@ -179,7 +179,7 @@ clb_match_verbose <- function(name, authorship = NULL, rank = NULL, code = NULL,
 #' @seealso [clb_match()]
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' clb_match_checklist(c("Panthera leo", "Bufo bufo", "Abies alba"))
 #'
 #' df <- data.frame(
@@ -263,7 +263,14 @@ clb_match_checklist <- function(data, name = "name", authorship = "authorship",
 #' @seealso [clb_match()], [col_match()], [clb_classification()]
 #' @export
 #' @examples
-#' \dontrun{
+#' example_match <- data.frame(name = "Panthera leo", rank = "species")
+#' example_match$classification <- list(list(
+#'   list(name = "Animalia", rank = "kingdom"),
+#'   list(name = "Panthera", rank = "genus")
+#' ))
+#' clb_extract_classification(example_match, wide = TRUE)
+#'
+#' if (interactive()) {
 #' # Pass a character string directly:
 #' col_extract_classification("Schinus molle")
 #' col_extract_classification("Schinus molle", wide = TRUE)
@@ -372,7 +379,7 @@ col_extract_classification <- clb_extract_classification
 #'
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' # Resolve a single name
 #' col_resolve_name("Werneria nubigena")
 #'

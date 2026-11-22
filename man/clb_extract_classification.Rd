@@ -35,7 +35,14 @@ returned by \code{\link[=clb_match]{clb_match()}}, \code{\link[=clb_match_checkl
 vector of scientific names directly.
 }
 \examples{
-\dontrun{
+example_match <- data.frame(name = "Panthera leo", rank = "species")
+example_match$classification <- list(list(
+  list(name = "Animalia", rank = "kingdom"),
+  list(name = "Panthera", rank = "genus")
+))
+clb_extract_classification(example_match, wide = TRUE)
+
+if (interactive()) {
 # Pass a character string directly:
 col_extract_classification("Schinus molle")
 col_extract_classification("Schinus molle", wide = TRUE)

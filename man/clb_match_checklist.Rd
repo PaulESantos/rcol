@@ -43,7 +43,7 @@ echoed back on each row with a \code{verbatim_} prefix so results stay aligned
 with the source.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 clb_match_checklist(c("Panthera leo", "Bufo bufo", "Abies alba"))
 
 df <- data.frame(

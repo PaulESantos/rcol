@@ -22,7 +22,7 @@ Returns subtree metrics for a taxon: tree depth, child and species counts,
 and a by-rank breakdown of descendants.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 clb_usage_metrics("4CGXP", dataset = "3LR")
 clb_usage_metrics("Panthera leo")
 }

@@ -23,7 +23,7 @@ A \link[tibble:tibble]{tibble} of suggestions with columns such as
 Fast prefix-based suggestions, suitable for type-ahead lookups.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 clb_suggest("Panth")
 }
 }

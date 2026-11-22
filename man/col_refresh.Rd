@@ -15,7 +15,7 @@ Re-resolves the latest extended COL release and updates the key cached by
 session.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 col_refresh()
 }
 }
