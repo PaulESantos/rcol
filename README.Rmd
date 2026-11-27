@@ -17,6 +17,8 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/PaulESantos/rcolapi/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/PaulESantos/rcolapi/actions/workflows/R-CMD-check.yaml)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/rcolapi?color=green)](https://cran.r-project.org/package=rcolapi)
+[![](http://cranlogs.r-pkg.org/badges/last-week/rcolapi?color=green)](https://cran.r-project.org/package=rcolapi)
 <!-- badges: end -->
 
 `rcolapi` is an R client for the [Catalogue of Life](https://www.catalogueoflife.org)

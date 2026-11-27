@@ -8,6 +8,8 @@
 [![R-CMD-check](https://github.com/PaulESantos/rcolapi/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/PaulESantos/rcolapi/actions/workflows/R-CMD-check.yaml)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/rcolapi?color=green)](https://cran.r-project.org/package=rcolapi)
+[![](http://cranlogs.r-pkg.org/badges/last-week/rcolapi?color=green)](https://cran.r-project.org/package=rcolapi)
 <!-- badges: end -->
 
 `rcolapi` is an R client for the [Catalogue of
@@ -286,11 +288,11 @@ col_usage_search("Panthera", rank = "species", status = "accepted")
 #>  3 R9GBB Panthera gombaszoegens… Kretzoï, … spec… accep… Pant… 6DBT      NA     
 #>  4 32TYW Cyclocephala panthera   Dechambre… spec… accep… Cycl… 3XVL      FALSE  
 #>  5 4P5TM Pseudopanthera flavaria (Leech, 1… spec… accep… Pseu… VJ7H5     FALSE  
-#>  6 4P5TT Pseudopanthera syriaca… (Guenée, … spec… accep… Pseu… VJ7H5     FALSE  
-#>  7 4P5TS Pseudopanthera oberthu… (Alphérak… spec… accep… Pseu… VJ7H5     FALSE  
-#>  8 8YPT6 Lissoclinum panthera    Monniot F… spec… accep… Liss… 7PBV2     NA     
-#>  9 4CGXS Panthera tigris         (Linnaeus… spec… accep… Pant… 6DBT      FALSE  
-#> 10 47JK7 Nitiocellus panthera    (Boucomon… spec… accep… Niti… 64GJ      FALSE  
+#>  6 47JK7 Nitiocellus panthera    (Boucomon… spec… accep… Niti… 64GJ      FALSE  
+#>  7 4P5TT Pseudopanthera syriaca… (Guenée, … spec… accep… Pseu… VJ7H5     FALSE  
+#>  8 4P5TS Pseudopanthera oberthu… (Alphérak… spec… accep… Pseu… VJ7H5     FALSE  
+#>  9 8YPT6 Lissoclinum panthera    Monniot F… spec… accep… Liss… 7PBV2     NA     
+#> 10 3XQSD Malthonea panthera      Martins &… spec… accep… Malt… BJBTD     FALSE  
 #> # ℹ 37 more rows
 #> # ℹ 3 more variables: name <list>, group <chr>, classification <list>
 ```
